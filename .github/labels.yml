@@ -1,0 +1,31 @@
+- name: completado
+  color: "0075ca"
+  description: "Sesión completada con PR aprobado"
+
+- name: en-progreso
+  color: "e4e669"
+  description: "PR abierto, pendiente de revisión"
+
+- name: pendiente
+  color: "d73a4a"
+  description: "Sesión no completada"
+
+- name: arranque
+  color: "c5def5"
+  description: "Paquete: Arranque"
+
+- name: solid-tdd
+  color: "bfd4f2"
+  description: "Paquete: SOLID + TDD"
+
+- name: spring-testing
+  color: "d4edda"
+  description: "Paquete: Spring Web / Testing"
+
+- name: hibernate-jpa
+  color: "fff3cd"
+  description: "Paquete: Hibernate / JPA"
+
+- name: micro-cloud-devops
+  color: "f8d7da"
+  description: "Paquete: Micro + Cloud + DevOps"

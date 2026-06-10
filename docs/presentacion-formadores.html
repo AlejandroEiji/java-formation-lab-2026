@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía de Formadores — Java 2026 | Indra</title>
+  <style>
+    :root {
+      --indra-dark: #0a1f2e;
+      --indra-teal: #1a7a7a;
+      --indra-teal-light: #2ab3b3;
+      --indra-accent: #00d4c8;
+      --indra-bg: #f4f5f0;
+      --indra-white: #ffffff;
+      --indra-gray: #e8e9e4;
+      --indra-text: #1a1a2e;
+      --indra-muted: #6c7a7a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #111;
+      color: var(--indra-text);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* ── Slide engine ── */
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .slide.active { display: flex; }
+
+    /* ── Progress bar ── */
+    #progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 4px;
+      background: var(--indra-accent);
+      transition: width .4s ease;
+      z-index: 100;
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      position: fixed;
+      bottom: 20px;
+      right: 28px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+    .nav button {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 6px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background .2s;
+    }
+    .nav button:hover { background: rgba(255,255,255,.22); }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 26px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.45);
+      font-size: 12px;
+      z-index: 100;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 1 — Portada
+    ══════════════════════════════════════════ */
+    #s1 {
+      background: var(--indra-dark);
+      flex-direction: row;
+    }
+    .cover-left {
+      flex: 1;
+      padding: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover-right {
+      flex: 1;
+      background: linear-gradient(135deg, #1a4a5a 0%, var(--indra-teal) 60%, var(--indra-teal-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-right::before {
+      content: '';
+      position: absolute;
+      width: 320px; height: 320px;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%;
+      top: -60px; right: -60px;
+    }
+    .cover-right::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.04);
+      border-radius: 50%;
+      bottom: 30px; left: 30px;
+    }
+    .logo { font-size: 22px; font-weight: 800; color: var(--indra-accent); letter-spacing: 2px; }
+    .logo span { color: rgba(255,255,255,.5); font-weight: 300; font-size: 14px; margin-left: 6px; }
+    .cover-title { color: #fff; }
+    .cover-title h1 { font-size: 48px; font-weight: 300; line-height: 1.15; }
+    .cover-title h1 strong { font-weight: 800; color: var(--indra-accent); }
+    .cover-title p { margin-top: 16px; color: rgba(255,255,255,.6); font-size: 18px; }
+    .cover-meta { color: rgba(255,255,255,.4); font-size: 13px; }
+    .big-icon { font-size: 120px; position: relative; z-index: 1; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 2 — ¿Cuál es tu rol?
+    ══════════════════════════════════════════ */
+    #s2 { background: var(--indra-bg); }
+    .slide-inner { width: 100%; height: 100%; padding: 52px 72px; display: flex; flex-direction: column; }
+    .slide-header { margin-bottom: 36px; }
+    .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--indra-teal);
+      margin-bottom: 8px;
+    }
+    .slide-header h2 { font-size: 38px; font-weight: 700; color: var(--indra-dark); }
+    .slide-header h2 em { font-style: normal; color: var(--indra-teal); }
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+    .role-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      border-top: 4px solid var(--indra-teal);
+    }
+    .role-card .icon { font-size: 36px; }
+    .role-card h3 { font-size: 18px; font-weight: 700; color: var(--indra-dark); }
+    .role-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .role-card li { font-size: 14px; color: #444; padding-left: 18px; position: relative; line-height: 1.4; }
+    .role-card li::before { content: '›'; position: absolute; left: 0; color: var(--indra-teal); font-weight: 700; }
+    .badge-pill {
+      display: inline-block;
+      background: var(--indra-teal);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 4px;
+      width: fit-content;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 3 — Anatomía de una sesión
+    ══════════════════════════════════════════ */
+    #s3 { background: var(--indra-dark); }
+    #s3 .slide-inner { color: #fff; }
+    #s3 .label { color: var(--indra-accent); }
+    #s3 .slide-header h2 { color: #fff; }
+    .timeline {
+      display: flex;
+      gap: 0;
+      flex: 1;
+      align-items: stretch;
+    }
+    .tl-segment {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .tl-segment + .tl-segment { border-left: 2px solid rgba(255,255,255,.1); }
+    .tl-head {
+      padding: 20px 24px 16px;
+      border-bottom: 2px solid rgba(255,255,255,.08);
+    }
+    .tl-time {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--indra-accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .tl-label { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 2px; }
+    .tl-body { padding: 20px 24px; flex: 1; }
+    .tl-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; }
+    .tl-items { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .tl-items li {
+      font-size: 13.5px;
+      color: rgba(255,255,255,.75);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .tl-items li::before { content: '●'; position: absolute; left: 0; font-size: 8px; top: 4px; color: var(--indra-teal-light); }
+    .tl-owner {
+      margin: 12px 24px 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--indra-teal-light);
+      background: rgba(42,179,179,.12);
+      padding: 5px 12px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .tl-segment.highlight .tl-head { background: rgba(42,179,179,.1); border-radius: 8px 8px 0 0; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 4 — La semana antes
+    ══════════════════════════════════════════ */
+    #s4 { background: var(--indra-bg); }
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+    .check-panel {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .check-panel h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--indra-dark);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .check-panel h3 .ico { font-size: 22px; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.5;
+    }
+    .check-box {
+      width: 20px; height: 20px;
+      border: 2px solid var(--indra-teal);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .code-pill {
+      display: inline-block;
+      background: #1a1a2e;
+      color: var(--indra-accent);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .warning-box {
+      background: #fff8e1;
+      border-left: 4px solid #f9a825;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: #5a4a00;
+      margin-top: 16px;
+    }
+    .warning-box strong { display: block; margin-bottom: 4px; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 5 — Anatomía del week-start
+    ══════════════════════════════════════════ */
+    #s5 { background: var(--indra-dark); }
+    #s5 .label { color: var(--indra-accent); }
+    #s5 h2 { color: #fff; }
+    .anatomy-row {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      align-items: stretch;
+    }
+    .anatomy-col {
+      flex: 1;
+      background: rgba(255,255,255,.05);
+      border-radius: 12px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .anatomy-col.yes { border-top: 3px solid #4caf50; }
+    .anatomy-col.no  { border-top: 3px solid #ef5350; }
+    .col-title {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .col-title.yes { color: #81c784; }
+    .col-title.no  { color: #ef9a9a; }
+    .anatomy-item {
+      font-size: 13.5px;
+      color: rgba(255,255,255,.75);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .anatomy-item::before { content: '●'; position: absolute; left: 0; font-size: 8px; top: 4px; }
+    .anatomy-col.yes .anatomy-item::before { color: #81c784; }
+    .anatomy-col.no  .anatomy-item::before { color: #ef9a9a; }
+    .golden-rule {
+      background: linear-gradient(135deg, rgba(0,212,200,.15), rgba(42,179,179,.08));
+      border: 1px solid rgba(0,212,200,.3);
+      border-radius: 10px;
+      padding: 16px 24px;
+      font-size: 15px;
+      color: var(--indra-accent);
+      text-align: center;
+      margin-top: 8px;
+    }
+    .golden-rule strong { font-weight: 700; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 6 — El reto: estructura mínima
+    ══════════════════════════════════════════ */
+    #s6 { background: var(--indra-bg); }
+    .reto-layout {
+      display: flex;
+      gap: 28px;
+      flex: 1;
+      align-items: flex-start;
+    }
+    .reto-main { flex: 1.4; display: flex; flex-direction: column; gap: 16px; }
+    .reto-side { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+    .reto-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .reto-num {
+      width: 40px; height: 40px;
+      background: var(--indra-teal);
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .reto-info h3 { font-size: 15px; font-weight: 700; color: var(--indra-dark); margin-bottom: 5px; }
+    .reto-info p { font-size: 13px; color: #555; line-height: 1.5; }
+    .nf-grid {
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .nf-grid h3 { font-size: 15px; font-weight: 700; color: var(--indra-dark); margin-bottom: 14px; }
+    .nf-pills { display: flex; flex-direction: column; gap: 10px; }
+    .nf-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #444;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--indra-gray);
+    }
+    .nf-pill .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .seniority-box {
+      background: var(--indra-dark);
+      border-radius: 12px;
+      padding: 22px 20px;
+      color: #fff;
+    }
+    .seniority-box h3 { font-size: 15px; font-weight: 700; color: var(--indra-accent); margin-bottom: 14px; }
+    .sen-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; font-size: 12.5px; }
+    .sen-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      min-width: 80px;
+      text-align: center;
+    }
+    .sen-tag.jnr { background: #4caf5022; color: #81c784; border: 1px solid #4caf5055; }
+    .sen-tag.ssn { background: #2196f322; color: #64b5f6; border: 1px solid #2196f355; }
+    .sen-tag.snr { background: #9c27b022; color: #ce93d8; border: 1px solid #9c27b055; }
+    .sen-tag.exp { background: #ff980022; color: #ffcc80; border: 1px solid #ff980055; }
+    .sen-desc { color: rgba(255,255,255,.7); line-height: 1.4; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 7 — Flujo de ramas
+    ══════════════════════════════════════════ */
+    #s7 { background: var(--indra-bg); }
+    .branches-layout {
+      display: flex;
+      gap: 32px;
+      flex: 1;
+      align-items: center;
+    }
+    .branch-flow {
+      flex: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .branch-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .branch-name {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--indra-dark);
+      background: #e8f5e9;
+      padding: 4px 10px;
+      border-radius: 6px;
+      min-width: 200px;
+    }
+    .branch-name.solution { background: #e3f2fd; color: #1565c0; }
+    .branch-name.personal { background: #fce4ec; color: #880e4f; }
+    .branch-arrow {
+      color: var(--indra-teal);
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .branch-desc { font-size: 13px; color: #555; line-height: 1.4; }
+    .branch-who {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--indra-teal);
+    }
+    .branch-connector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      color: var(--indra-muted);
+      font-size: 12px;
+    }
+    .branch-connector::before, .branch-connector::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--indra-teal);
+      opacity: .3;
+    }
+    .timeline-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tl-day {
+      background: var(--indra-dark);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: #fff;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .tl-day .day-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--indra-accent);
+      min-width: 70px;
+    }
+    .tl-day .day-action { font-size: 13px; color: rgba(255,255,255,.8); }
+
+    /* ══════════════════════════════════════════
+       SLIDE 8 — Pipeline CI
+    ══════════════════════════════════════════ */
+    #s8 { background: var(--indra-bg); }
+    .pipeline-layout { display: flex; gap: 28px; flex: 1; }
+    .pipe-col {
+      flex: 1; display: flex; flex-direction: column; gap: 16px;
+    }
+    .pipe-card {
+      background: #fff; border-radius: 12px; padding: 24px 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .pipe-card.dark { background: var(--indra-dark); color: #fff; }
+    .pipe-card h3 { font-size: 16px; font-weight: 700; color: var(--indra-dark); }
+    .pipe-card.dark h3 { color: var(--indra-accent); }
+    .pipe-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+      width: fit-content;
+    }
+    .pipe-tag.given { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .pipe-tag.reto  { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+    .pipe-item {
+      font-size: 13.5px; color: #444; padding-left: 18px;
+      position: relative; line-height: 1.5;
+    }
+    .pipe-item::before { content: '›'; position: absolute; left: 0; color: var(--indra-teal); font-weight: 700; }
+    .pipe-item.dark-item { color: rgba(255,255,255,.75); }
+    .pipe-item.dark-item::before { color: var(--indra-teal-light); }
+    .pipe-code {
+      background: #1a1a2e; border-radius: 8px; padding: 12px 14px;
+      font-family: 'Courier New', monospace; font-size: 12px;
+      color: var(--indra-accent); line-height: 1.8;
+      border: 1px solid rgba(0,212,200,.15);
+    }
+    .pipe-flow {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--indra-dark); border-radius: 10px;
+      padding: 14px 18px; flex-wrap: wrap;
+    }
+    .pipe-box {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 6px; padding: 6px 12px;
+      font-size: 12px; color: #fff; font-family: 'Courier New', monospace;
+    }
+    .pipe-box.green { background: rgba(76,175,80,.2); border-color: rgba(76,175,80,.4); color: #81c784; }
+    .pipe-box.red   { background: rgba(239,83,80,.2);  border-color: rgba(239,83,80,.4);  color: #ef9a9a; }
+    .pipe-arrow { color: rgba(255,255,255,.4); font-size: 16px; }
+    .pipe-note {
+      background: #fff8e1; border-left: 4px solid #f9a825;
+      border-radius: 0 8px 8px 0; padding: 12px 16px;
+      font-size: 13px; color: #5a4a00;
+    }
+
+    /* ══════════════════════════════════════════
+       SLIDE 9 — Badges & evaluación (antes s8)
+    ══════════════════════════════════════════ */
+    #s9 { background: var(--indra-dark); }
+    #s9 .slide-inner { color: #fff; }
+    #s9 .label { color: var(--indra-accent); }
+    #s9 .slide-header h2 { color: #fff; }
+    .badge-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+    .badge-panel {
+      background: rgba(255,255,255,.05);
+      border-radius: 12px;
+      padding: 26px 24px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .badge-panel h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--indra-accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .step-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 13.5px;
+      color: rgba(255,255,255,.75);
+      line-height: 1.5;
+    }
+    .step-num {
+      width: 24px; height: 24px;
+      background: var(--indra-teal);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .rule-box {
+      background: rgba(0,212,200,.08);
+      border: 1px solid rgba(0,212,200,.25);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,.8);
+    }
+    .rule-box strong { color: var(--indra-accent); }
+    .metric-row { display: flex; gap: 16px; margin-top: 8px; }
+    .metric-card {
+      flex: 1;
+      background: rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .metric-card .num { font-size: 32px; font-weight: 800; color: var(--indra-accent); }
+    .metric-card .lbl { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+    /* ══════════════════════════════════════════
+       SLIDE 10 — Cierre / Resumen rápido
+    ══════════════════════════════════════════ */
+    #s10 {
+      background: var(--indra-dark);
+      flex-direction: row;
+    }
+    .close-left {
+      flex: 1.2;
+      padding: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+    }
+    .close-right {
+      flex: 1;
+      background: linear-gradient(135deg, #1a4a5a, var(--indra-teal));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+      gap: 24px;
+    }
+    .close-title { color: #fff; }
+    .close-title h2 { font-size: 38px; font-weight: 700; line-height: 1.2; }
+    .close-title h2 em { font-style: normal; color: var(--indra-accent); }
+    .close-title p { margin-top: 12px; color: rgba(255,255,255,.6); font-size: 16px; }
+    .summary-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .summary-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      color: rgba(255,255,255,.8);
+      line-height: 1.4;
+    }
+    .summary-icon { font-size: 22px; flex-shrink: 0; }
+    .link-card {
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      padding: 16px 20px;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+    }
+    .link-card .lbl { font-size: 11px; color: rgba(255,255,255,.6); margin-bottom: 4px; }
+    .link-card .val { font-family: 'Courier New', monospace; font-size: 14px; color: var(--indra-accent); }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div class="deck">
+
+  <!-- ══ SLIDE 1: PORTADA ══ -->
+  <div class="slide active" id="s1">
+    <div class="cover-left">
+      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="cover-title">
+        <h1><strong>Guía de Formadores</strong><br>Java 2026</h1>
+        <p>Todo lo que necesitas saber para facilitar<br>el programa de formación — 20 minutos</p>
+      </div>
+      <div class="cover-meta">Comunidad Java · Colombia &amp; CA&amp;C · Jul–Oct 2026</div>
+    </div>
+    <div class="cover-right">
+      <div class="big-icon">🎯</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: ROLES ══ -->
+  <div class="slide" id="s2">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">El equipo</div>
+        <h2>¿Cuál es <em>tu rol</em> como formador?</h2>
+      </div>
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="icon">📝</div>
+          <h3>Contenido</h3>
+          <ul>
+            <li>Diseña el enunciado de la sesión</li>
+            <li>Prepara el <span class="code-pill">week-XX-start</span> con andamiaje completo</li>
+            <li>Escribe la solución de referencia</li>
+            <li>Define criterios de evaluación</li>
+          </ul>
+          <span class="badge-pill">1–2 formadores</span>
+        </div>
+        <div class="role-card">
+          <div class="icon">⚙️</div>
+          <h3>Repo &amp; CI/CD</h3>
+          <ul>
+            <li>Crea y publica ramas <span class="code-pill">week-XX-start</span></li>
+            <li>Mantiene el pipeline verde</li>
+            <li>Gestiona PRs y labels en GitHub</li>
+            <li>Publica <span class="code-pill">week-XX-solution</span> al cierre</li>
+          </ul>
+          <span class="badge-pill">1 formador</span>
+        </div>
+        <div class="role-card">
+          <div class="icon">📢</div>
+          <h3>Comunicación</h3>
+          <ul>
+            <li>Anuncia cada sesión al equipo</li>
+            <li>Cierra issues de badges</li>
+            <li>Monitorea % de sesiones completadas</li>
+            <li>Recoge feedback post-sesión</li>
+          </ul>
+          <span class="badge-pill">1 formador</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: ANATOMÍA DE SESIÓN ══ -->
+  <div class="slide" id="s3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Cada jueves · 1 hora fija</div>
+        <h2 style="color:#fff">Anatomía de <em style="color:var(--indra-accent);font-style:normal">una sesión</em></h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-segment">
+          <div class="tl-head">
+            <div class="tl-time">0–10'</div>
+            <div class="tl-label">Apertura</div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Contexto + Demo</div>
+            <ul class="tl-items">
+              <li>¿Qué problema vamos a resolver hoy?</li>
+              <li>Demo rápida del código inicial</li>
+              <li>Motivación desde las brechas QC</li>
+              <li>Muestra el <span style="color:var(--indra-accent)">week-XX-start</span> corriendo</li>
+            </ul>
+          </div>
+          <div class="tl-owner">Formador</div>
+        </div>
+        <div class="tl-segment highlight">
+          <div class="tl-head">
+            <div class="tl-time">10–45'</div>
+            <div class="tl-label">El corazón de la sesión</div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title" style="color:var(--indra-accent)">Reto Intermedio Único</div>
+            <ul class="tl-items">
+              <li>Participantes implementan desde su rama</li>
+              <li>Formador disponible para dudas (no spoilers)</li>
+              <li>Silencio productivo — código real</li>
+              <li>35 minutos de implementación pura</li>
+            </ul>
+          </div>
+          <div class="tl-owner" style="color:var(--indra-accent)">Participante</div>
+        </div>
+        <div class="tl-segment">
+          <div class="tl-head">
+            <div class="tl-time">45–55'</div>
+            <div class="tl-label">Revisión</div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Validación</div>
+            <ul class="tl-items">
+              <li>Ejecutar tests: ¿verde o rojo?</li>
+              <li>Revisión rápida de 1-2 soluciones</li>
+              <li>Señala diferencias por seniority</li>
+              <li>Pipeline debe pasar</li>
+            </ul>
+          </div>
+          <div class="tl-owner">Todos</div>
+        </div>
+        <div class="tl-segment">
+          <div class="tl-head">
+            <div class="tl-time">55–60'</div>
+            <div class="tl-label">Cierre</div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Solución de referencia</div>
+            <ul class="tl-items">
+              <li>Publica <span style="color:var(--indra-accent)">week-XX-solution</span></li>
+              <li>Puntos clave de la sesión</li>
+              <li>Dudas frecuentes resueltas</li>
+              <li>Anuncia la próxima semana</li>
+            </ul>
+          </div>
+          <div class="tl-owner">Formador</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: LA SEMANA ANTES ══ -->
+  <div class="slide" id="s4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Preparación</div>
+        <h2>Lo que debes tener listo <em>antes del jueves</em></h2>
+      </div>
+      <div class="checklist-grid">
+        <div class="check-panel">
+          <h3><span class="ico">📁</span>Repo y código</h3>
+          <ul class="checklist">
+            <li><div class="check-box"></div><span>Rama <span class="code-pill">week-XX-start</span> publicada con andamiaje completo</span></li>
+            <li><div class="check-box"></div><span>Tests en rojo compilando (participante los hace pasar)</span></li>
+            <li><div class="check-box"></div><span>Pipeline CI corriendo y conocido el resultado base</span></li>
+            <li><div class="check-box"></div><span>Solución de referencia lista (en privado, se publica al min 55)</span></li>
+            <li><div class="check-box"></div><span>Archivo <span class="code-pill">enunciado.md</span> y <span class="code-pill">criterios-evaluacion.md</span> actualizados</span></li>
+          </ul>
+        </div>
+        <div class="check-panel">
+          <h3><span class="ico">🎤</span>Facilitación</h3>
+          <ul class="checklist">
+            <li><div class="check-box"></div><span>Demo de apertura preparada (máx 5 minutos)</span></li>
+            <li><div class="check-box"></div><span>Conoces 2-3 "puntos de atasco" habituales del reto</span></li>
+            <li><div class="check-box"></div><span>Tienes preparado el contraste Junior vs Senior que vas a mostrar</span></li>
+            <li><div class="check-box"></div><span>Comunicación enviada al canal del equipo</span></li>
+          </ul>
+          <div class="warning-box">
+            <strong>⚠️ Regla de oro del start</strong>
+            Si un participante tarda más de <strong>2 minutos</strong> en entender qué tiene que hacer, el start está incompleto.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: ANATOMÍA DEL WEEK-START ══ -->
+  <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">week-XX-start</div>
+        <h2 style="color:#fff">Qué <em style="color:#81c784;font-style:normal">viene dado</em> vs qué <em style="color:#ef9a9a;font-style:normal">falta</em></h2>
+      </div>
+      <div class="anatomy-row">
+        <div class="anatomy-col yes">
+          <div class="col-title yes">✅ Ya está en el start</div>
+          <div class="anatomy-item">Proyecto compilando con dependencias correctas</div>
+          <div class="anatomy-item">Entidades / interfaces / clases base creadas</div>
+          <div class="anatomy-item">Tests de andamiaje compilando (en rojo)</div>
+          <div class="anatomy-item">Estructura de paquetes definida</div>
+          <div class="anatomy-item">Configuración de Spring / JPA lista</div>
+          <div class="anatomy-item">README con instrucciones de arranque</div>
+        </div>
+        <div class="anatomy-col no">
+          <div class="col-title no">❌ El participante lo implementa</div>
+          <div class="anatomy-item">La lógica de negocio del hueco concreto</div>
+          <div class="anatomy-item">Métodos vacíos o marcados como <span style="color:#ef9a9a;font-family:monospace">// TODO</span></div>
+          <div class="anatomy-item">Hacer los tests pasar en verde</div>
+          <div class="anatomy-item">Criterio no funcional (calidad/performance/ops/seg)</div>
+          <div class="anatomy-item">Decisiones de diseño dentro del espacio acotado</div>
+        </div>
+      </div>
+      <div class="golden-rule">
+        <strong>Regla de diseño:</strong> el participante decide <em>cómo</em> resuelve, no <em>qué</em> arquitectura usar — eso ya está dado.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: EL RETO ══ -->
+  <div class="slide" id="s6">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Diseño del reto</div>
+        <h2>Estructura mínima de <em>cada enunciado</em></h2>
+      </div>
+      <div class="reto-layout">
+        <div class="reto-main">
+          <div class="reto-card">
+            <div class="reto-num">1</div>
+            <div class="reto-info">
+              <h3>Cambio funcional</h3>
+              <p>Una historia de usuario concreta, con entrada y salida clara. Debe ser implementable en 20–25 minutos de código.</p>
+            </div>
+          </div>
+          <div class="reto-card">
+            <div class="reto-num">2</div>
+            <div class="reto-info">
+              <h3>Prueba obligatoria</h3>
+              <p>Al menos 1 test que valide el comportamiento esperado. El andamiaje del test ya viene en el start — el participante lo hace pasar.</p>
+            </div>
+          </div>
+          <div class="reto-card">
+            <div class="reto-num">3</div>
+            <div class="reto-info">
+              <h3>Criterio no funcional</h3>
+              <p>Elige <strong>uno</strong> de los cuatro. Garantiza que el reto no sea "solo codear" y diferencia seniorities.</p>
+            </div>
+          </div>
+        </div>
+        <div class="reto-side">
+          <div class="nf-grid">
+            <h3>Criterios no funcionales</h3>
+            <div class="nf-pills">
+              <div class="nf-pill"><div class="dot" style="background:#4caf50"></div>Calidad — diseño limpio, SOLID, cobertura</div>
+              <div class="nf-pill"><div class="dot" style="background:#2196f3"></div>Performance — tiempo de respuesta, N+1</div>
+              <div class="nf-pill"><div class="dot" style="background:#ff9800"></div>Operación — logs, health, métricas</div>
+              <div class="nf-pill"><div class="dot" style="background:#f44336"></div>Seguridad — validación input, datos sensibles</div>
+            </div>
+          </div>
+          <div class="seniority-box">
+            <h3>Diferenciación por seniority</h3>
+            <div class="sen-row"><span class="sen-tag jnr">Junior</span><span class="sen-desc">Reqs funcionales y tests básicos</span></div>
+            <div class="sen-row"><span class="sen-tag ssn">Semi-senior</span><span class="sen-desc">SOLID + tests significativos</span></div>
+            <div class="sen-row"><span class="sen-tag snr">Senior</span><span class="sen-desc">Diseño desacoplado, criterio NF cubierto</span></div>
+            <div class="sen-row"><span class="sen-tag exp">Experto</span><span class="sen-desc">Trade-offs, mejoras, código mejor que lo encontrado</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: FLUJO DE RAMAS ══ -->
+  <div class="slide" id="s7">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Git workflow</div>
+        <h2>Flujo de ramas por <em>sesión</em></h2>
+      </div>
+      <div class="branches-layout">
+        <div class="branch-flow">
+          <div class="branch-item">
+            <div class="branch-name">week-XX-start</div>
+            <div class="branch-arrow">→</div>
+            <div class="branch-desc">Código inicial con andamiaje. <strong>Base</strong> para el reto del participante</div>
+            <div class="branch-who">Formador</div>
+          </div>
+          <div class="branch-connector">el participante bifurca desde aquí</div>
+          <div class="branch-item">
+            <div class="branch-name personal">week-XX/tu-alias</div>
+            <div class="branch-arrow">→</div>
+            <div class="branch-desc">Rama personal del participante. PR hacia <span class="code-pill">week-XX-start</span> con 1 reviewer</div>
+            <div class="branch-who">Participante</div>
+          </div>
+          <div class="branch-connector">al cierre de sesión</div>
+          <div class="branch-item">
+            <div class="branch-name solution">week-XX-solution</div>
+            <div class="branch-arrow">→</div>
+            <div class="branch-desc">Solución de referencia. Se publica en el <strong>minuto 55</strong> sin excepción</div>
+            <div class="branch-who">Formador</div>
+          </div>
+        </div>
+        <div class="timeline-side">
+          <div style="font-size:13px;font-weight:700;color:var(--indra-teal);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Calendario semanal</div>
+          <div class="tl-day">
+            <div class="day-label">Lunes</div>
+            <div class="day-action">Publica <code style="color:var(--indra-accent)">week-XX-start</code> en GitHub</div>
+          </div>
+          <div class="tl-day">
+            <div class="day-label">Martes</div>
+            <div class="day-action">Anuncia la sesión en el canal del equipo</div>
+          </div>
+          <div class="tl-day">
+            <div class="day-label">Jueves</div>
+            <div class="day-action">Sesión live 1h · min 55: publica solution</div>
+          </div>
+          <div class="tl-day">
+            <div class="day-label">Viernes</div>
+            <div class="day-action">Cierra issues de badges · monitorea PRs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: PIPELINE CI ══ -->
+  <div class="slide" id="s8">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Infraestructura siempre presente</div>
+        <h2>El pipeline CI — <em>herramienta vs tema</em></h2>
+      </div>
+      <div class="pipeline-layout">
+
+        <!-- COLUMNA IZQ: semanas 1-14 -->
+        <div class="pipe-col">
+          <div class="pipe-card">
+            <span class="pipe-tag given">✅ Semanas 01-14 — pipeline dado</span>
+            <h3>El formador lo configura, el participante no lo toca</h3>
+            <div class="pipe-item">Cada rama <code style="color:var(--indra-teal)">week-XX-start</code> ya incluye un <code style="color:var(--indra-teal)">azure-pipelines.yml</code> listo</div>
+            <div class="pipe-item">Se activa solo cuando el participante abre un PR</div>
+            <div class="pipe-item">Ejecuta <code style="color:var(--indra-teal)">mvn verify</code> — compila + tests + cobertura JaCoCo</div>
+            <div class="pipe-item">Sin verde ❌ → GitHub bloquea el merge del PR</div>
+          </div>
+          <div class="pipe-flow">
+            <div class="pipe-box">git push</div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box">Abre PR</div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box">Azure Pipelines</div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box">mvn verify</div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-box green">✅ merge</div>
+            <span style="color:rgba(255,255,255,.3);font-size:12px;width:100%;text-align:center;margin-top:4px">o</span>
+            <div class="pipe-box red">❌ bloqueado</div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DER: semanas 15-16 -->
+        <div class="pipe-col">
+          <div class="pipe-card">
+            <span class="pipe-tag reto">🔥 Semanas 15-16 — el pipeline ES el reto</span>
+            <h3>El participante escribe el YAML desde cero</h3>
+            <div class="pipe-item">Semana 15: el archivo llega con <code style="color:var(--indra-teal)">TODOs</code> — el participante lo completa</div>
+            <div class="pipe-item">Semana 16: agrega <em>stages</em>, <em>environments</em> y <em>approvals</em> manuales</div>
+            <div class="pipe-item">Semanas 17-18: pipeline completo ya dado, el reto vuelve al código Java</div>
+          </div>
+          <div class="pipe-card" style="background:#fff">
+            <h3 style="color:var(--indra-dark)">Infraestructura necesaria</h3>
+            <div class="pipe-code">Opción A: 1 parallel job en Azure DevOps<br>&nbsp;&nbsp;→ ~$40 USD/mes &middot; cero mantenimiento<br><br>Opción B: self-hosted agent en VM Azure<br>&nbsp;&nbsp;→ ~$17-35 USD/mes &middot; Java 21 instalado<br>&nbsp;&nbsp;&nbsp;&nbsp; una sola vez</div>
+            <div class="pipe-note">⚠️ GitHub repo público = 1 800 min/mes gratis en Azure DevOps.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 9: BADGES ══ -->
+  <div class="slide" id="s9">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Seguimiento</div>
+        <h2 style="color:#fff">Badges y <em style="color:var(--indra-accent);font-style:normal">métricas clave</em></h2>
+      </div>
+      <div class="badge-layout">
+        <div class="badge-panel">
+          <h3>🏅 Flujo para otorgar un badge</h3>
+          <ol class="step-list">
+            <li class="step-item"><div class="step-num">1</div><span>Participante abre PR hacia <code style="color:var(--indra-accent)">week-XX-start</code> con reviewer asignado</span></li>
+            <li class="step-item"><div class="step-num">2</div><span>Reviewer valida el checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code></span></li>
+            <li class="step-item"><div class="step-num">3</div><span>PR aprobado → participante abre issue: <em>"✅ [week-XX] alias completó la sesión"</em></span></li>
+            <li class="step-item"><div class="step-num">4</div><span>Formador cierra el issue con label <code style="color:var(--indra-accent)">completado</code> → badge otorgado</span></li>
+          </ol>
+        </div>
+        <div class="badge-panel">
+          <h3>📊 Métricas de adopción a monitorear</h3>
+          <div class="metric-row">
+            <div class="metric-card">
+              <div class="num">18</div>
+              <div class="lbl">Sesiones totales</div>
+            </div>
+            <div class="metric-card">
+              <div class="num">~200</div>
+              <div class="lbl">Participantes</div>
+            </div>
+          </div>
+          <div style="margin-top:16px">
+            <div class="rule-box">
+              <strong>Monitorear cada 2 semanas:</strong><br>
+              % PRs aprobados · temas con más fallos en pipeline · sesiones con baja participación → ajustar el backlog.
+            </div>
+          </div>
+        </div>
+        <div class="badge-panel" style="grid-column: span 2;">
+          <h3>⚖️ Reglas que no se negocian</h3>
+          <div style="display:flex;gap:20px">
+            <div class="rule-box" style="flex:1">Sin PR aprobado = <strong>sesión pendiente</strong>. No bloquea asistencia a la siguiente, pero sí el badge.</div>
+            <div class="rule-box" style="flex:1">Las sesiones son <strong>autocontenidas</strong>. Quien no asistió puede completar el reto con <code style="color:var(--indra-accent)">week-XX-start</code> + solución publicada.</div>
+            <div class="rule-box" style="flex:1"><strong>Un reto único</strong> para todos los seniorities. El nivel se evidencia en <em>cómo</em> se resuelve, no en <em>qué</em> se resuelve.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 10: CIERRE ══ -->
+  <div class="slide" id="s10">
+    <div class="close-left">
+      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="close-title">
+        <h2>Listos para<br><em>la primera sesión</em></h2>
+        <p>2 de julio · Kickoff + setup Java 21</p>
+      </div>
+      <ul class="summary-list">
+        <li class="summary-item"><span class="summary-icon">🗓️</span><span>18 sesiones · jueves · 1h · julio–octubre 2026</span></li>
+        <li class="summary-item"><span class="summary-icon">🌿</span><span><code style="color:var(--indra-accent)">week-XX-start</code> publicado el lunes anterior</span></li>
+        <li class="summary-item"><span class="summary-icon">✅</span><span>Solución de referencia al minuto 55 sin excepción</span></li>
+        <li class="summary-item"><span class="summary-icon">🏅</span><span>Badge por PR aprobado · sesiones autocontenidas</span></li>
+      </ul>
+    </div>
+    <div class="close-right">
+      <div style="text-align:center;color:#fff">
+        <div style="font-size:64px;margin-bottom:16px">☕</div>
+        <div style="font-size:24px;font-weight:800;margin-bottom:8px">Java 2026</div>
+        <div style="font-size:14px;opacity:.7;margin-bottom:32px">Indra Colombia · CA&amp;C</div>
+      </div>
+      <div class="link-card">
+        <div class="lbl">Repositorio</div>
+        <div class="val">github.com/robinson8406/<br>java-formation-lab-2026</div>
+      </div>
+      <div class="link-card">
+        <div class="lbl">Stack</div>
+        <div class="val">Java 21 · Spring Boot 3.x<br>JUnit 5 · Mockito · Docker · Azure</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Nav ── -->
+<div class="nav">
+  <button onclick="prev()">← Anterior</button>
+  <button onclick="next()">Siguiente →</button>
+</div>
+<div class="slide-counter" id="counter"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let cur = 0;
+
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, slides.length - 1));
+    slides[cur].classList.add('active');
+    document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+  }
+
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+  });
+
+  show(0);
+</script>
+</body>
+</html>

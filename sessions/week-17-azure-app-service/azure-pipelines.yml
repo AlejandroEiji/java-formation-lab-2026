@@ -1,0 +1,94 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Pipeline semana 17 — Azure App Service: deploy + config + health check
+# ─────────────────────────────────────────────────────────────────────────────
+# Pipeline pre-configurado. El reto de esta sesión está en el CÓDIGO Java:
+#   1. Implementar el endpoint /actuator/health en Spring Boot
+#   2. Configurar las variables de entorno en Azure App Service
+#   3. Verificar que el health check post-deploy pasa en verde
+#
+# Prerequisito: una Azure Web App debe existir antes de correr este pipeline.
+#   El formador la provisiona en la sesión (o ya existe de semanas anteriores).
+# ─────────────────────────────────────────────────────────────────────────────
+
+trigger:
+  branches:
+    include:
+      - main
+      - 'week-17*'
+
+pr:
+  branches:
+    include:
+      - 'week-17-start'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  AZURE_SERVICE_CONNECTION: 'java-formation-azure'   # configurar en Azure DevOps Library
+  APP_SERVICE_NAME: 'java-formation-week17'
+  RESOURCE_GROUP: 'rg-java-formation-2026'
+
+stages:
+
+  - stage: CI
+    displayName: '1 · Build & Test'
+    jobs:
+      - job: Build
+        steps:
+          - task: Maven@4
+            displayName: 'mvn verify'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'verify'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '21'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              codeCoverageToolOption: 'JaCoCo'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publica JAR'
+            inputs:
+              pathToPublish: 'target/*.jar'
+              artifactName: 'app-jar'
+
+  - stage: Deploy
+    displayName: '2 · Deploy → Azure App Service'
+    dependsOn: CI
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToAppService
+        environment: 'app-service-dev'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  displayName: 'Deploy JAR a App Service'
+                  inputs:
+                    azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+                    appName: '$(APP_SERVICE_NAME)'
+                    resourceGroupName: '$(RESOURCE_GROUP)'
+                    package: '$(Pipeline.Workspace)/app-jar/*.jar'
+                    appType: 'webApp'
+
+                - task: PowerShell@2
+                  displayName: 'Health check post-deploy'
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      $url = "https://$(APP_SERVICE_NAME).azurewebsites.net/actuator/health"
+                      $retries = 5
+                      for ($i = 1; $i -le $retries; $i++) {
+                        try {
+                          $resp = Invoke-RestMethod -Uri $url -Method Get
+                          if ($resp.status -eq "UP") {
+                            Write-Host "✅ Health check OK — intento $i"
+                            exit 0
+                          }
+                        } catch { }
+                        Write-Host "Intento $i/$retries — esperando 15s..."
+                        Start-Sleep -Seconds 15
+                      }
+                      Write-Error "❌ Health check falló después de $retries intentos"
+                      exit 1

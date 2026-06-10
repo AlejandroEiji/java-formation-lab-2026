@@ -1,0 +1,106 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Semana 16 — RETO: pipeline de Release con environments y approvals
+# ─────────────────────────────────────────────────────────────────────────────
+# El stage CI ya está dado (no modificar).
+# Tu reto: completar los stages de Deploy y configurar los environments
+# en Azure DevOps con aprobación manual para STAGING y PROD.
+#
+# Flujo esperado:
+#   CI (automático) → DEV (automático) → STAGING (approval manual) → PROD (approval manual)
+# ─────────────────────────────────────────────────────────────────────────────
+
+trigger:
+  branches:
+    include:
+      - main
+      - 'week-16*'
+
+pr:
+  branches:
+    include:
+      - 'week-16-start'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  APP_NAME: 'java-formation-app'
+  # TODO: agrega variables por entorno (DEV_URL, STAGING_URL, PROD_URL)
+
+stages:
+
+  # ── Stage 1: CI — YA DADO, no modificar ─────────────────────────────────
+  - stage: CI
+    displayName: '1 · Build & Test'
+    jobs:
+      - job: Build
+        steps:
+          - task: Maven@4
+            displayName: 'mvn verify'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'verify'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '21'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              codeCoverageToolOption: 'JaCoCo'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publica JAR'
+            inputs:
+              pathToPublish: 'target/*.jar'
+              artifactName: 'app-jar'
+
+  # ── Stage 2: Deploy DEV — complétalo ─────────────────────────────────────
+  - stage: DeployDev
+    displayName: '2 · Deploy → DEV'
+    dependsOn: CI
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToDev
+        # TODO: crea el environment 'dev' en Azure DevOps
+        #   Pipelines → Environments → New → "dev"  (sin approval)
+        environment: ''  # TODO: nombre del environment DEV
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                # TODO: simula o implementa el deploy a DEV
+                - script: echo "Deploying $(APP_NAME) to DEV"
+                  displayName: 'Deploy to DEV'
+                # TODO: agrega un paso de health check o smoke test
+
+  # ── Stage 3: Deploy STAGING — complétalo ─────────────────────────────────
+  - stage: DeployStaging
+    displayName: '3 · Deploy → STAGING'
+    dependsOn: DeployDev
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToStaging
+        # TODO: crea el environment 'staging' EN AZURE DEVOPS CON APPROVAL MANUAL
+        #   Pipelines → Environments → staging → Approvals and checks → Approvals
+        environment: ''  # TODO: nombre del environment STAGING (con approval manual)
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                # TODO: deploy a STAGING + smoke test
+                - script: echo "Deploying $(APP_NAME) to STAGING"
+                  displayName: 'Deploy to STAGING'
+
+  # ── Stage 4: Deploy PROD — BONUS ─────────────────────────────────────────
+  # TODO (Bonus): agrega el stage PROD con aprobación manual estricta
+  #   y política de que solo puede aprobar el tech lead del equipo.
+  #
+  # - stage: DeployProd
+  #   displayName: '4 · Deploy → PROD'
+  #   dependsOn: DeployStaging
+  #   condition: succeeded()
+  #   jobs:
+  #     - deployment: DeployToProd
+  #       environment: 'prod'  # environment con approval manual en Azure DevOps
+  #       strategy:
+  #         runOnce:
+  #           deploy:
+  #             steps:
+  #               - script: echo "Deploying to PROD"

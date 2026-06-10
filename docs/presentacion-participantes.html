@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenida Participantes — Java 2026 | Indra</title>
+  <style>
+    :root {
+      --indra-dark: #0a1f2e;
+      --indra-teal: #1a7a7a;
+      --indra-teal-light: #2ab3b3;
+      --indra-accent: #00d4c8;
+      --indra-bg: #f4f5f0;
+      --indra-white: #ffffff;
+      --indra-gray: #e8e9e4;
+      --indra-text: #1a1a2e;
+      --indra-muted: #6c7a7a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #111;
+      color: var(--indra-text);
+      overflow: hidden;
+      height: 100vh;
+    }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center;
+    }
+    .slide.active { display: flex; }
+
+    #progress {
+      position: fixed; top: 0; left: 0;
+      height: 4px; background: var(--indra-accent);
+      transition: width .4s ease; z-index: 100;
+    }
+    .nav {
+      position: fixed; bottom: 20px; right: 28px;
+      display: flex; gap: 10px; z-index: 100;
+    }
+    .nav button {
+      background: rgba(255,255,255,.12); color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 6px; padding: 8px 18px;
+      cursor: pointer; font-size: 14px; transition: background .2s;
+    }
+    .nav button:hover { background: rgba(255,255,255,.22); }
+    .slide-counter {
+      position: fixed; bottom: 26px; left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.45); font-size: 12px; z-index: 100;
+    }
+    .logo { font-size: 22px; font-weight: 800; color: var(--indra-accent); letter-spacing: 2px; }
+    .logo span { color: rgba(255,255,255,.5); font-weight: 300; font-size: 14px; margin-left: 6px; }
+    .label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--indra-teal); margin-bottom: 8px;
+    }
+    .slide-inner {
+      width: 100%; height: 100%;
+      padding: 52px 72px;
+      display: flex; flex-direction: column;
+    }
+    .slide-header { margin-bottom: 36px; }
+    .slide-header h2 { font-size: 38px; font-weight: 700; color: var(--indra-dark); }
+    .slide-header h2 em { font-style: normal; color: var(--indra-teal); }
+    code { font-family: 'Courier New', monospace; }
+    .code-pill {
+      display: inline-block;
+      background: #1a1a2e; color: var(--indra-accent);
+      font-family: 'Courier New', monospace; font-size: 12px;
+      padding: 2px 8px; border-radius: 4px;
+    }
+
+    /* ══ SLIDE 1: PORTADA ══ */
+    #s1 { background: var(--indra-dark); flex-direction: row; }
+    .cover-left {
+      flex: 1; padding: 64px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .cover-right {
+      flex: 1;
+      background: linear-gradient(135deg, #1a4a5a 0%, var(--indra-teal) 60%, var(--indra-teal-light) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .cover-right::before {
+      content: ''; position: absolute;
+      width: 320px; height: 320px;
+      background: rgba(255,255,255,.06);
+      border-radius: 50%; top: -60px; right: -60px;
+    }
+    .cover-right::after {
+      content: ''; position: absolute;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.04);
+      border-radius: 50%; bottom: 30px; left: 30px;
+    }
+    .cover-title { color: #fff; }
+    .cover-title h1 { font-size: 52px; font-weight: 300; line-height: 1.1; }
+    .cover-title h1 strong { font-weight: 800; color: var(--indra-accent); }
+    .cover-title p { margin-top: 16px; color: rgba(255,255,255,.6); font-size: 18px; }
+    .cover-meta { color: rgba(255,255,255,.4); font-size: 13px; }
+    .big-icon { font-size: 120px; position: relative; z-index: 1; }
+
+    /* ══ SLIDE 2: ¿QUÉ ES? ══ */
+    #s2 { background: var(--indra-bg); }
+    .what-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; flex: 1;
+    }
+    .what-card {
+      background: #fff; border-radius: 12px; padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .what-card.highlight { border-left: 5px solid var(--indra-teal); }
+    .what-card .icon { font-size: 40px; }
+    .what-card h3 { font-size: 20px; font-weight: 700; color: var(--indra-dark); }
+    .what-card p { font-size: 15px; color: #555; line-height: 1.6; }
+    .big-number {
+      font-size: 64px; font-weight: 800;
+      color: var(--indra-teal); line-height: 1;
+    }
+    .big-number small { font-size: 16px; font-weight: 400; color: var(--indra-muted); display: block; margin-top: 4px; }
+    .stats-row { display: flex; gap: 32px; align-items: center; }
+
+    /* ══ SLIDE 3: TU PRIMER DÍA ══ */
+    #s3 { background: var(--indra-dark); }
+    #s3 .label { color: var(--indra-accent); }
+    #s3 .slide-header h2 { color: #fff; }
+    .steps-flow {
+      display: flex; gap: 0; flex: 1; align-items: stretch;
+    }
+    .step-block {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 28px 24px; position: relative;
+    }
+    .step-block + .step-block {
+      border-left: 1px solid rgba(255,255,255,.08);
+    }
+    .step-block::after {
+      content: '▶';
+      position: absolute; right: -12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--indra-teal); font-size: 18px; z-index: 1;
+    }
+    .step-block:last-child::after { display: none; }
+    .step-n {
+      width: 48px; height: 48px; background: var(--indra-teal);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #fff;
+      margin-bottom: 16px;
+    }
+    .step-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .step-desc { font-size: 13.5px; color: rgba(255,255,255,.7); line-height: 1.6; }
+    .step-code {
+      margin-top: 12px;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(0,212,200,.2);
+      border-radius: 6px; padding: 10px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px; color: var(--indra-accent);
+      line-height: 1.8;
+    }
+
+    /* ══ SLIDE 4: FORMATO DE SESIÓN ══ */
+    #s4 { background: var(--indra-bg); }
+    .session-layout {
+      display: flex; gap: 28px; flex: 1;
+    }
+    .session-left { flex: 2; display: flex; flex-direction: column; gap: 12px; }
+    .session-right { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .seg-bar {
+      display: flex; align-items: stretch;
+      background: #fff; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .seg-time {
+      background: var(--indra-dark); color: var(--indra-accent);
+      font-size: 22px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      min-width: 100px; padding: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+    .seg-content { padding: 16px 20px; flex: 1; }
+    .seg-content h3 { font-size: 16px; font-weight: 700; color: var(--indra-dark); margin-bottom: 4px; }
+    .seg-content p { font-size: 13px; color: #555; line-height: 1.4; }
+    .seg-bar.active-seg .seg-time { background: var(--indra-teal); }
+    .seg-bar.active-seg { border: 2px solid var(--indra-teal); }
+    .reto-box {
+      background: var(--indra-dark); border-radius: 12px; padding: 24px;
+      color: #fff; flex: 1;
+    }
+    .reto-box h3 { font-size: 15px; font-weight: 700; color: var(--indra-accent); margin-bottom: 14px; }
+    .reto-mini { display: flex; flex-direction: column; gap: 10px; }
+    .reto-mini-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.4;
+    }
+    .reto-mini-item .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--indra-teal-light); flex-shrink: 0; margin-top: 4px;
+    }
+
+    /* ══ SLIDE 5: EL RETO (PARTICIPANTE) ══ */
+    #s5 { background: var(--indra-dark); }
+    #s5 .label { color: var(--indra-accent); }
+    #s5 .slide-header h2 { color: #fff; }
+    .reto-big {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px; flex: 1;
+    }
+    .reto-pillar {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 28px 22px;
+      display: flex; flex-direction: column; gap: 12px;
+      position: relative; overflow: hidden;
+    }
+    .reto-pillar.featured {
+      background: rgba(0,212,200,.08);
+      border-color: rgba(0,212,200,.3);
+    }
+    .pillar-num {
+      font-size: 64px; font-weight: 800;
+      color: rgba(255,255,255,.06);
+      position: absolute; top: 10px; right: 16px;
+      line-height: 1;
+    }
+    .reto-pillar .icon { font-size: 36px; position: relative; z-index: 1; }
+    .reto-pillar h3 { font-size: 18px; font-weight: 700; color: #fff; position: relative; z-index: 1; }
+    .reto-pillar p { font-size: 13.5px; color: rgba(255,255,255,.7); line-height: 1.6; position: relative; z-index: 1; }
+    .reto-pillar .example {
+      margin-top: 8px;
+      background: rgba(0,0,0,.4);
+      border-radius: 6px; padding: 10px 12px;
+      font-size: 12px; color: var(--indra-accent);
+      font-style: italic; position: relative; z-index: 1;
+    }
+    .key-insight {
+      background: linear-gradient(135deg, rgba(0,212,200,.1), rgba(42,179,179,.05));
+      border: 1px solid rgba(0,212,200,.2);
+      border-radius: 10px; padding: 16px 24px;
+      font-size: 15px; color: rgba(255,255,255,.9);
+      text-align: center; margin-top: 4px;
+    }
+    .key-insight strong { color: var(--indra-accent); }
+
+    /* ══ SLIDE 6: TU FLUJO ══ */
+    #s6 { background: var(--indra-bg); }
+    .flow-layout { display: flex; gap: 32px; flex: 1; align-items: stretch; }
+    .flow-steps { flex: 1.5; display: flex; flex-direction: column; gap: 12px; }
+    .flow-step {
+      background: #fff; border-radius: 10px;
+      padding: 16px 20px; display: flex; gap: 14px;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .flow-step .fn {
+      width: 32px; height: 32px;
+      background: var(--indra-teal); color: #fff;
+      border-radius: 50%; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; flex-shrink: 0;
+    }
+    .flow-step h3 { font-size: 14px; font-weight: 700; color: var(--indra-dark); margin-bottom: 4px; }
+    .flow-step p { font-size: 12.5px; color: #555; line-height: 1.4; }
+    .flow-step .cmd {
+      margin-top: 6px; background: #1a1a2e;
+      border-radius: 5px; padding: 6px 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px; color: var(--indra-accent);
+      line-height: 1.7;
+    }
+    .flow-right { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+    .pr-card {
+      background: var(--indra-dark); border-radius: 12px;
+      padding: 22px; color: #fff; flex: 1;
+    }
+    .pr-card h3 { font-size: 15px; font-weight: 700; color: var(--indra-accent); margin-bottom: 14px; }
+    .pr-rule {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 13px; color: rgba(255,255,255,.75);
+      margin-bottom: 10px; line-height: 1.4;
+    }
+    .pr-rule .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--indra-teal-light); flex-shrink: 0; margin-top: 3px;
+    }
+
+    /* ══ SLIDE 7: SENIORITY ══ */
+    #s7 { background: var(--indra-bg); }
+    .sen-layout { display: flex; gap: 24px; flex: 1; }
+    .sen-col { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .sen-card {
+      flex: 1; background: #fff; border-radius: 12px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .sen-header { display: flex; gap: 10px; align-items: center; margin-bottom: 6px; }
+    .sen-badge {
+      font-size: 11px; font-weight: 700; padding: 4px 12px;
+      border-radius: 20px; white-space: nowrap;
+    }
+    .sen-badge.jnr { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .sen-badge.ssn { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .sen-badge.snr { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+    .sen-badge.exp { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+    .sen-card h3 { font-size: 15px; font-weight: 700; color: var(--indra-dark); }
+    .sen-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sen-card li {
+      font-size: 13px; color: #555;
+      padding-left: 16px; position: relative; line-height: 1.4;
+    }
+    .sen-card li::before { content: '›'; position: absolute; left: 0; color: var(--indra-teal); font-weight: 700; }
+    .sen-philosophy {
+      background: var(--indra-dark); border-radius: 12px;
+      padding: 24px; color: #fff;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .sen-philosophy h3 { font-size: 16px; font-weight: 700; color: var(--indra-accent); }
+    .sen-philosophy p { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6; }
+
+    /* ══ SLIDE 8: CALENDÁRIO ══ */
+    #s8 { background: var(--indra-dark); }
+    #s8 .label { color: var(--indra-accent); }
+    #s8 .slide-header h2 { color: #fff; }
+    .cal-layout { display: flex; gap: 24px; flex: 1; }
+    .cal-track { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .track-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,.4); margin-bottom: 4px;
+    }
+    .cal-item {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cal-date { font-size: 11px; color: rgba(255,255,255,.45); min-width: 56px; }
+    .cal-session { font-size: 13px; color: rgba(255,255,255,.8); flex: 1; }
+    .cal-badge {
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 10px; text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .cal-badge.solid { background: #2e7d3233; color: #81c784; border: 1px solid #4caf5044; }
+    .cal-badge.spring { background: #1565c033; color: #64b5f6; border: 1px solid #2196f344; }
+    .cal-badge.jpa { background: #6a1b9a33; color: #ce93d8; border: 1px solid #9c27b044; }
+    .cal-badge.cloud { background: #e6510033; color: #ffcc80; border: 1px solid #ff980044; }
+    .cal-badge.start { background: var(--indra-teal)33; color: var(--indra-accent); border: 1px solid var(--indra-teal)66; }
+
+    /* ══ SLIDE 9: REGLAS CLAVE ══ */
+    #s9 { background: var(--indra-bg); }
+    .rules-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; flex: 1;
+    }
+    .rule-card {
+      background: #fff; border-radius: 12px;
+      padding: 26px 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .rule-icon { font-size: 36px; flex-shrink: 0; }
+    .rule-text h3 { font-size: 17px; font-weight: 700; color: var(--indra-dark); margin-bottom: 8px; }
+    .rule-text p { font-size: 14px; color: #555; line-height: 1.6; }
+    .rule-card.featured { border-left: 5px solid var(--indra-teal); }
+
+    /* ══ SLIDE 10: CIERRE ══ */
+    #s10 { background: var(--indra-dark); flex-direction: row; }
+    .close-left {
+      flex: 1.3; padding: 64px;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 36px;
+    }
+    .close-right {
+      flex: 1;
+      background: linear-gradient(135deg, #1a4a5a, var(--indra-teal));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 48px; gap: 20px;
+    }
+    .close-title { color: #fff; }
+    .close-title h2 { font-size: 40px; font-weight: 700; line-height: 1.2; }
+    .close-title h2 em { font-style: normal; color: var(--indra-accent); }
+    .close-title p { margin-top: 12px; color: rgba(255,255,255,.6); font-size: 16px; }
+    .checklist-final { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .checklist-final li {
+      display: flex; gap: 12px; align-items: center;
+      font-size: 15px; color: rgba(255,255,255,.8);
+    }
+    .checklist-final .chk {
+      width: 22px; height: 22px; border: 2px solid var(--indra-teal);
+      border-radius: 4px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--indra-accent); font-size: 12px;
+    }
+    .action-card {
+      background: rgba(255,255,255,.12); border-radius: 10px;
+      padding: 18px 22px; color: #fff; width: 100%;
+    }
+    .action-card .lbl { font-size: 11px; color: rgba(255,255,255,.5); margin-bottom: 6px; }
+    .action-card .val { font-size: 15px; font-weight: 700; }
+    .action-card .cmd {
+      margin-top: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 11.5px; color: var(--indra-accent);
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+<div id="progress"></div>
+
+<div class="deck">
+
+  <!-- ══ SLIDE 1: PORTADA ══ -->
+  <div class="slide active" id="s1">
+    <div class="cover-left">
+      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="cover-title">
+        <h1>Bienvenido al<br><strong>Plan de Formación</strong><br>Java 2026</h1>
+        <p>18 sesiones · 1h · cada jueves · julio–octubre</p>
+      </div>
+      <div class="cover-meta">Comunidad Java · Indra Colombia &amp; CA&amp;C · ~200 personas</div>
+    </div>
+    <div class="cover-right">
+      <div class="big-icon">☕</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: ¿QUÉ ES? ══ -->
+  <div class="slide" id="s2">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">El programa</div>
+        <h2>¿De qué va <em>este plan</em>?</h2>
+      </div>
+      <div class="what-grid">
+        <div class="what-card highlight">
+          <div class="icon">🎯</div>
+          <h3>Un reto real cada semana</h3>
+          <p>Cada jueves trabajas sobre un problema concreto directamente en el repositorio — con código de producción real, no ejercicios vacíos.</p>
+        </div>
+        <div class="what-card highlight">
+          <div class="icon">🧩</div>
+          <h3>Un único reto para todos</h3>
+          <p>Sin niveles separados. Junior, semi-senior, senior y experto resuelven lo mismo. Lo que diferencia es <strong>cómo</strong> lo resuelves.</p>
+        </div>
+        <div class="what-card">
+          <div class="stats-row">
+            <div>
+              <div class="big-number">18<small>sesiones</small></div>
+            </div>
+            <div>
+              <div class="big-number">1h<small>cada jueves</small></div>
+            </div>
+            <div>
+              <div class="big-number">Jul<br><span style="font-size:20px">→</span><br>Oct<small>2026</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="what-card">
+          <div class="icon">🔁</div>
+          <h3>Sesiones autocontenidas</h3>
+          <p>¿No pudiste ir un jueves? Sin problema. La rama <span class="code-pill">week-XX-start</span> y la solución publicada te permiten completar el reto cuando quieras.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: TU PRIMER DÍA ══ -->
+  <div class="slide" id="s3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Primeros pasos</div>
+        <h2 style="color:#fff">Cómo empezar <em style="color:var(--indra-accent);font-style:normal">hoy mismo</em></h2>
+      </div>
+      <div class="steps-flow">
+        <div class="step-block">
+          <div class="step-n">1</div>
+          <div class="step-title">Clona el repo</div>
+          <div class="step-desc">Descarga el repositorio oficial del programa en tu máquina.</div>
+          <div class="step-code">git clone https://github.com/<br>robinson8406/<br>java-formation-lab-2026.git</div>
+        </div>
+        <div class="step-block">
+          <div class="step-n">2</div>
+          <div class="step-title">Lee las reglas</div>
+          <div class="step-desc">Revisa <span style="color:var(--indra-accent)">REGLAS_DE_JUEGO.md</span> y <span style="color:var(--indra-accent)">docs/onboarding-java21.md</span> para entender el flujo completo.</div>
+          <div class="step-code">cat REGLAS_DE_JUEGO.md<br>cat docs/onboarding-java21.md</div>
+        </div>
+        <div class="step-block">
+          <div class="step-n">3</div>
+          <div class="step-title">Crea tu rama</div>
+          <div class="step-desc">Para cada sesión, parte del <span style="color:var(--indra-accent)">start</span> y crea tu rama personal con tu alias.</div>
+          <div class="step-code">git checkout week-01-start<br>git checkout -b week-01/tu-alias</div>
+        </div>
+        <div class="step-block">
+          <div class="step-n">4</div>
+          <div class="step-title">Resuelve el reto</div>
+          <div class="step-desc">Implementa, escribe los tests, verifica que el pipeline compile y abre un PR.</div>
+          <div class="step-code">git push origin week-01/tu-alias<br># Abre PR en GitHub</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: FORMATO DE SESIÓN ══ -->
+  <div class="slide" id="s4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Cada jueves</div>
+        <h2>¿Qué pasa en <em>la hora de sesión</em>?</h2>
+      </div>
+      <div class="session-layout">
+        <div class="session-left">
+          <div class="seg-bar">
+            <div class="seg-time">0–10'</div>
+            <div class="seg-content">
+              <h3>Contexto + Demo</h3>
+              <p>El formador explica qué vamos a mejorar y muestra el código inicial en vivo.</p>
+            </div>
+          </div>
+          <div class="seg-bar active-seg">
+            <div class="seg-time">10–45'</div>
+            <div class="seg-content">
+              <h3>🔥 Tu turno — Reto Intermedio</h3>
+              <p>35 minutos de implementación real en el repo. Tú escribes el código desde tu rama personal.</p>
+            </div>
+          </div>
+          <div class="seg-bar">
+            <div class="seg-time">45–55'</div>
+            <div class="seg-content">
+              <h3>Validación</h3>
+              <p>Ejecutamos tests. El pipeline tiene que quedar verde. Revisión rápida de 1-2 soluciones en vivo.</p>
+            </div>
+          </div>
+          <div class="seg-bar">
+            <div class="seg-time">55–60'</div>
+            <div class="seg-content">
+              <h3>Cierre</h3>
+              <p>Se publica la solución de referencia. Puntos clave y dudas frecuentes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="session-right">
+          <div class="reto-box">
+            <h3>Todo reto incluye:</h3>
+            <div class="reto-mini">
+              <div class="reto-mini-item"><div class="dot"></div><span><strong style="color:#fff">1 cambio funcional</strong> — historia de usuario concreta</span></div>
+              <div class="reto-mini-item"><div class="dot"></div><span><strong style="color:#fff">1 prueba</strong> — test que debes hacer pasar</span></div>
+              <div class="reto-mini-item"><div class="dot"></div><span><strong style="color:#fff">1 criterio no funcional</strong> — calidad, performance, operación o seguridad</span></div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+            <div style="font-size:13px;font-weight:700;color:var(--indra-dark);margin-bottom:10px">Estructura de ramas</div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12.5px">
+              <div style="background:#e8f5e9;border-radius:6px;padding:7px 10px;font-family:monospace;color:#2e7d32">week-XX-start → el andamiaje</div>
+              <div style="background:#fce4ec;border-radius:6px;padding:7px 10px;font-family:monospace;color:#880e4f">week-XX/tu-alias → tu solución</div>
+              <div style="background:#e3f2fd;border-radius:6px;padding:7px 10px;font-family:monospace;color:#1565c0">week-XX-solution → referencia (min 55)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: EL RETO ══ -->
+  <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">El reto intermedio único</div>
+        <h2 style="color:#fff">Siempre incluye <em style="color:var(--indra-accent);font-style:normal">estas 3 partes</em></h2>
+      </div>
+      <div class="reto-big">
+        <div class="reto-pillar featured">
+          <div class="pillar-num">1</div>
+          <div class="icon">⚙️</div>
+          <h3>Cambio funcional</h3>
+          <p>Una historia de usuario real y concreta. Sabes qué tiene que hacer el código y qué resultado esperas.</p>
+          <div class="example">"El sistema debe calcular el descuento de tipo LOYALTY para pedidos mayores a $100"</div>
+        </div>
+        <div class="reto-pillar featured">
+          <div class="pillar-num">2</div>
+          <div class="icon">🧪</div>
+          <h3>Prueba obligatoria</h3>
+          <p>Al menos 1 test que valide tu implementación. El andamiaje ya está en el <span style="color:var(--indra-accent)">start</span> — tú lo haces pasar.</p>
+          <div class="example">El test ya existe y falla en rojo. Tu trabajo: hacerlo verde.</div>
+        </div>
+        <div class="reto-pillar featured">
+          <div class="pillar-num">3</div>
+          <div class="icon">📐</div>
+          <h3>Criterio no funcional</h3>
+          <p>Cada semana se define uno de cuatro tipos. Esto es lo que eleva el reto más allá de "solo codear".</p>
+          <div class="example">Calidad · Performance · Operación · Seguridad</div>
+        </div>
+      </div>
+      <div class="key-insight">
+        El reto es el <strong>mismo para todos</strong>. Lo que cambia es <strong>la profundidad con que lo resuelves</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: TU FLUJO ══ -->
+  <div class="slide" id="s6">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Flujo completo</div>
+        <h2>Tu recorrido en <em>cada sesión</em></h2>
+      </div>
+      <div class="flow-layout">
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="fn">1</div>
+            <div>
+              <h3>Actualiza tu repo local</h3>
+              <p>El lunes antes de la sesión el formador publica la rama start.</p>
+              <div class="cmd">git fetch origin</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="fn">2</div>
+            <div>
+              <h3>Crea tu rama desde el start</h3>
+              <p>Nunca trabajes directamente sobre main o week-XX-start.</p>
+              <div class="cmd">git checkout week-XX-start<br>git checkout -b week-XX/tu-alias</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="fn">3</div>
+            <div>
+              <h3>Implementa, haz tests pasar</h3>
+              <p>Escribe el código, ejecuta los tests localmente. Pipeline verde = listo.</p>
+              <div class="cmd">./mvnw test</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="fn">4</div>
+            <div>
+              <h3>Abre tu PR y asigna reviewer</h3>
+              <p>Push + PR hacia week-XX-start con 1 compañero como reviewer.</p>
+              <div class="cmd">git push origin week-XX/tu-alias</div>
+              <div style="margin-top:8px;background:#1a1a2e;border:1px solid rgba(0,212,200,.2);border-radius:6px;padding:9px 12px;font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.7">
+                <span style="color:var(--indra-accent);font-weight:700">Pipeline automático:</span><br>
+                Al abrir el PR, Azure DevOps ejecuta <code style="color:var(--indra-accent)">mvn verify</code>.<br>
+                Verás ✅ o ❌ directamente en tu PR de GitHub.
+              </div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="fn">5</div>
+            <div>
+              <h3>PR aprobado → badge</h3>
+              <p>Abre un issue con el título: <em>✅ [week-XX] alias completó la sesión</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="flow-right">
+          <div class="pr-card">
+            <h3>Reglas del PR</h3>
+            <div class="pr-rule"><div class="dot"></div><span>Usa el template en <code style="color:var(--indra-accent)">.github/PULL_REQUEST_TEMPLATE.md</code></span></div>
+            <div class="pr-rule"><div class="dot"></div><span>Asigna exactamente <strong>1 reviewer</strong> — un compañero</span></div>
+            <div class="pr-rule"><div class="dot"></div><span>El reviewer valida el checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code></span></div>
+            <div class="pr-rule"><div class="dot"></div><span>Sin PR aprobado = sesión pendiente (el badge no se otorga)</span></div>
+            <div class="pr-rule"><div class="dot"></div><span>No bloquea asistencia ni acceso a la siguiente sesión</span></div>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+            <div style="font-size:13px;font-weight:700;color:var(--indra-dark);margin-bottom:10px">Convenciones de commit</div>
+            <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;font-family:monospace">
+              <span style="color:#4caf50">feat:</span><span style="color:#555">nueva funcionalidad</span>
+              <span style="color:#2196f3">test:</span><span style="color:#555">añadir o modificar tests</span>
+              <span style="color:#ff9800">refactor:</span><span style="color:#555">refactorización sin cambio de comportamiento</span>
+              <span style="color:#9c27b0">fix:</span><span style="color:#555">corrección de bug</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: SENIORITY ══ -->
+  <div class="slide" id="s7">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Un reto · Todos los niveles</div>
+        <h2>¿Qué se espera de <em>cada seniority</em>?</h2>
+      </div>
+      <div class="sen-layout">
+        <div class="sen-col">
+          <div class="sen-card">
+            <div class="sen-header"><span class="sen-badge jnr">Junior</span></div>
+            <h3>Implementa y verifica</h3>
+            <ul>
+              <li>Requerimientos funcionales cumplidos</li>
+              <li>Tests básicos pasando en verde</li>
+              <li>Código que compila y el pipeline no falla</li>
+            </ul>
+          </div>
+          <div class="sen-card">
+            <div class="sen-header"><span class="sen-badge ssn">Semi-senior</span></div>
+            <h3>Diseña y valida</h3>
+            <ul>
+              <li>Aplica principios SOLID en la solución</li>
+              <li>Tests con casos de borde significativos</li>
+              <li>Separación de responsabilidades visible</li>
+            </ul>
+          </div>
+        </div>
+        <div class="sen-col">
+          <div class="sen-card">
+            <div class="sen-header"><span class="sen-badge snr">Senior</span></div>
+            <h3>Desacopla y opera</h3>
+            <ul>
+              <li>Diseño desacoplado y extensible</li>
+              <li>Tests robustos con mocks correctos</li>
+              <li>Criterio no funcional cubierto explícitamente</li>
+            </ul>
+          </div>
+          <div class="sen-card">
+            <div class="sen-header"><span class="sen-badge exp">Experto</span></div>
+            <h3>Mejora y propone</h3>
+            <ul>
+              <li>Identifica trade-offs y los documenta</li>
+              <li>Propone mejoras más allá del enunciado</li>
+              <li>El código queda mejor de como lo encontró</li>
+            </ul>
+          </div>
+        </div>
+        <div class="sen-col" style="flex:.8">
+          <div class="sen-philosophy">
+            <h3>La filosofía clave</h3>
+            <p>No hay ejercicios fáciles y difíciles.<br><br>Hay <strong>una solución mínima</strong> que cualquiera puede entregar, y una <strong>solución de calidad</strong> que demuestra madurez técnica real.</p>
+            <p style="margin-top:12px;font-size:13px;opacity:.6;font-style:italic">El senior no hace un problema más difícil — hace mejor el mismo problema.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: CALENDARIO ══ -->
+  <div class="slide" id="s8">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Julio → Octubre 2026</div>
+        <h2 style="color:#fff">18 sesiones en <em style="color:var(--indra-accent);font-style:normal">4 paquetes</em></h2>
+      </div>
+      <div class="cal-layout">
+        <div class="cal-track">
+          <div class="track-label">Arranque</div>
+          <div class="cal-item"><div class="cal-date">02 jul</div><div class="cal-session">Kickoff + setup Java 21</div><span class="cal-badge start">Arranque</span></div>
+          <div style="height:8px"></div>
+          <div class="track-label">SOLID + TDD</div>
+          <div class="cal-item"><div class="cal-date">09 jul</div><div class="cal-session">TDD con JUnit 5</div><span class="cal-badge solid">SOLID+TDD</span></div>
+          <div class="cal-item"><div class="cal-date">16 jul</div><div class="cal-session">SOLID (SRP/OCP)</div><span class="cal-badge solid">SOLID+TDD</span></div>
+          <div class="cal-item"><div class="cal-date">23 jul</div><div class="cal-session">Patrones Strategy/Factory</div><span class="cal-badge solid">SOLID+TDD</span></div>
+          <div class="cal-item"><div class="cal-date">30 jul</div><div class="cal-session">Mockito buenas prácticas</div><span class="cal-badge solid">SOLID+TDD</span></div>
+        </div>
+        <div class="cal-track">
+          <div class="track-label">Spring Web / Testing</div>
+          <div class="cal-item"><div class="cal-date">06 ago</div><div class="cal-session">REST limpio (DTO/errores)</div><span class="cal-badge spring">Spring</span></div>
+          <div class="cal-item"><div class="cal-date">13 ago</div><div class="cal-session">DI/IoC (profiles/wiring)</div><span class="cal-badge spring">Spring</span></div>
+          <div class="cal-item"><div class="cal-date">20 ago</div><div class="cal-session">WebMvcTest (slice tests)</div><span class="cal-badge spring">Spring</span></div>
+          <div style="height:8px"></div>
+          <div class="track-label">Hibernate / JPA</div>
+          <div class="cal-item"><div class="cal-date">27 ago</div><div class="cal-session">Mapeos JPA</div><span class="cal-badge jpa">JPA</span></div>
+          <div class="cal-item"><div class="cal-date">03 sep</div><div class="cal-session">Transacciones</div><span class="cal-badge jpa">JPA</span></div>
+          <div class="cal-item"><div class="cal-date">10 sep</div><div class="cal-session">Performance ORM (N+1)</div><span class="cal-badge jpa">JPA</span></div>
+          <div class="cal-item"><div class="cal-date">17 sep</div><div class="cal-session">JPQL + paginación + locking</div><span class="cal-badge jpa">JPA</span></div>
+        </div>
+        <div class="cal-track">
+          <div class="track-label">Micro + Cloud + DevOps</div>
+          <div class="cal-item"><div class="cal-date">24 sep</div><div class="cal-session">Microservicios</div><span class="cal-badge cloud">Cloud</span></div>
+          <div class="cal-item"><div class="cal-date">01 oct</div><div class="cal-session">Docker + compose</div><span class="cal-badge cloud">Cloud</span></div>
+          <div class="cal-item"><div class="cal-date">08 oct</div><div class="cal-session">Azure DevOps Pipelines (CI)</div><span class="cal-badge cloud">Cloud</span></div>
+          <div class="cal-item"><div class="cal-date">15 oct</div><div class="cal-session">Azure DevOps Release</div><span class="cal-badge cloud">Cloud</span></div>
+          <div class="cal-item"><div class="cal-date">22 oct</div><div class="cal-session">Azure App Service</div><span class="cal-badge cloud">Cloud</span></div>
+          <div class="cal-item"><div class="cal-date">29 oct</div><div class="cal-session">Observabilidad + cierre</div><span class="cal-badge cloud">Cloud</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 9: REGLAS CLAVE ══ -->
+  <div class="slide" id="s9">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Reglas del juego</div>
+        <h2>Lo que tienes que <em>recordar siempre</em></h2>
+      </div>
+      <div class="rules-grid">
+        <div class="rule-card featured">
+          <div class="rule-icon">🔁</div>
+          <div class="rule-text">
+            <h3>Sesiones autocontenidas</h3>
+            <p>¿No asististe? Toma la rama <span class="code-pill">week-XX-start</span> y la solución publicada al cierre. Puedes completarlo cuando quieras. La ausencia no te bloquea.</p>
+          </div>
+        </div>
+        <div class="rule-card featured">
+          <div class="rule-icon">✅</div>
+          <div class="rule-text">
+            <h3>Badge solo con PR aprobado</h3>
+            <p>El badge acredita que completaste la sesión con calidad. Sin PR aprobado no hay badge, pero tampoco te impide participar en las siguientes.</p>
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">👥</div>
+          <div class="rule-text">
+            <h3>Peer review obligatorio</h3>
+            <p>Asigna 1 compañero como reviewer en tu PR. Revisar código ajeno es parte del aprendizaje — y del rol del badge.</p>
+          </div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🧹</div>
+          <div class="rule-text">
+            <h3>Convenciones de código</h3>
+            <p>Inyección siempre por constructor, sin lógica en controladores, mínimo 1 test por clase nueva. El código en inglés, los docs en español.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 10: CIERRE ══ -->
+  <div class="slide" id="s10">
+    <div class="close-left">
+      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="close-title">
+        <h2>Tu checklist de<br><em>arranque</em></h2>
+        <p>Primera sesión: jueves 2 de julio, 2026</p>
+      </div>
+      <ul class="checklist-final">
+        <li><div class="chk">✓</div><span>Clona el repo en tu máquina</span></li>
+        <li><div class="chk">✓</div><span>Lee <span class="code-pill">REGLAS_DE_JUEGO.md</span> y el onboarding</span></li>
+        <li><div class="chk">✓</div><span>Verifica que Java 21 está instalado</span></li>
+        <li><div class="chk"></div><span>Espera el anuncio del <span class="code-pill">week-01-start</span></span></li>
+        <li><div class="chk"></div><span>Crea tu rama y resuelve el reto el jueves</span></li>
+      </ul>
+    </div>
+    <div class="close-right">
+      <div style="text-align:center;color:#fff">
+        <div style="font-size:64px;margin-bottom:12px">🚀</div>
+        <div style="font-size:22px;font-weight:800;margin-bottom:6px">¡Nos vemos el jueves!</div>
+        <div style="font-size:14px;opacity:.7;margin-bottom:28px">2 de julio · Kickoff + Java 21</div>
+      </div>
+      <div class="action-card">
+        <div class="lbl">Repositorio</div>
+        <div class="val" style="color:var(--indra-accent);font-family:monospace;font-size:13px">github.com/robinson8406/<br>java-formation-lab-2026</div>
+      </div>
+      <div class="action-card">
+        <div class="lbl">Stack técnico</div>
+        <div class="cmd">Java 21 · Spring Boot 3.x · JUnit 5<br>Mockito · Hibernate 6 · Docker<br>Azure DevOps · Azure App Service</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav">
+  <button onclick="prev()">← Anterior</button>
+  <button onclick="next()">Siguiente →</button>
+</div>
+<div class="slide-counter" id="counter"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let cur = 0;
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, slides.length - 1));
+    slides[cur].classList.add('active');
+    document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+  }
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+  });
+  show(0);
+</script>
+</body>
+</html>

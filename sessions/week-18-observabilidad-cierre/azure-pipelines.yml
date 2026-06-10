@@ -1,0 +1,97 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Pipeline semana 18 — Observabilidad + cierre del programa
+# ─────────────────────────────────────────────────────────────────────────────
+# Pipeline final del programa. Incluye:
+#   - Build + tests + cobertura
+#   - Deploy con health check
+#   - Validación de propagación del correlation ID en los headers HTTP
+# ─────────────────────────────────────────────────────────────────────────────
+
+trigger:
+  branches:
+    include:
+      - main
+      - 'week-18*'
+
+pr:
+  branches:
+    include:
+      - 'week-18-start'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  AZURE_SERVICE_CONNECTION: 'java-formation-azure'
+  APP_SERVICE_NAME: 'java-formation-week18'
+  RESOURCE_GROUP: 'rg-java-formation-2026'
+
+stages:
+
+  - stage: CI
+    displayName: '1 · Build & Test'
+    jobs:
+      - job: Build
+        steps:
+          - task: Maven@4
+            displayName: 'mvn verify'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'verify'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '21'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              codeCoverageToolOption: 'JaCoCo'
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publica JAR'
+            inputs:
+              pathToPublish: 'target/*.jar'
+              artifactName: 'app-jar'
+
+  - stage: Deploy
+    displayName: '2 · Deploy + Validación de Observabilidad'
+    dependsOn: CI
+    condition: succeeded()
+    jobs:
+      - deployment: DeployAndVerify
+        environment: 'observabilidad'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  displayName: 'Deploy JAR a App Service'
+                  inputs:
+                    azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+                    appName: '$(APP_SERVICE_NAME)'
+                    resourceGroupName: '$(RESOURCE_GROUP)'
+                    package: '$(Pipeline.Workspace)/app-jar/*.jar'
+                    appType: 'webApp'
+
+                - task: PowerShell@2
+                  displayName: 'Health check + validación correlation ID'
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      $baseUrl = "https://$(APP_SERVICE_NAME).azurewebsites.net"
+                      $correlationId = [guid]::NewGuid().ToString()
+                      Write-Host "Correlation-ID de prueba: $correlationId"
+
+                      # 1. Health check
+                      $health = Invoke-RestMethod "$baseUrl/actuator/health"
+                      if ($health.status -ne "UP") {
+                        Write-Error "❌ Health check falló"
+                        exit 1
+                      }
+                      Write-Host "✅ Health OK"
+
+                      # 2. Verifica que el X-Correlation-Id se propaga en la respuesta
+                      $headers = @{ "X-Correlation-Id" = $correlationId }
+                      $resp = Invoke-WebRequest "$baseUrl/api/ping" -Headers $headers
+                      $returned = $resp.Headers["X-Correlation-Id"]
+                      if ($returned -ne $correlationId) {
+                        Write-Error "❌ Correlation ID no propagado. Esperado: $correlationId / Recibido: $returned"
+                        exit 1
+                      }
+                      Write-Host "✅ Correlation ID propagado correctamente"

@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Semana 15 — RETO: escribe el pipeline de CI desde cero
+# ─────────────────────────────────────────────────────────────────────────────
+# Este archivo ES el reto de la sesión. No está pre-configurado.
+# Completa cada bloque marcado con TODO para tener un pipeline funcional.
+#
+# Resultado esperado:
+#   ✅ Build + Tests pasan con mvn verify
+#   ✅ Quality gate: cobertura mínima 80 % (JaCoCo)
+#   ✅ Reporte de tests publicado en Azure DevOps
+#   ✅ PR bloqueado si cualquiera de los anteriores falla
+# ─────────────────────────────────────────────────────────────────────────────
+
+# TODO 1: Define cuándo se activa el pipeline.
+#   - trigger: ramas 'main' y 'week-15*'
+#   - pr: solo hacia 'week-15-start'
+trigger:
+  branches:
+    include:
+      # TODO: lista las ramas aquí
+
+pr:
+  branches:
+    include:
+      # TODO: ¿hacia qué rama deben apuntar los PRs?
+
+# TODO 2: Elige el agente de ejecución.
+pool:
+  vmImage: ''  # ubuntu-latest | windows-latest | macOS-latest
+
+# TODO 3: Define variables útiles (opcional pero recomendado).
+variables:
+  # Ejemplo: MAVEN_OPTS: '-Xmx1024m'
+  # TODO: agrega las variables que consideres necesarias
+
+stages:
+  - stage: CI
+    displayName: 'Integración Continua'
+    jobs:
+      - job: Build
+        displayName: 'Build & Test'
+        steps:
+
+          # TODO 4: Agrega el paso de compilación y tests.
+          # Usa Maven@4 con:
+          #   - goal: verify
+          #   - Java 21
+          #   - Resultados JUnit publicados
+          #   - Cobertura JaCoCo con umbral mínimo del 80 %
+          - task: Maven@4
+            displayName: 'mvn verify'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: ''                           # TODO: ¿qué goal necesitas?
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: ''                # TODO: versión de Java
+              publishJUnitResults:                # TODO: true o false
+              testResultsFiles: ''                # TODO: patrón de resultados JUnit
+              codeCoverageToolOption: ''          # TODO: herramienta de cobertura
+              codeCoverageFailIfCoverageEmpty: true
+
+          # TODO 5 (Bonus): Publica el JAR como artefacto para reutilizarlo
+          #   en un stage de deploy (preparación para semana 16).
+          # - task: PublishBuildArtifacts@1
+          #   displayName: 'Publica JAR'
+          #   inputs:
+          #     pathToPublish: 'target/*.jar'
+          #     artifactName: 'app-jar'
