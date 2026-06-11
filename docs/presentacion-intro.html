@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java 2026 — Introducción | Indra</title>
+  <style>
+    :root {
+      --indra-dark: #0a1f2e;
+      --indra-teal: #1a7a7a;
+      --indra-teal-light: #2ab3b3;
+      --indra-accent: #00d4c8;
+      --indra-bg: #f4f5f0;
+      --indra-gray: #e8e9e4;
+      --indra-text: #1a1a2e;
+      --indra-muted: #6c7a7a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #111;
+      color: var(--indra-text);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center;
+    }
+    .slide.active { display: flex; }
+
+    #progress {
+      position: fixed; top: 0; left: 0;
+      height: 4px; background: var(--indra-accent);
+      transition: width .4s ease; z-index: 100;
+    }
+
+    .nav {
+      position: fixed; bottom: 20px; right: 28px;
+      display: flex; gap: 10px; z-index: 100;
+    }
+    .nav button {
+      background: rgba(255,255,255,.12); color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 6px; padding: 8px 18px;
+      cursor: pointer; font-size: 14px; transition: background .2s;
+    }
+    .nav button:hover { background: rgba(255,255,255,.22); }
+
+    .slide-counter {
+      position: fixed; bottom: 26px; left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.45); font-size: 12px; z-index: 100;
+    }
+
+    .logo { font-size: 22px; font-weight: 800; color: var(--indra-accent); letter-spacing: 2px; }
+    .logo span { color: rgba(255,255,255,.5); font-weight: 300; font-size: 14px; margin-left: 6px; }
+
+    .label {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--indra-teal); margin-bottom: 8px;
+    }
+
+    .slide-inner {
+      width: 100%; height: 100%;
+      padding: 52px 72px;
+      display: flex; flex-direction: column;
+    }
+    .slide-header { margin-bottom: 32px; }
+    .slide-header h2 { font-size: 38px; font-weight: 700; color: var(--indra-dark); }
+    .slide-header h2 em { font-style: normal; color: var(--indra-teal); }
+    .slide-header p { font-size: 15px; color: var(--indra-muted); margin-top: 6px; }
+
+    /* ══ SLIDE 1: PORTADA ══ */
+    #s1 { background: var(--indra-dark); flex-direction: row; }
+    .cover-left {
+      flex: 1; padding: 64px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .cover-right {
+      flex: 1;
+      background: linear-gradient(135deg, #1a4a5a 0%, var(--indra-teal) 60%, var(--indra-teal-light) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .cover-right::before {
+      content: ''; position: absolute;
+      width: 340px; height: 340px; background: rgba(255,255,255,.06);
+      border-radius: 50%; top: -70px; right: -70px;
+    }
+    .cover-right::after {
+      content: ''; position: absolute;
+      width: 200px; height: 200px; background: rgba(255,255,255,.04);
+      border-radius: 50%; bottom: 40px; left: 40px;
+    }
+    .cover-title { color: #fff; }
+    .cover-title .eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--indra-accent); margin-bottom: 14px;
+    }
+    .cover-title h1 { font-size: 46px; font-weight: 300; line-height: 1.15; }
+    .cover-title h1 strong { font-weight: 800; color: var(--indra-accent); display: block; }
+    .cover-title p { margin-top: 16px; color: rgba(255,255,255,.6); font-size: 17px; line-height: 1.5; }
+    .cover-meta { color: rgba(255,255,255,.4); font-size: 13px; line-height: 1.9; }
+    .big-icon { font-size: 120px; position: relative; z-index: 1; }
+    .cover-kpis { display: flex; gap: 32px; margin-top: 28px; }
+    .cover-kpi { text-align: center; }
+    .cover-kpi .kval { font-size: 36px; font-weight: 800; color: var(--indra-accent); line-height: 1; }
+    .cover-kpi .klabel { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 4px; }
+
+    /* ══ SLIDE 2: EL PROBLEMA Y LA SOLUCIÓN ══ */
+    #s2 { background: var(--indra-dark); }
+    #s2 .label { color: var(--indra-accent); }
+    #s2 .slide-header h2 { color: #fff; }
+    .ps-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 28px; flex: 1;
+    }
+    .ps-col { display: flex; flex-direction: column; gap: 14px; }
+    .ps-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; padding: 8px 14px;
+      border-radius: 6px; width: fit-content;
+    }
+    .ps-title.problem { background: rgba(239,83,80,.15); color: #ef9a9a; }
+    .ps-title.solution { background: rgba(0,212,200,.15); color: var(--indra-accent); }
+    .ps-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: rgba(255,255,255,.04); border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .ps-item .ps-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+    .ps-item h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .ps-item p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.5; }
+    .divider-arrow {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; color: var(--indra-accent);
+    }
+
+    /* ══ SLIDE 3: CÓMO FUNCIONA ══ */
+    #s3 { background: var(--indra-bg); }
+    .how-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr;
+      gap: 28px; flex: 1;
+    }
+    .how-left { display: flex; flex-direction: column; gap: 14px; }
+    .how-right { display: flex; flex-direction: column; gap: 14px; }
+
+    .paquete-strip {
+      background: #fff; border-radius: 10px;
+      border-left: 5px solid;
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .paquete-strip.p1 { border-color: var(--indra-accent); }
+    .paquete-strip.p2 { border-color: #4caf50; }
+    .paquete-strip.p3 { border-color: #2196f3; }
+    .paquete-strip.p4 { border-color: #ff9800; }
+    .paquete-strip .ps-dates { font-size: 11px; color: var(--indra-muted); margin-top: 2px; }
+    .paquete-strip h3 { font-size: 15px; font-weight: 700; color: var(--indra-text); }
+    .paquete-strip .ps-tag {
+      font-size: 11px; font-weight: 700; padding: 2px 8px;
+      border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+    }
+    .paquete-strip.p1 .ps-tag { background: rgba(0,212,200,.1); color: var(--indra-teal); }
+    .paquete-strip.p2 .ps-tag { background: rgba(76,175,80,.1); color: #2e7d32; }
+    .paquete-strip.p3 .ps-tag { background: rgba(33,150,243,.1); color: #1565c0; }
+    .paquete-strip.p4 .ps-tag { background: rgba(255,152,0,.1); color: #e65100; }
+
+    .session-mini {
+      background: #fff; border-radius: 10px; padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .session-mini h3 { font-size: 14px; font-weight: 700; color: var(--indra-text); margin-bottom: 2px; }
+    .seg-row { display: flex; gap: 10px; align-items: center; }
+    .seg-time-pill {
+      font-size: 11px; font-weight: 700; color: #fff;
+      background: var(--indra-teal); border-radius: 4px;
+      padding: 2px 7px; white-space: nowrap; flex-shrink: 0;
+    }
+    .seg-name { font-size: 12.5px; color: #555; }
+    .seg-row.highlight .seg-time-pill { background: var(--indra-accent); color: var(--indra-dark); }
+    .seg-row.highlight .seg-name { color: var(--indra-teal); font-weight: 600; }
+
+    .reto-pill-box {
+      background: var(--indra-dark); border-radius: 10px;
+      padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .reto-pill-box h3 { font-size: 14px; font-weight: 700; color: var(--indra-accent); margin-bottom: 4px; }
+    .reto-pill {
+      display: flex; gap: 10px; align-items: center;
+    }
+    .reto-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .reto-pill p { font-size: 12.5px; color: rgba(255,255,255,.7); line-height: 1.4; }
+
+    /* ══ SLIDE 4: TU ROL ══ */
+    #s4 { background: var(--indra-bg); }
+    .roles-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 22px; flex: 1;
+    }
+    .role-card {
+      background: #fff; border-radius: 12px;
+      padding: 28px 24px; display: flex; flex-direction: column; gap: 14px;
+      transition: transform .15s; cursor: default;
+    }
+    .role-card:hover { transform: translateY(-3px); }
+    .role-card .rc-icon { font-size: 44px; }
+    .role-card h3 { font-size: 20px; font-weight: 700; color: var(--indra-dark); }
+    .role-card .rc-tag {
+      font-size: 11px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; width: fit-content;
+    }
+    .role-card.exec .rc-tag { background: rgba(255,152,0,.12); color: #e65100; }
+    .role-card.trainer .rc-tag { background: rgba(33,150,243,.12); color: #1565c0; }
+    .role-card.participant .rc-tag { background: rgba(76,175,80,.12); color: #2e7d32; }
+    .role-card ul {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+    }
+    .role-card li {
+      font-size: 13.5px; color: #444; padding-left: 16px;
+      position: relative; line-height: 1.45;
+    }
+    .role-card li::before {
+      content: '›'; position: absolute; left: 0;
+      color: var(--indra-teal); font-weight: 700;
+    }
+    .role-card .rc-link {
+      margin-top: auto;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12.5px; font-weight: 700;
+      text-decoration: none; padding: 8px 14px;
+      border-radius: 6px; transition: opacity .2s;
+    }
+    .role-card .rc-link:hover { opacity: .8; }
+    .role-card.exec .rc-link { background: rgba(255,152,0,.12); color: #e65100; }
+    .role-card.trainer .rc-link { background: rgba(33,150,243,.12); color: #1565c0; }
+    .role-card.participant .rc-link { background: rgba(76,175,80,.12); color: #2e7d32; }
+
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div class="deck">
+
+  <!-- ══ SLIDE 1: PORTADA ══ -->
+  <section class="slide active" id="s1">
+    <div class="cover-left">
+      <div class="logo">INDRA <span>Java Formation Lab</span></div>
+      <div class="cover-title">
+        <div class="eyebrow">Plan de Formación · Colombia 2026</div>
+        <h1>Una comunidad.<br><strong>18 semanas.</strong></h1>
+        <p>Formación práctica para ~200 personas,<br>basada en evidencia QC 2026.</p>
+      </div>
+      <div>
+        <div class="cover-kpis">
+          <div class="cover-kpi">
+            <div class="kval">200</div>
+            <div class="klabel">personas</div>
+          </div>
+          <div class="cover-kpi">
+            <div class="kval">18</div>
+            <div class="klabel">sesiones</div>
+          </div>
+          <div class="cover-kpi">
+            <div class="kval">4</div>
+            <div class="klabel">paquetes</div>
+          </div>
+          <div class="cover-kpi">
+            <div class="kval">1h</div>
+            <div class="klabel">cada jueves</div>
+          </div>
+        </div>
+        <div class="cover-meta" style="margin-top:20px">
+          Julio → Octubre 2026 &nbsp;·&nbsp; Java 21 · Spring Boot 3.x · Azure DevOps
+        </div>
+      </div>
+    </div>
+    <div class="cover-right">
+      <div class="big-icon">☕</div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 2: PROBLEMA Y SOLUCIÓN ══ -->
+  <section class="slide" id="s2">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">¿Por qué existe?</div>
+        <h2 style="color:#fff">El QC 2026 reveló brechas reales.<br><em style="color:var(--indra-accent)">Las atacamos con práctica.</em></h2>
+      </div>
+      <div class="ps-grid">
+        <div class="ps-col">
+          <div class="ps-title problem">⚠ Brechas detectadas</div>
+          <div class="ps-item">
+            <div class="ps-icon">📉</div>
+            <div>
+              <h3>Azure DevOps — 60%</h3>
+              <p>CI/CD, pipelines y release: el área con mayor brecha en el QC.</p>
+            </div>
+          </div>
+          <div class="ps-item">
+            <div class="ps-icon">📉</div>
+            <div>
+              <h3>Hibernate / ORM — 64%</h3>
+              <p>Transacciones, N+1, mapeos y paginación con JPA.</p>
+            </div>
+          </div>
+          <div class="ps-item">
+            <div class="ps-icon">📉</div>
+            <div>
+              <h3>SOLID + TDD — 77%</h3>
+              <p>Diseño mantenible, tests confiables y patrones de software.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ps-col">
+          <div class="ps-title solution">✔ Nuestra respuesta</div>
+          <div class="ps-item">
+            <div class="ps-icon">🎯</div>
+            <div>
+              <h3>1 reto único para todos</h3>
+              <p>Sin versiones por seniority. El nivel se demuestra en <em style="color:var(--indra-accent)">cómo</em> lo resolvés.</p>
+            </div>
+          </div>
+          <div class="ps-item">
+            <div class="ps-icon">🔁</div>
+            <div>
+              <h3>Sesiones autocontenidas</h3>
+              <p>Quien falta puede completarlo solo con <code style="color:var(--indra-accent);font-size:12px">week-XX-start</code> + la solución publicada.</p>
+            </div>
+          </div>
+          <div class="ps-item">
+            <div class="ps-icon">🛠</div>
+            <div>
+              <h3>Código real, no slides</h3>
+              <p>35 minutos de implementación por sesión. Tests + pipeline verde.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 3: CÓMO FUNCIONA ══ -->
+  <section class="slide" id="s3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">El plan</div>
+        <h2>4 paquetes, 18 sesiones, <em>jul → oct</em></h2>
+        <p>Cada jueves, 1 hora. Un reto funcional + test + criterio no funcional.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-left">
+          <div class="paquete-strip p1">
+            <div style="flex:1">
+              <h3>Arranque + SOLID + TDD</h3>
+              <div class="ps-dates">02 jul – 30 jul · 5 sesiones</div>
+            </div>
+            <div class="ps-tag">JUnit 5 · Mockito · Patrones</div>
+          </div>
+          <div class="paquete-strip p2">
+            <div style="flex:1">
+              <h3>Spring Web / Testing</h3>
+              <div class="ps-dates">06 ago – 20 ago · 3 sesiones</div>
+            </div>
+            <div class="ps-tag">REST · DI/IoC · WebMvcTest</div>
+          </div>
+          <div class="paquete-strip p3">
+            <div style="flex:1">
+              <h3>Hibernate / JPA</h3>
+              <div class="ps-dates">27 ago – 17 sep · 4 sesiones</div>
+            </div>
+            <div class="ps-tag">ORM · Txn · N+1 · JPQL</div>
+          </div>
+          <div class="paquete-strip p4">
+            <div style="flex:1">
+              <h3>Micro + Cloud + DevOps</h3>
+              <div class="ps-dates">24 sep – 29 oct · 6 sesiones</div>
+            </div>
+            <div class="ps-tag">Docker · Azure DevOps · App Service</div>
+          </div>
+        </div>
+        <div class="how-right">
+          <div class="session-mini">
+            <h3>⏱ Formato de sesión (1 hora)</h3>
+            <div class="seg-row">
+              <div class="seg-time-pill">0–10'</div>
+              <div class="seg-name">Contexto + demo del reto</div>
+            </div>
+            <div class="seg-row highlight">
+              <div class="seg-time-pill">10–45'</div>
+              <div class="seg-name">Implementación real en el repo</div>
+            </div>
+            <div class="seg-row">
+              <div class="seg-time-pill">45–55'</div>
+              <div class="seg-name">Tests + pipeline verde</div>
+            </div>
+            <div class="seg-row">
+              <div class="seg-time-pill">55–60'</div>
+              <div class="seg-name">Solución de referencia publicada</div>
+            </div>
+          </div>
+          <div class="reto-pill-box">
+            <h3>Cada reto siempre incluye</h3>
+            <div class="reto-pill">
+              <div class="reto-dot" style="background:#4caf50"></div>
+              <p>1 cambio funcional concreto</p>
+            </div>
+            <div class="reto-pill">
+              <div class="reto-dot" style="background:var(--indra-accent)"></div>
+              <p>1 prueba que valida el comportamiento</p>
+            </div>
+            <div class="reto-pill">
+              <div class="reto-dot" style="background:#ff9800"></div>
+              <p>1 criterio no funcional (calidad / perf / seguridad)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SLIDE 4: TU ROL ══ -->
+  <section class="slide" id="s4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Presentaciones específicas</div>
+        <h2>¿Cuál es <em>tu rol</em>?</h2>
+        <p>Selecciona tu perfil para ver la guía completa.</p>
+      </div>
+      <div class="roles-grid">
+
+        <div class="role-card exec">
+          <div class="rc-icon">📊</div>
+          <h3>Directivo / Sponsor</h3>
+          <div class="rc-tag">Decisión e inversión</div>
+          <ul>
+            <li>ROI y costos de infraestructura Azure</li>
+            <li>Escenarios de inversión (mínimo → completo)</li>
+            <li>Palancas de ahorro y métricas de adopción</li>
+            <li>Próximos pasos operativos</li>
+          </ul>
+          <a class="rc-link" href="presentacion-ejecutiva-costos.html" target="_blank">
+            Ver presentación ejecutiva →
+          </a>
+        </div>
+
+        <div class="role-card trainer">
+          <div class="rc-icon">🧑‍🏫</div>
+          <h3>Formador</h3>
+          <div class="rc-tag">Preparación y delivery</div>
+          <ul>
+            <li>Anatomía de la sesión y roles del equipo</li>
+            <li>Cómo armar el <code style="font-size:11px">week-XX-start</code></li>
+            <li>Estructura del reto y criterios de aceptación</li>
+            <li>Pipeline CI y flujo de ramas</li>
+          </ul>
+          <a class="rc-link" href="presentacion-formadores.html" target="_blank">
+            Ver guía de formadores →
+          </a>
+        </div>
+
+        <div class="role-card participant">
+          <div class="rc-icon">💻</div>
+          <h3>Participante</h3>
+          <div class="rc-tag">Aprender haciendo</div>
+          <ul>
+            <li>Cómo configurar tu entorno (Java 21)</li>
+            <li>Flujo fork → rama → PR</li>
+            <li>Qué esperar en cada sesión</li>
+            <li>Cómo acumular badges y completar sesiones pasadas</li>
+          </ul>
+          <a class="rc-link" href="presentacion-participantes.html" target="_blank">
+            Ver bienvenida participantes →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button onclick="prev()">← Anterior</button>
+  <button onclick="next()">Siguiente →</button>
+</div>
+<div class="slide-counter" id="counter"></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let cur = 0;
+
+  function show(n) {
+    slides[cur].classList.remove('active');
+    cur = Math.max(0, Math.min(n, slides.length - 1));
+    slides[cur].classList.add('active');
+    document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+  }
+
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); prev(); }
+  });
+
+  show(0);
+</script>
+</body>
+</html>
