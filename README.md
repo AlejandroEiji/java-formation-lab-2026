@@ -47,11 +47,31 @@ El nivel se evidencia en _cómo_ resolviste el problema — no en _qué_ problem
 | 11 | 2026-09-10 | Hibernate / JPA | Performance ORM | ⏳ |
 | 12 | 2026-09-17 | Hibernate / JPA | JPQL + paginación + locking | ⏳ |
 | 13 | 2026-09-24 | Micro + Cloud + DevOps | Microservicios | ⏳ |
-| 14 | 2026-10-01 | Micro + Cloud + DevOps | Docker + compose | ⏳ |
+| 14 | 2026-10-01 | Micro + Cloud + DevOps | Podman + compose | ⏳ |
 | 15 | 2026-10-08 | Micro + Cloud + DevOps | Azure DevOps Pipelines (CI) | ⏳ |
 | 16 | 2026-10-15 | Micro + Cloud + DevOps | Azure DevOps Release | ⏳ |
 | 17 | 2026-10-22 | Micro + Cloud + DevOps | Azure App Service | ⏳ |
 | 18 | 2026-10-29 | Micro + Cloud + DevOps | Observabilidad + cierre | ⏳ |
+
+**Vista por mes**
+
+| Mes | Semanas | Paquete |
+|-----|---------|--------|
+| Julio | 4 sesiones (sem 1–4) | Arranque + SOLID + TDD |
+| Agosto | 5 sesiones (sem 5–9) | SOLID+TDD (cierre) + Spring Web + Hibernate (inicio) |
+| Septiembre | 5 sesiones (sem 10–14) | Hibernate (cierre) + Micro/Cloud/DevOps (inicio) |
+| Octubre | 4 sesiones (sem 15–18) | Micro/Cloud/DevOps (cierre) |
+
+<details>
+<summary>Sesiones descartadas del plan (fortalezas o bajo impacto QC)</summary>
+
+- Git + PR hygiene → Git es fortaleza
+- Maven multi-módulo → Maven es fortaleza
+- DataJpaTest → cubierto dentro del paquete Hibernate
+- Spring Security → no aparece en las brechas QC prioritarias
+- OpenAPI → se cubre dentro de Microservicios
+- Projections/read models → menor prioridad en Hibernate/JPA
+</details>
 
 ---
 
@@ -73,14 +93,11 @@ El nivel se evidencia en _cómo_ resolviste el problema — no en _qué_ problem
 java-formation-lab-2026/
 ├── README.md
 ├── REGLAS_DE_JUEGO.md
-├── CALENDARIO_2026.md
 ├── .github/
 │   ├── PULL_REQUEST_TEMPLATE.md
 │   ├── ISSUE_TEMPLATE/badge-completado.md
 │   └── labels.yml
 ├── docs/
-│   ├── analisis-qc-2026.md
-│   ├── formato-sesion.md
 │   └── onboarding-java21.md
 └── sessions/
     └── week-XX-<tema>/
@@ -94,4 +111,4 @@ java-formation-lab-2026/
 
 ## Stack
 
-`Java 21` · `Spring Boot 3.x` · `Hibernate 6` · `JUnit 5` · `Mockito` · `Azure DevOps` · `Docker` · `Azure App Service`
+`Java 21` · `Spring Boot 3.x` · `Hibernate 6` · `JUnit 5` · `Mockito` · `Azure DevOps` · `Podman` · `Azure App Service`

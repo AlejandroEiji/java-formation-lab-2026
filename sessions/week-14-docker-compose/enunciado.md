@@ -1,12 +1,16 @@
-# Enunciado — Week 14: Docker + Compose
+# Enunciado — Week 14: Podman + Compose
 
 ## Contexto del reto
 
-El equipo de **Indra Retail** tiene problemas de onboarding: cada nuevo desarrollador tarda 2 horas en configurar el entorno local (Java, Postgres, variables de entorno, migraciones). Tu tarea es dockerizar la aplicación para que cualquiera pueda levantar el entorno completo con `docker compose up`.
+El equipo de **Indra Retail** tiene problemas de onboarding: cada nuevo desarrollador tarda 2 horas en configurar el entorno local (Java, Postgres, variables de entorno, migraciones). Tu tarea es contenerizar la aplicación para que cualquiera pueda levantar el entorno completo con `podman compose up`.
+
+> **Nota**: El programa usa **Podman** por política de licencias. La sintaxis de Containerfile (equivalente a Dockerfile) y de `compose.yml` es 100% compatible — lo que aprendas aquí aplica igualmente con Docker en otros proyectos.
 
 ## Lo que debes implementar
 
-### 1. Dockerfile multi-stage
+### 1. Containerfile multi-stage
+
+> Podman usa `Containerfile` por convención, pero también acepta `Dockerfile`. Ambos nombres son válidos.
 
 ```dockerfile
 # Stage 1: Build
@@ -30,10 +34,10 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 Ajusta según el proyecto del `week-14-start`.
 
-### 2. docker-compose.yml
+### 2. compose.yml
 
-Crea `docker-compose.yml` con:
-- Servicio `app`: construye desde el Dockerfile, espera a que `db` esté healthy.
+Crea `compose.yml` con:
+- Servicio `app`: construye desde el Containerfile, espera a que `db` esté healthy.
 - Servicio `db`: imagen `postgres:16-alpine`, con `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` en variables de entorno.
 - Health check en `db`: `pg_isready`.
 - Volumen persistente para los datos de Postgres.
@@ -49,7 +53,7 @@ Crea `docker-compose.yml` con:
 
 Documenta en el PR:
 ```bash
-docker compose up --build
+podman compose up --build
 # La app debe responder en http://localhost:8080/actuator/health
 ```
 
@@ -57,13 +61,13 @@ docker compose up --build
 
 - La imagen final (`runtime`) no debe contener el JDK — solo JRE.
 - El contenedor no debe correr como `root`.
-- Las credenciales de base de datos **nunca** en el `Dockerfile` ni en `docker-compose.yml` directamente.
+- Las credenciales de base de datos **nunca** en el `Containerfile` ni en `compose.yml` directamente.
 - **Criterio no funcional (seguridad)**: usuario no-root, sin secretos hardcodeados en imágenes.
 
 ## Criterio de aceptación del PR
 
-- [ ] Dockerfile multi-stage: imagen final < 300MB
-- [ ] `docker compose up` levanta app + db correctamente
+- [ ] Containerfile multi-stage: imagen final < 300MB
+- [ ] `podman compose up` levanta app + db correctamente
 - [ ] Health check en el servicio `db`
 - [ ] `.env.example` presente, `.env` en `.gitignore`
 - [ ] App no corre como root

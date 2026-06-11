@@ -102,3 +102,58 @@ session:  cambios propios de una sesión de formación
 **¿Puedo mirar la solución antes de intentarlo?** Está publicada, pero te privás del aprendizaje 🙂  
 **¿Qué stack necesito tener instalado?** Ver [docs/onboarding-java21.md](docs/onboarding-java21.md).  
 **¿Necesito permisos en el repo central?** No. Solo necesitás tu cuenta GitHub gratuita y hacer fork.
+
+---
+
+## Para formadores
+
+### Estructura de cada sesión
+
+Cada sesión dura **1 hora** y sigue este formato fijo:
+
+| Segmento | Tiempo | Contenido |
+|----------|--------|-----------|
+| Contexto + demo | 0–10' | Qué vamos a mejorar, por qué importa, demo rápida del código inicial |
+| Reto intermedio único | 10–45' | Implementación real en el repo, a partir de `week-XX-start` |
+| Validación | 45–55' | Ejecutar tests, verificar pipeline verde, revisión rápida |
+| Cierre | 55–60' | Publicar `week-XX-solution`, puntos clave, dudas frecuentes |
+
+### Filosofía del código inicial (`week-XX-start`)
+
+El `week-XX-start` **nunca llega vacío**. Llega con el andamiaje necesario para que el reto quepa en 35 minutos:
+
+| Qué viene dado | Qué hace el participante |
+|----------------|--------------------------|
+| Proyecto compilando con dependencias correctas | Implementa la lógica del hueco concreto |
+| Entidades / interfaces / clases base ya creadas | Completa los métodos vacíos o `// TODO` |
+| Tests de andamiaje (compilando, fallando en rojo) | Hace los tests pasar en verde |
+| Estructura de paquetes definida | Sigue la convención, no decide la arquitectura base |
+
+**Regla de oro**: si al abrir el `week-XX-start` un participante tarda más de 2 minutos en entender qué tiene que hacer, el start está incompleto.
+
+### Andamiaje por sesión (semanas clave)
+
+| Semana | Qué viene dado en el start |
+|--------|---------------------------|
+| 03 | `StockValidator` y `OrderNotifier` ya extraídos; falta `DiscountCalculator` y el tipo `LOYALTY` |
+| 04 | `ShippingStrategy` + `StandardShipping` ya implementados; faltan `ExpressShipping`, `StorePickup` y `Factory` |
+| 10 | `TransferService` con `@Transactional` básico; falta `rollbackFor` y `TransferAuditService` con `REQUIRES_NEW` |
+| 12 | Query JPQL sin `Pageable` y entidad con `@Version` ya presente; falta paginación y manejo de `OptimisticLockException` |
+| 13 | Proyecto `notification-service` con `pom.xml` y clase `main` creados; falta el endpoint y la integración en el monolito |
+
+### Criterio de aceptación del reto
+
+Cada reto incluye siempre:
+1. **1 cambio funcional** — historia de usuario o requerimiento concreto.
+2. **1 prueba** — al menos 1 test que valide el comportamiento esperado.
+3. **1 criterio no funcional** — calidad, performance, operación o seguridad.
+
+### Escala de madurez esperada
+
+| Seniority | Expectativa |
+|-----------|-------------|
+| Junior | Implementa los requerimientos funcionales, tests básicos |
+| Semi-senior | Aplica principios SOLID, tests significativos |
+| Senior | Diseño desacoplado, tests robustos, criterio no funcional cubierto |
+| Experto | Identifica trade-offs, propone mejoras, deja el código mejor de como lo encontró |
+

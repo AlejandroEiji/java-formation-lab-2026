@@ -105,15 +105,48 @@ mvn verify
 
 ---
 
-## 6. Docker (requerido desde week-14)
+## 6. Podman (requerido desde week-14)
+
+> El programa usa **Podman** en lugar de Docker por política de licencias.
+> Podman es compatible con la misma sintaxis de Dockerfile y Compose; el código que escribas funciona igual.
 
 ```bash
 # Verificar instalación
-docker --version
-docker compose version
+podman --version
+podman compose version
 ```
 
-Si no tenés Docker instalado: [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+### Instalar Podman
+
+**Windows**
+```powershell
+winget install RedHat.Podman
+winget install RedHat.Podman-Desktop   # GUI opcional
+```
+
+**macOS**
+```bash
+brew install podman
+brew install podman-desktop             # GUI opcional
+podman machine init && podman machine start
+```
+
+**Linux (Debian/Ubuntu)**
+```bash
+sudo apt-get update && sudo apt-get install -y podman podman-compose
+```
+
+**Podman Compose** (si no viene incluido):
+```bash
+pip3 install podman-compose
+```
+
+### Alias de compatibilidad (opcional, para scripts heredados)
+```bash
+# Agrega a ~/.bashrc o ~/.zshrc
+alias docker=podman
+alias docker-compose='podman compose'
+```
 
 ---
 

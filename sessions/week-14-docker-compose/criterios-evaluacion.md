@@ -2,14 +2,14 @@
 
 ## Checklist del reviewer
 
-### Dockerfile
+### Containerfile
 - [ ] Multi-stage: stage `builder` con JDK, stage `runtime` con JRE
-- [ ] Imagen final < 300MB (verificar con `docker images`)
+- [ ] Imagen final < 300MB (verificar con `podman images`)
 - [ ] Usuario no-root en el stage runtime
 - [ ] Sin secretos ni credenciales hardcodeadas
 
-### Docker Compose
-- [ ] Servicios `app` y `db` definidos
+### Podman Compose
+- [ ] Servicios `app` y `db` definidos en `compose.yml`
 - [ ] Health check en `db` con `pg_isready`
 - [ ] `app` depende de `db` con `condition: service_healthy`
 - [ ] Volumen persistente para datos de Postgres
@@ -21,7 +21,7 @@
 - [ ] App lee config desde variables de entorno (no hardcodeada en properties)
 
 ### Verificación
-- [ ] `docker compose up --build` funciona sin errores
+- [ ] `podman compose up --build` funciona sin errores
 - [ ] `GET http://localhost:8080/actuator/health` retorna 200
 - [ ] `mvn verify` en verde
 
@@ -29,4 +29,4 @@
 
 | Junior | Semi-senior | Senior | Experto |
 |--------|-------------|--------|---------|
-| Dockerfile funcional, compose básico | Multi-stage, usuario no-root, health check | JAVA_OPTS, .env, imagen < 200MB | Propone estrategia de CI con buildx, multi-platform, y cache de layers |
+| Containerfile funcional, compose básico | Multi-stage, usuario no-root, health check | JAVA_OPTS, .env, imagen < 200MB | Propone estrategia de CI con Podman en modo rootless, multi-platform, y cache de layers |
