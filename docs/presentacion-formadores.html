@@ -7,20 +7,20 @@
   <style>
     :root {
       --indra-dark: #0a1f2e;
-      --indra-teal: #1a7a7a;
-      --indra-teal-light: #2ab3b3;
+      --indra-teal: #1a6060;
+      --indra-teal-light: #27a0a0;
       --indra-accent: #00d4c8;
-      --indra-bg: #f4f5f0;
+      --indra-bg: #ede8dc;
       --indra-white: #ffffff;
-      --indra-gray: #e8e9e4;
+      --indra-gray: #ddd8cc;
       --indra-text: #1a1a2e;
-      --indra-muted: #6c7a7a;
+      --indra-muted: #5a6a6a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
       background: #111;
       color: var(--indra-text);
       overflow: hidden;
@@ -55,7 +55,7 @@
     /* ── Navigation ── */
     .nav {
       position: fixed;
-      bottom: 20px;
+      bottom: 46px;
       right: 28px;
       display: flex;
       gap: 10px;
@@ -73,15 +73,17 @@
     }
     .nav button:hover { background: rgba(255,255,255,.22); }
 
-    .slide-counter {
-      position: fixed;
-      bottom: 26px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,.45);
-      font-size: 12px;
-      z-index: 100;
+    .slide-footer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 36px; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(0,0,0,.22);
+      border-top: 1px solid rgba(255,255,255,.07);
+      pointer-events: none;
     }
+    .footer-logo { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.32); letter-spacing: 2.5px; }
+    .footer-page { font-size: 10px; color: rgba(255,255,255,.32); }
 
     /* ══════════════════════════════════════════
        SLIDE 1 — Portada
@@ -122,8 +124,8 @@
       border-radius: 50%;
       bottom: 30px; left: 30px;
     }
-    .logo { font-size: 22px; font-weight: 800; color: var(--indra-accent); letter-spacing: 2px; }
-    .logo span { color: rgba(255,255,255,.5); font-weight: 300; font-size: 14px; margin-left: 6px; }
+    .logo { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 2px; line-height: 1; display: flex; flex-direction: column; gap: 3px; }
+    .logo span { color: rgba(255,255,255,.5); font-weight: 400; font-size: 10px; margin-left: 22px; letter-spacing: 3.5px; text-transform: uppercase; }
     .cover-title { color: #fff; }
     .cover-title h1 { font-size: 48px; font-weight: 300; line-height: 1.15; }
     .cover-title h1 strong { font-weight: 800; color: var(--indra-accent); }
@@ -706,7 +708,7 @@
   <!-- ══ SLIDE 1: PORTADA ══ -->
   <div class="slide active" id="s1">
     <div class="cover-left">
-      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="logo">✕&nbsp;INDRA<span>GROUP</span></div>
       <div class="cover-title">
         <h1><strong>Guía de Formadores</strong><br>Java 2026</h1>
         <p>Todo lo que necesitas saber para facilitar<br>el programa de formación — 20 minutos</p>
@@ -1117,7 +1119,7 @@
   <!-- ══ SLIDE 10: CIERRE ══ -->
   <div class="slide" id="s10">
     <div class="close-left">
-      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="logo">✕&nbsp;INDRA<span>GROUP</span></div>
       <div class="close-title">
         <h2>Listos para<br><em>la primera sesión</em></h2>
         <p>2 de julio · Kickoff + setup Java 21</p>
@@ -1153,7 +1155,10 @@
   <button onclick="prev()">← Anterior</button>
   <button onclick="next()">Siguiente →</button>
 </div>
-<div class="slide-counter" id="counter"></div>
+<div class="slide-footer">
+  <span class="footer-logo">✕ INDRA GROUP</span>
+  <span id="counter" class="footer-page"></span>
+</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');

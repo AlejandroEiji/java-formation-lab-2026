@@ -7,19 +7,19 @@
   <style>
     :root {
       --indra-dark: #0a1f2e;
-      --indra-teal: #1a7a7a;
-      --indra-teal-light: #2ab3b3;
+      --indra-teal: #1a6060;
+      --indra-teal-light: #27a0a0;
       --indra-accent: #00d4c8;
-      --indra-bg: #f4f5f0;
+      --indra-bg: #ede8dc;
       --indra-white: #ffffff;
-      --indra-gray: #e8e9e4;
+      --indra-gray: #ddd8cc;
       --indra-text: #1a1a2e;
-      --indra-muted: #6c7a7a;
+      --indra-muted: #5a6a6a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
       background: #111;
       color: var(--indra-text);
       overflow: hidden;
@@ -40,7 +40,7 @@
       transition: width .4s ease; z-index: 100;
     }
     .nav {
-      position: fixed; bottom: 20px; right: 28px;
+      position: fixed; bottom: 46px; right: 28px;
       display: flex; gap: 10px; z-index: 100;
     }
     .nav button {
@@ -50,13 +50,19 @@
       cursor: pointer; font-size: 14px; transition: background .2s;
     }
     .nav button:hover { background: rgba(255,255,255,.22); }
-    .slide-counter {
-      position: fixed; bottom: 26px; left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,.45); font-size: 12px; z-index: 100;
+    .slide-footer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: 36px; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(0,0,0,.22);
+      border-top: 1px solid rgba(255,255,255,.07);
+      pointer-events: none;
     }
-    .logo { font-size: 22px; font-weight: 800; color: var(--indra-accent); letter-spacing: 2px; }
-    .logo span { color: rgba(255,255,255,.5); font-weight: 300; font-size: 14px; margin-left: 6px; }
+    .footer-logo { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.32); letter-spacing: 2.5px; }
+    .footer-page { font-size: 10px; color: rgba(255,255,255,.32); }
+    .logo { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 2px; line-height: 1; display: flex; flex-direction: column; gap: 3px; }
+    .logo span { color: rgba(255,255,255,.5); font-weight: 400; font-size: 10px; margin-left: 22px; letter-spacing: 3.5px; text-transform: uppercase; }
     .label {
       font-size: 11px; font-weight: 700;
       letter-spacing: 3px; text-transform: uppercase;
@@ -427,7 +433,7 @@
   <!-- ══ SLIDE 1: PORTADA ══ -->
   <div class="slide active" id="s1">
     <div class="cover-left">
-      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="logo">✕&nbsp;INDRA<span>GROUP</span></div>
       <div class="cover-title">
         <h1>Bienvenido al<br><strong>Plan de Formación</strong><br>Java 2026</h1>
         <p>18 sesiones · 1h · cada jueves · julio–octubre</p>
@@ -833,10 +839,10 @@
   <!-- ══ SLIDE 10: CIERRE ══ -->
   <div class="slide" id="s10">
     <div class="close-left">
-      <div class="logo">INDRA <span>GROUP</span></div>
+      <div class="logo">✕&nbsp;INDRA<span>GROUP</span></div>
       <div class="close-title">
         <h2>Tu checklist de<br><em>arranque</em></h2>
-        <p>Primera sesión: jueves 2 de julio, 2026</p>
+        <p>Primera sesión: jueves 16 de julio, 2026</p>
       </div>
       <ul class="checklist-final">
         <li><div class="chk">✓</div><span>Clona el repo en tu máquina</span></li>
@@ -850,7 +856,7 @@
       <div style="text-align:center;color:#fff">
         <div style="font-size:64px;margin-bottom:12px">🚀</div>
         <div style="font-size:22px;font-weight:800;margin-bottom:6px">¡Nos vemos el jueves!</div>
-        <div style="font-size:14px;opacity:.7;margin-bottom:28px">2 de julio · Kickoff + Java 21</div>
+        <div style="font-size:14px;opacity:.7;margin-bottom:28px"16 de julio · Kickoff + Java 21</div>
       </div>
       <div class="action-card">
         <div class="lbl">Repositorio</div>
@@ -869,7 +875,10 @@
   <button onclick="prev()">← Anterior</button>
   <button onclick="next()">Siguiente →</button>
 </div>
-<div class="slide-counter" id="counter"></div>
+<div class="slide-footer">
+  <span class="footer-logo">✕ INDRA GROUP</span>
+  <span id="counter" class="footer-page"></span>
+</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');
