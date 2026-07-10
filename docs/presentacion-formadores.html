@@ -1076,17 +1076,40 @@
         <h2 style="color:#fff">Badges y <em style="color:var(--indra-accent);font-style:normal">métricas clave</em></h2>
       </div>
       <div class="badge-layout">
-        <div class="badge-panel">
-          <h3>🏅 Flujo para otorgar un badge</h3>
-          <ol class="step-list">
-            <li class="step-item"><div class="step-num">1</div><span>Participante abre PR hacia <code style="color:var(--indra-accent)">week-XX-start</code> con reviewer asignado</span></li>
-            <li class="step-item"><div class="step-num">2</div><span>Reviewer valida el checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code></span></li>
-            <li class="step-item"><div class="step-num">3</div><span>PR aprobado → participante abre issue: <em>"✅ [week-XX] alias completó la sesión"</em></span></li>
-            <li class="step-item"><div class="step-num">4</div><span>Formador cierra el issue con label <code style="color:var(--indra-accent)">completado</code> → badge otorgado</span></li>
-          </ol>
+        <div class="badge-panel" style="grid-column: span 2; display:flex; gap:28px; align-items:flex-start;">
+          <!-- QUÉ ES UN BADGE -->
+          <div style="flex:1">
+            <h3>🏅 ¿Qué es un badge?</h3>
+            <div class="rule-box" style="margin-bottom:14px; border-left: 3px solid var(--indra-accent);">
+              Un badge <strong>no es un certificado ni un archivo</strong> — es un <strong>GitHub Issue cerrado</strong> con el label <code style="color:var(--indra-accent)">✅ completado</code>.<br><br>
+              Sirve como registro público en el repo: filtras issues por ese label y ves exactamente quién completó qué sesión.
+            </div>
+            <!-- mock issue -->
+            <div style="background:#0d1117; border:1px solid #30363d; border-radius:8px; padding:12px 16px; font-family:'Courier New',monospace; font-size:12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                <span style="color:#3fb950;font-size:14px;">●</span>
+                <span style="color:#c9d1d9;font-weight:700;">✅ [week-02] robinson completó la sesión</span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <span style="background:#1a6060;color:#7ee8a2;border-radius:12px;padding:2px 8px;font-size:11px;font-weight:700;">✅ completado</span>
+                <span style="background:#1a3a5c;color:#79c0ff;border-radius:12px;padding:2px 8px;font-size:11px;">week-02</span>
+                <span style="color:#8b949e;font-size:11px;margin-left:4px;">abierto por robinson8406 · cerrado por formador</span>
+              </div>
+            </div>
+          </div>
+          <!-- FLUJO -->
+          <div style="flex:1.1">
+            <h3>📋 Flujo paso a paso</h3>
+            <ol class="step-list">
+              <li class="step-item"><div class="step-num">1</div><span><strong>Participante</strong> abre PR desde <code style="color:var(--indra-accent)">week-XX/tu-alias</code> hacia <code style="color:var(--indra-accent)">week-XX-start</code>, asigna 1 reviewer</span></li>
+              <li class="step-item"><div class="step-num">2</div><span><strong>Reviewer</strong> valida checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code> y aprueba el PR</span></li>
+              <li class="step-item"><div class="step-num">3</div><span><strong>Participante</strong> abre un Issue con título exacto: <code style="color:var(--indra-accent);font-size:11px">✅ [week-XX] alias completó la sesión</code></span></li>
+              <li class="step-item"><div class="step-num">4</div><span><strong>Formador</strong> verifica el PR aprobado, cierra el issue y aplica label <code style="color:var(--indra-accent)">completado</code> → <strong>badge otorgado</strong></span></li>
+            </ol>
+          </div>
         </div>
         <div class="badge-panel">
-          <h3>📊 Métricas de adopción a monitorear</h3>
+          <h3>📊 Métricas de adopción</h3>
           <div class="metric-row">
             <div class="metric-card">
               <div class="num">18</div>
@@ -1104,12 +1127,12 @@
             </div>
           </div>
         </div>
-        <div class="badge-panel" style="grid-column: span 2;">
+        <div class="badge-panel">
           <h3>⚖️ Reglas que no se negocian</h3>
-          <div style="display:flex;gap:20px">
-            <div class="rule-box" style="flex:1">Sin PR aprobado = <strong>sesión pendiente</strong>. No bloquea asistencia a la siguiente, pero sí el badge.</div>
-            <div class="rule-box" style="flex:1">Las sesiones son <strong>autocontenidas</strong>. Quien no asistió puede completar el reto con <code style="color:var(--indra-accent)">week-XX-start</code> + solución publicada.</div>
-            <div class="rule-box" style="flex:1"><strong>Un reto único</strong> para todos los seniorities. El nivel se evidencia en <em>cómo</em> se resuelve, no en <em>qué</em> se resuelve.</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="rule-box">Sin PR aprobado = <strong>sesión pendiente</strong>. No bloquea asistencia, sí el badge.</div>
+            <div class="rule-box">Sesiones <strong>autocontenidas</strong>: quien no asistió puede completar con <code style="color:var(--indra-accent)">week-XX-start</code> + solución publicada.</div>
+            <div class="rule-box"><strong>Un reto único</strong> para todos. El nivel se evidencia en <em>cómo</em> se resuelve.</div>
           </div>
         </div>
       </div>
