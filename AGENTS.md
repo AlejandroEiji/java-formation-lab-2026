@@ -61,47 +61,47 @@ Azure DevOps, Docker, Hibernate, Microservicios, JUnit, Mockito, Patrones de dis
 
 ---
 
-## Calendario completo (jueves, 2026-07-02 → 2026-10-29)
+## Calendario completo (jueves, 2026-07-16 → 2026-11-12)
 
 ### Paquete: Arranque
 | # | Fecha | Sesión | Objetivo |
 |---|-------|--------|----------|
-| 01 | 2026-07-02 | Kickoff + setup Java 21 | Ejecutar repo + week-start/solution |
+| 01 | 2026-07-16 | Kickoff + setup Java 21 | Ejecutar repo + week-start/solution |
 
 ### Paquete: SOLID + TDD
 | # | Fecha | Sesión | Objetivo |
 |---|-------|--------|----------|
-| 02 | 2026-07-09 | TDD con JUnit 5 | Requerimiento → tests |
-| 03 | 2026-07-16 | SOLID (SRP/OCP) | Refactor con mantenibilidad |
-| 04 | 2026-07-23 | Patrones (Strategy/Factory) | Desacoplar y testear mejor |
-| 05 | 2026-07-30 | Mockito (buenas prácticas) | Tests confiables (sin fragilidad) |
+| 02 | 2026-07-23 | TDD con JUnit 5 | Requerimiento → tests |
+| 03 | 2026-07-30 | SOLID (SRP/OCP) | Refactor con mantenibilidad |
+| 04 | 2026-08-06 | Patrones (Strategy/Factory) | Desacoplar y testear mejor |
+| 05 | 2026-08-13 | Mockito (buenas prácticas) | Tests confiables (sin fragilidad) |
 
 ### Paquete: Spring Web / Testing
 | # | Fecha | Sesión | Objetivo |
 |---|-------|--------|----------|
-| 06 | 2026-08-06 | REST limpio (DTO/errores) | API consistente y validada |
-| 07 | 2026-08-13 | DI/IoC (profiles/wiring) | Configuración correcta por entorno |
-| 08 | 2026-08-20 | WebMvcTest (slice tests) | Pruebas rápidas de controllers |
+| 06 | 2026-08-20 | REST limpio (DTO/errores) | API consistente y validada |
+| 07 | 2026-08-27 | DI/IoC (profiles/wiring) | Configuración correcta por entorno |
+| 08 | 2026-09-03 | WebMvcTest (slice tests) | Pruebas rápidas de controllers |
 
 ### Paquete: Hibernate / JPA
 | # | Fecha | Sesión | Objetivo |
 |---|-------|--------|----------|
-| 09 | 2026-08-27 | Mapeos JPA | Modelo persistente correcto |
-| 10 | 2026-09-03 | Transacciones | Evitar fallos "local vs prod" |
-| 11 | 2026-09-10 | Performance ORM | Eliminar N+1 / optimizar |
-| 12 | 2026-09-17 | JPQL + paginación + locking | Consultas robustas y escalables |
+| 09 | 2026-09-10 | Mapeos JPA | Modelo persistente correcto |
+| 10 | 2026-09-17 | Transacciones | Evitar fallos "local vs prod" |
+| 11 | 2026-09-24 | Performance ORM | Eliminar N+1 / optimizar |
+| 12 | 2026-10-01 | JPQL + paginación + locking | Consultas robustas y escalables |
 
 ### Paquete: Micro + Cloud + DevOps
 | # | Fecha | Sesión | Objetivo |
 |---|-------|--------|----------|
-| 13 | 2026-09-24 | Microservicios | Límites + contratos claros |
-| 14 | 2026-10-01 | Docker + compose | Entorno reproducible dev/CI |
-| 15 | 2026-10-08 | Azure DevOps Pipelines (CI) | Build + tests + quality gate |
-| 16 | 2026-10-15 | Azure DevOps Release | Entrega controlada por entorno |
-| 17 | 2026-10-22 | Azure App Service | Deploy + config + troubleshooting |
-| 18 | 2026-10-29 | Observabilidad + cierre | Logs + correlation + release |
+| 13 | 2026-10-08 | Microservicios | Límites + contratos claros |
+| 14 | 2026-10-15 | Docker + compose | Entorno reproducible dev/CI |
+| 15 | 2026-10-22 | Azure DevOps Pipelines (CI) | Build + tests + quality gate |
+| 16 | 2026-10-29 | Azure DevOps Release | Entrega controlada por entorno |
+| 17 | 2026-11-05 | Azure App Service | Deploy + config + troubleshooting |
+| 18 | 2026-11-12 | Observabilidad + cierre | Logs + correlation + release |
 
-*Total: 18 sesiones semanales (jul–oct). Sesiones eliminadas por ser fortalezas o menor impacto en brechas QC: Git/PR hygiene, Maven multi-módulo, DataJpaTest, Spring Security, OpenAPI, Projections/read models.*
+*Total: 18 sesiones semanales (jul–nov). Sesiones eliminadas por ser fortalezas o menor impacto en brechas QC: Git/PR hygiene, Maven multi-módulo, DataJpaTest, Spring Security, OpenAPI, Projections/read models.*
 
 ---
 
@@ -222,7 +222,7 @@ target/
 1. **Seleccionar formadores** (5–8 personas): definir responsabilidades — contenido, repo, CI/CD, App Service y comunicación.
 2. **Crear el repo en GitHub** con estructura `week-XX-start` / `week-XX-solution` + guía de onboarding Java 21.
 3. **Conectar Azure DevOps Pipelines**: build + tests + quality gate (costos controlados con self-hosted agent o ejecución limitada).
-4. **Publicar el calendario** 2026-05-21 → 2026-10-29 y ejecutar sesiones con reto intermedio único por jueves (autocontenidas para ausencias).
+4. **Publicar el calendario** 2026-05-21 → 2026-11-12 y ejecutar sesiones con reto intermedio único por jueves (autocontenidas para ausencias).
 5. **Monitorear adopción**: pipeline verde, % de sesiones completadas, temas con más fallos → ajustar backlog de sesiones según evidencia.
 
 ---
