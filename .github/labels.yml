@@ -29,3 +29,15 @@
 - name: micro-cloud-devops
   color: "f8d7da"
   description: "Paquete: Micro + Cloud + DevOps"
+
+- name: ✅ completado
+  color: "0e8a16"
+  description: "Sesión completada y PR aprobado"
+
+- name: week-01
+  color: "0075ca"
+  description: "Week 01 - Kickoff"
+
+- name: needs-review
+  color: "e4e669"
+  description: "Esperando peer review"
