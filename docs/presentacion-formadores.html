@@ -137,6 +137,7 @@
        SLIDE 2 — ¿Cuál es tu rol?
     ══════════════════════════════════════════ */
     #s2 { background: var(--indra-bg); }
+    #s-flujo { background: var(--indra-bg); }
     .slide-inner { width: 100%; height: 100%; padding: 52px 72px; display: flex; flex-direction: column; }
     .slide-header { margin-bottom: 36px; }
     .label {
@@ -828,7 +829,7 @@
         <h1><strong>Guía de Formadores</strong><br>Java 2026</h1>
         <p>Todo lo que necesitas saber para facilitar<br>el programa de formación — 20 minutos</p>
       </div>
-      <div class="cover-meta">Comunidad Java · Colombia &amp; CA&amp;C · Jul–Nov 2026</div>
+      <div class="cover-meta">Comunidad Java · Colombia &amp; CA&amp;C · Ago–Dic 2026</div>
     </div>
     <div class="cover-right">
       <div class="big-icon">🎯</div>
@@ -868,9 +869,9 @@
           <div class="prereq-item">
             <div class="prereq-icon">📦</div>
             <div class="prereq-body">
-              <h4>Maven 3.9+ (o wrapper)</h4>
-              <p>Para compilar y demostrar builds localmente. El wrapper <code style="color:var(--indra-teal)">./mvnw</code> ya está en el repo.</p>
-              <code class="prereq-cmd">./mvnw -version</code>
+              <h4>Maven 3.9+</h4>
+              <p>Para compilar y demostrar builds localmente.</p>
+              <code class="prereq-cmd">mvn -version</code>
             </div>
             <span class="prereq-badge ok">✓ semana 01</span>
           </div>
@@ -976,6 +977,67 @@
           </ul>
           <span class="badge-pill">1 formador</span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE s-flujo: FLUJO DE TRABAJO ══ -->
+  <div class="slide" id="s-flujo">
+    <div class="slide-inner">
+      <div class="slide-header" style="margin-bottom:16px;">
+        <div class="label">Vista global del programa</div>
+        <h2>Flujo de trabajo — <em>formadores y participantes</em></h2>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.08);">
+
+        <!-- FORMADOR LANE -->
+        <div style="background:#dae8fc;display:flex;align-items:stretch;flex:1;">
+          <div style="width:70px;background:#4a7a9b;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:1.5px;writing-mode:vertical-rl;transform:rotate(180deg);flex-shrink:0;">FORMADOR</div>
+          <div style="flex:1;display:flex;align-items:center;padding:12px 14px;gap:5px;">
+            <div style="background:#fff;border:1.5px solid #6c8ebf;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Publicar</strong><br>week-XX-start<br><span style="color:#6c8ebf;font-size:10px;font-weight:700;">D-7</span></div>
+            <span style="color:#6c8ebf;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #6c8ebf;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Conectar pipeline</strong><br>Azure DevOps<br><span style="color:#6c8ebf;font-size:10px;font-weight:700;">D-5</span></div>
+            <span style="color:#6c8ebf;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:2px solid #4a7a9b;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 2px 8px rgba(74,122,155,.2);"><strong>Conducir sesión</strong><br>0–55'</div>
+            <span style="color:#6c8ebf;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #6c8ebf;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Publicar</strong><br>week-XX-solution<br><span style="color:#6c8ebf;font-size:10px;font-weight:700;">min 55'</span></div>
+            <span style="color:#6c8ebf;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #6c8ebf;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Cerrar issue</strong><br>✅ badge</div>
+          </div>
+        </div>
+
+        <!-- CONNECTOR ROW -->
+        <div style="background:#ece9e2;border-top:1px dashed rgba(0,0,0,.15);border-bottom:1px dashed rgba(0,0,0,.15);display:flex;align-items:center;min-height:54px;">
+          <div style="width:70px;background:#cbc8c2;flex-shrink:0;align-self:stretch;"></div>
+          <div style="flex:1;display:flex;align-items:center;padding:0 14px;gap:5px;">
+            <div style="flex:1;text-align:center;font-size:10px;color:#666;font-style:italic;">↕ week-XX-start disponible</div>
+            <div style="width:20px;flex-shrink:0;"></div>
+            <div style="flex:1;"></div>
+            <div style="width:20px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;justify-content:center;"><div style="background:#fffbea;border:1.5px solid #d6b656;border-radius:20px;padding:5px 14px;font-size:10px;color:#7a6200;text-align:center;line-height:1.4;font-weight:600;white-space:nowrap;">CI · Azure DevOps · ✅/❌ auto</div></div>
+            <div style="width:20px;flex-shrink:0;"></div>
+            <div style="flex:1;"></div>
+            <div style="width:20px;flex-shrink:0;"></div>
+            <div style="flex:1;text-align:center;font-size:10px;color:#666;font-style:italic;">↕ badge cerrado</div>
+          </div>
+        </div>
+
+        <!-- PARTICIPANTE LANE -->
+        <div style="background:#d5e8d4;display:flex;align-items:stretch;flex:1;">
+          <div style="width:70px;background:#5a9060;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;letter-spacing:1.5px;writing-mode:vertical-rl;transform:rotate(180deg);flex-shrink:0;">PARTICIPANTE</div>
+          <div style="flex:1;display:flex;align-items:center;padding:12px 14px;gap:5px;">
+            <div style="background:#fff;border:1.5px solid #82b366;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Fork + clone</strong><br>upstream</div>
+            <span style="color:#82b366;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #82b366;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:10.5px;line-height:1.45;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong style="font-size:11px;">Crear rama</strong><br>week-XX/alias<br>desde week-XX-start</div>
+            <span style="color:#82b366;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #82b366;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Implementar</strong><br>+ tests verdes<br><span style="color:#82b366;font-size:10px;font-weight:700;">mvn verify</span></div>
+            <span style="color:#82b366;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #82b366;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>Push + PR</strong><br>cross-fork →<br>week-XX-start</div>
+            <span style="color:#82b366;font-size:20px;flex-shrink:0;">›</span>
+            <div style="background:#fff;border:1.5px solid #82b366;border-radius:8px;padding:10px 8px;flex:1;text-align:center;font-size:11px;line-height:1.5;box-shadow:0 1px 4px rgba(0,0,0,.06);"><strong>PR aprobado</strong><br>→ solicitar badge<br><span style="color:#82b366;font-size:10px;font-weight:700;">issue GitHub</span></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1317,7 +1379,7 @@
           <div class="branch-item">
             <div class="branch-name personal">fork → week-XX/tu-alias</div>
             <div class="branch-arrow">→</div>
-            <div class="branch-desc">Rama en <strong>fork personal</strong> del participante. PR <strong>cross-fork</strong> hacia <span class="code-pill">week-XX-start</span>. <span style="color:#ef9a9a;font-weight:700">PR se cierra SIN merge</span> — solo para CI + peer review + badge</div>
+            <div class="branch-desc">Rama en <strong>fork personal</strong> del participante. PR <strong>cross-fork</strong> hacia <span class="code-pill">week-XX-start</span>. <span style="color:#ef9a9a;font-weight:700">PR se cierra SIN merge</span> — solo para CI + revisión del formador + badge</div>
             <div class="branch-who">Participante (fork)</div>
           </div>
           <div class="branch-connector">al cierre de sesión</div>
@@ -1450,10 +1512,11 @@
           <div style="flex:1.1">
             <h3>📋 Flujo paso a paso</h3>
             <ol class="step-list">
-              <li class="step-item"><div class="step-num">1</div><span><strong>Participante</strong> abre PR desde <code style="color:var(--indra-accent)">week-XX/tu-alias</code> hacia <code style="color:var(--indra-accent)">week-XX-start</code>, asigna 1 reviewer (formador)</span></li>
-              <li class="step-item"><div class="step-num">2</div><span><strong>Formador</strong> valida checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code> y aprueba el PR</span></li>
-              <li class="step-item"><div class="step-num">3</div><span><strong>Participante</strong> abre un Issue con título exacto: <code style="color:var(--indra-accent);font-size:11px">✅ [week-XX] alias completó la sesión</code></span></li>
-              <li class="step-item"><div class="step-num">4</div><span><strong>Formador</strong> verifica el PR aprobado, cierra el issue y aplica label <code style="color:var(--indra-accent)">completado</code> → <strong>badge otorgado</strong></span></li>
+              <li class="step-item"><div class="step-num">1</div><span><strong>Participante</strong> abre PR desde <code style="color:var(--indra-accent)">week-XX/tu-alias</code> hacia <code style="color:var(--indra-accent)">week-XX-start</code> en el <strong>repo central</strong></span></li>
+              <li class="step-item"><div class="step-num">2</div><span><strong>Pipeline CI</strong> se activa automáticamente — debe quedar verde ✅ antes de continuar</span></li>
+              <li class="step-item"><div class="step-num">3</div><span><strong>Formador</strong> revisa la implementación, da feedback y aprueba el PR validando <code style="color:var(--indra-accent)">criterios-evaluacion.md</code></span></li>
+              <li class="step-item"><div class="step-num">4</div><span><strong>Participante</strong> abre un Issue con título exacto: <code style="color:var(--indra-accent);font-size:11px">✅ [week-XX] alias completó la sesión</code></span></li>
+              <li class="step-item"><div class="step-num">5</div><span><strong>Formador</strong> verifica el PR aprobado, cierra el issue y aplica label <code style="color:var(--indra-accent)">completado</code> → <strong>badge otorgado</strong></span></li>
             </ol>
           </div>
         </div>
@@ -1494,10 +1557,10 @@
       <div class="logo">✕&nbsp;INDRA<span>GROUP</span></div>
       <div class="close-title">
         <h2>Listos para<br><em>la primera sesión</em></h2>
-        <p>16 de julio · Kickoff + setup Java 21</p>
+        <p>13 de agosto · Kickoff + setup Java 21</p>
       </div>
       <ul class="summary-list">
-        <li class="summary-item"><span class="summary-icon">🗓️</span><span>18 sesiones · jueves · 1h · julio–noviembre 2026</span></li>
+        <li class="summary-item"><span class="summary-icon">🗓️</span><span>18 sesiones · jueves · 1h · agosto–diciembre 2026</span></li>
         <li class="summary-item"><span class="summary-icon">🌿</span><span><code style="color:var(--indra-accent)">week-XX-start</code> publicado el lunes anterior</span></li>
         <li class="summary-item"><span class="summary-icon">✅</span><span>Solución de referencia al minuto 55 sin excepción</span></li>
         <li class="summary-item"><span class="summary-icon">🏅</span><span>Badge por PR aprobado · sesiones autocontenidas</span></li>

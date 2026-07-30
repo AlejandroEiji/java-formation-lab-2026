@@ -436,6 +436,8 @@
     .month-badge.ago { background: #e3f2fd; color: #1565c0; }
     .month-badge.sep { background: #fff3e0; color: #e65100; }
     .month-badge.oct { background: #fce4ec; color: #880e4f; }
+    .month-badge.nov { background: #ede7f6; color: #4527a0; }
+    .month-badge.dic { background: #fafafa; color: #37474f; }
     .month-badge .mb-name { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
     .month-badge .mb-sessions { font-size: 10px; font-weight: 400; opacity: .7; }
     .month-body { flex: 1; }
@@ -674,7 +676,7 @@
         </div>
       </div>
       <div class="cover-meta">
-        Julio 16 – Noviembre 12 · 2026<br>
+        Agosto 13 – Diciembre 10 · 2026<br>
         Stack: Java 21 · Spring Boot 3 · Azure DevOps · Podman · Azure App Service
       </div>
     </div>
@@ -710,17 +712,17 @@
         </div>
         <div class="exec-card dark">
           <div class="big-number">$100</div>
-          <div class="big-number-label">USD en 4 meses</div>
+          <div class="big-number-label">USD en 5 meses</div>
           <p style="font-size:12px; margin-top:8px;">≈ $420.000 COP · escenario estándar<br>Con Dev/Test pricing: ~$55 USD</p>
         </div>
         <div class="exec-card wide">
           <div class="ec-icon">🗓️</div>
           <h3>Alcance temporal y cobertura</h3>
           <ul>
-            <li><strong>Julio:</strong> Arranque + SOLID/TDD — sin costos de nube significativos (solo VM agente)</li>
-            <li><strong>Agosto:</strong> Spring Web + inicio JPA — se aprovisiona base de datos PostgreSQL</li>
-            <li><strong>Septiembre:</strong> Hibernate + inicio Microservicios — ACR activo para contenedores</li>
-            <li><strong>Octubre:</strong> Cloud + DevOps + Observabilidad — App Service + Application Insights</li>
+            <li><strong>Agosto–Septiembre:</strong> Arranque + SOLID/TDD + Spring Web — sin costos de nube significativos (solo VM agente)</li>
+            <li><strong>Octubre:</strong> Spring Web + Hibernate/JPA — se aprovisiona base de datos PostgreSQL</li>
+            <li><strong>Noviembre:</strong> Microservicios + Cloud + DevOps — ACR activo para contenedores</li>
+            <li><strong>Diciembre:</strong> App Service + Observabilidad — Application Insights</li>
           </ul>
         </div>
         <div class="exec-card accent">
@@ -744,7 +746,7 @@
     <div class="slide-inner">
       <div class="slide-header">
         <div class="label">El plan de formación</div>
-        <h2 style="color:#fff;">18 sesiones · 4 <em style="color:var(--indra-accent)">paquetes</em> · julio–noviembre 2026</h2>
+        <h2 style="color:#fff;">18 sesiones · 4 <em style="color:var(--indra-accent)">paquetes</em> · agosto–diciembre 2026</h2>
       </div>
       <div class="paquetes-grid">
         <!-- P1 -->
@@ -752,7 +754,7 @@
           <div class="pq-header">
             <div class="pq-tag">Arranque + SOLID/TDD</div>
             <h3>Fundamentos & Calidad</h3>
-            <div class="pq-dates">16 jul → 13 ago · 5 sesiones</div>
+            <div class="pq-dates">13 ago → 10 sep · 5 sesiones</div>
           </div>
           <div class="pq-body">
             <div class="pq-session"><span class="pq-num">01</span><span class="pq-session-name">Kickoff + setup Java 21</span></div>
@@ -771,7 +773,7 @@
           <div class="pq-header">
             <div class="pq-tag">Spring Web / Testing</div>
             <h3>API & Configuración</h3>
-            <div class="pq-dates">20 ago → 03 sep · 3 sesiones</div>
+            <div class="pq-dates">17 sep → 01 oct · 3 sesiones</div>
           </div>
           <div class="pq-body">
             <div class="pq-session"><span class="pq-num">06</span><span class="pq-session-name">REST limpio (DTO/errores)</span></div>
@@ -788,7 +790,7 @@
           <div class="pq-header">
             <div class="pq-tag">Hibernate / JPA</div>
             <h3>Persistencia Robusta</h3>
-            <div class="pq-dates">10 sep → 01 oct · 4 sesiones</div>
+            <div class="pq-dates">08 oct → 29 oct · 4 sesiones</div>
           </div>
           <div class="pq-body">
             <div class="pq-session"><span class="pq-num">09</span><span class="pq-session-name">Mapeos JPA</span></div>
@@ -806,7 +808,7 @@
           <div class="pq-header">
             <div class="pq-tag">Micro + Cloud + DevOps</div>
             <h3>Entrega en Nube</h3>
-            <div class="pq-dates">08 oct → 12 nov · 6 sesiones</div>
+            <div class="pq-dates">05 nov → 10 dic · 6 sesiones</div>
           </div>
           <div class="pq-body">
             <div class="pq-session"><span class="pq-num">13</span><span class="pq-session-name">Microservicios (contratos)</span></div>
@@ -926,42 +928,48 @@
       </div>
       <div class="infra-timeline">
         <div class="infra-month">
-          <div class="im-label"><span class="month">Julio</span><span class="weeks">sem 1–5</span></div>
+          <div class="im-label"><span class="month">Agosto</span><span class="weeks">sem 1–3</span></div>
           <div class="im-resources">
             <div class="res-chip vm">🖥️ VM B2s (self-hosted agent)</div>
             <div class="res-chip free">Azure DevOps (ya existente)</div>
             <div class="res-chip free">H2 in-memory (sin DB en nube)</div>
             <div class="res-chip free">GitHub Repo</div>
           </div>
+          <div class="im-cost"><span class="cost-val">~$15</span><span class="cost-label">USD</span></div>
+        </div>
+        <div class="infra-month">
+          <div class="im-label"><span class="month">Septiembre</span><span class="weeks">sem 4–7</span></div>
+          <div class="im-resources">
+            <div class="res-chip vm">🖥️ VM B2s (self-hosted agent)</div>
+            <div class="res-chip free">H2 in-memory (sem 4–7)</div>
+          </div>
           <div class="im-cost"><span class="cost-val">~$20</span><span class="cost-label">USD</span></div>
         </div>
         <div class="infra-month">
-          <div class="im-label"><span class="month">Agosto</span><span class="weeks">sem 6–9</span></div>
+          <div class="im-label"><span class="month">Octubre</span><span class="weeks">sem 8–12</span></div>
           <div class="im-resources">
             <div class="res-chip vm">🖥️ VM B2s (self-hosted agent)</div>
-            <div class="res-chip free">H2 in-memory (sem 6–8)</div>
-            <div class="res-chip db">🗄️ PostgreSQL Flexible B1ms (sem 9)</div>
+            <div class="res-chip free">H2 in-memory (sem 8)</div>
+            <div class="res-chip db">🗄️ PostgreSQL Flexible B1ms (sem 9–12)</div>
           </div>
-          <div class="im-cost"><span class="cost-val">~$25</span><span class="cost-label">USD</span></div>
+          <div class="im-cost"><span class="cost-val">~$30</span><span class="cost-label">USD</span></div>
         </div>
         <div class="infra-month">
-          <div class="im-label"><span class="month">Septiembre</span><span class="weeks">sem 10–14</span></div>
+          <div class="im-label"><span class="month">Noviembre</span><span class="weeks">sem 13–16</span></div>
           <div class="im-resources">
             <div class="res-chip vm">🖥️ VM B2s (self-hosted agent)</div>
-            <div class="res-chip db">🗄️ PostgreSQL B1ms (sem 10–12)</div>
-            <div class="res-chip acr">📦 Azure Container Registry Basic (sem 14)</div>
+            <div class="res-chip acr">📦 Azure Container Registry Basic</div>
           </div>
-          <div class="im-cost"><span class="cost-val">~$28</span><span class="cost-label">USD</span></div>
+          <div class="im-cost"><span class="cost-val">~$22</span><span class="cost-label">USD</span></div>
         </div>
         <div class="infra-month">
-          <div class="im-label"><span class="month">Octubre</span><span class="weeks">sem 15–18</span></div>
+          <div class="im-label"><span class="month">Diciembre</span><span class="weeks">sem 17–18</span></div>
           <div class="im-resources">
             <div class="res-chip vm">🖥️ VM B2s (self-hosted agent)</div>
-            <div class="res-chip acr">📦 ACR Basic</div>
-            <div class="res-chip app">🌐 App Service B1 (sem 17–18)</div>
+            <div class="res-chip app">🌐 App Service B1</div>
             <div class="res-chip ai">🔭 Application Insights (free tier)</div>
           </div>
-          <div class="im-cost"><span class="cost-val">~$27</span><span class="cost-label">USD</span></div>
+          <div class="im-cost"><span class="cost-val">~$13</span><span class="cost-label">USD</span></div>
         </div>
       </div>
       <div class="infra-legend">
@@ -1000,7 +1008,7 @@
             <tr>
               <td><span class="resource-chip rc-vm">VM</span> Self-hosted agent</td>
               <td>Standard_B2s · Linux (2vCPU / 4 GB)</td>
-              <td>Jul 16 – Nov 12</td>
+              <td>Ago 13 – Dic 10</td>
               <td>~8 h/día activas · auto-shutdown nocturno</td>
               <td>$32</td>
               <td style="color:var(--indra-teal)">$134.400</td>
@@ -1008,7 +1016,7 @@
             <tr>
               <td><span class="resource-chip rc-vm">DISCO</span> OS de la VM</td>
               <td>Standard SSD E4 · 30 GB</td>
-              <td>4 meses (permanente)</td>
+              <td>5 meses (permanente)</td>
               <td>$0.10/GB/mes · se paga detenida</td>
               <td>$12</td>
               <td style="color:var(--indra-teal)">$50.400</td>
@@ -1024,7 +1032,7 @@
             <tr>
               <td><span class="resource-chip rc-db">DB</span> PostgreSQL Flexible</td>
               <td>Burstable B1ms · 1vCPU / 2 GB</td>
-              <td>27-ago → 17-sep (3 sem)</td>
+              <td>01-oct → 29-oct (4 sem)</td>
               <td>Solo activa para paquete JPA (sem 9–12)</td>
               <td>$9</td>
               <td style="color:var(--indra-teal)">$37.800</td>
@@ -1032,7 +1040,7 @@
             <tr>
               <td><span class="resource-chip rc-acr">ACR</span> Container Registry</td>
               <td>Basic · 10 GB incluidos</td>
-              <td>Oct 15 – Nov 12 (4 sem)</td>
+              <td>12-nov → 10-dic (4 sem)</td>
               <td>1 imagen demo para Podman y microservicios</td>
               <td>$5</td>
               <td style="color:var(--indra-teal)">$21.000</td>
@@ -1040,7 +1048,7 @@
             <tr>
               <td><span class="resource-chip rc-app">APP</span> Azure App Service</td>
               <td>Plan B1 · 1vCPU / 1.75 GB</td>
-              <td>Nov 05 – Nov 12 (1 sem)</td>
+              <td>03-dic → 10-dic (1 sem)</td>
               <td>Deploy real sem 17 + observabilidad sem 18</td>
               <td>$3</td>
               <td style="color:var(--indra-teal)">$12.600</td>
@@ -1048,7 +1056,7 @@
             <tr>
               <td><span class="resource-chip rc-ai">AI</span> Application Insights</td>
               <td>Consumption · 5 GB/mes free</td>
-              <td>Sem 18 (nov 12)</td>
+              <td>Sem 18 (10 dic)</td>
               <td>Uso &lt; 50 MB en la sesión de formación</td>
               <td>$0</td>
               <td style="color:var(--indra-teal)">$0</td>
@@ -1077,7 +1085,7 @@
           </tbody>
         </table>
         <div class="note-box">
-          💡 Precios sin descuento · región East US · tipo de cambio 1 USD = $4.200 COP · Julio 2026. Con <strong>Azure Dev/Test Subscription</strong> el total baja a <strong>~$55 USD (~$231.000 COP)</strong>.
+          💡 Precios sin descuento · región East US · tipo de cambio 1 USD = $4.200 COP · Agosto 2026. Con <strong>Azure Dev/Test Subscription</strong> el total baja a <strong>~$55 USD (~$231.000 COP)</strong>.
         </div>
       </div>
     </div>
@@ -1114,11 +1122,11 @@
           <div class="sc-tag">✅ Recomendado</div>
           <div class="sc-title">Estándar</div>
           <div class="sc-price-usd">~$100</div>
-          <div class="sc-price-cop">≈ $420.000 COP en 4 meses</div>
+          <div class="sc-price-cop">≈ $420.000 COP en 5 meses</div>
           <div class="sc-divider"></div>
           <ul class="sc-items">
             <li>VM B2s en Azure como self-hosted agent (confiable, sin dependencia de laptops)</li>
-            <li>PostgreSQL Flexible B1ms solo en semanas JPA (27-ago al 17-sep)</li>
+            <li>PostgreSQL Flexible B1ms solo en semanas JPA (01-oct al 29-oct)</li>
             <li>Azure Container Registry Basic (compatible con Podman)</li>
             <li>App Service B1 para deploy real + deployment slots en week-16</li>
             <li>Application Insights en free tier para observabilidad</li>
@@ -1130,7 +1138,7 @@
           <div class="sc-tag">Completo</div>
           <div class="sc-title">Prod-like</div>
           <div class="sc-price-usd">~$220</div>
-          <div class="sc-price-cop">≈ $924.000 COP en 4 meses</div>
+          <div class="sc-price-cop">≈ $924.000 COP en 5 meses</div>
           <div class="sc-divider"></div>
           <ul class="sc-items">
             <li>Microsoft-hosted agents (2 parallel jobs para no hacer colas con 200 personas)</li>
@@ -1156,12 +1164,25 @@
       </div>
       <div class="monthly-layout">
         <div class="monthly-left">
-          <!-- Julio -->
+          <!-- Agosto -->
           <div class="month-card">
-            <div class="month-badge jul"><div class="mb-name">JUL</div><div class="mb-sessions">5 sesiones</div></div>
+            <div class="month-badge ago"><div class="mb-name">AGO</div><div class="mb-sessions">3 sesiones</div></div>
             <div class="month-body">
               <h4>Paquete Arranque + SOLID/TDD</h4>
               <div class="month-resources">VM B2s · disco OS · IP pública · H2 in-memory</div>
+              <div class="month-bar-wrap"><div class="month-bar" style="width:15%"></div></div>
+            </div>
+            <div>
+              <div class="month-cost-usd">~$15</div>
+              <div class="month-cost-cop">~$63.000 COP</div>
+            </div>
+          </div>
+          <!-- Septiembre -->
+          <div class="month-card">
+            <div class="month-badge sep"><div class="mb-name">SEP</div><div class="mb-sessions">4 sesiones</div></div>
+            <div class="month-body">
+              <h4>SOLID/TDD + Spring Web</h4>
+              <div class="month-resources">VM B2s · disco · IP · H2 in-memory</div>
               <div class="month-bar-wrap"><div class="month-bar" style="width:20%"></div></div>
             </div>
             <div>
@@ -1169,53 +1190,54 @@
               <div class="month-cost-cop">~$84.000 COP</div>
             </div>
           </div>
-          <!-- Agosto -->
-          <div class="month-card">
-            <div class="month-badge ago"><div class="mb-name">AGO</div><div class="mb-sessions">4 sesiones</div></div>
-            <div class="month-body">
-              <h4>Spring Web + inicio JPA</h4>
-              <div class="month-resources">VM B2s · disco · IP · PostgreSQL B1ms (última semana)</div>
-              <div class="month-bar-wrap"><div class="month-bar" style="width:25%"></div></div>
-            </div>
-            <div>
-              <div class="month-cost-usd">~$25</div>
-              <div class="month-cost-cop">~$105.000 COP</div>
-            </div>
-          </div>
-          <!-- Septiembre -->
-          <div class="month-card">
-            <div class="month-badge sep"><div class="mb-name">SEP</div><div class="mb-sessions">5 sesiones</div></div>
-            <div class="month-body">
-              <h4>Hibernate + inicio Microservicios</h4>
-              <div class="month-resources">VM B2s · PostgreSQL B1ms (3 sem) · ACR Basic (última sem)</div>
-              <div class="month-bar-wrap"><div class="month-bar" style="width:28%"></div></div>
-            </div>
-            <div>
-              <div class="month-cost-usd">~$28</div>
-              <div class="month-cost-cop">~$117.600 COP</div>
-            </div>
-          </div>
           <!-- Octubre -->
           <div class="month-card">
-            <div class="month-badge oct"><div class="mb-name">OCT</div><div class="mb-sessions">4 sesiones</div></div>
+            <div class="month-badge oct"><div class="mb-name">OCT</div><div class="mb-sessions">5 sesiones</div></div>
             <div class="month-body">
-              <h4>Cloud + DevOps + Observabilidad</h4>
-              <div class="month-resources">VM B2s · ACR Basic · App Service B1 · Application Insights (free)</div>
-              <div class="month-bar-wrap"><div class="month-bar" style="width:27%"></div></div>
+              <h4>Spring Web + Hibernate / JPA</h4>
+              <div class="month-resources">VM B2s · disco · IP · PostgreSQL B1ms (sem 9–12)</div>
+              <div class="month-bar-wrap"><div class="month-bar" style="width:30%"></div></div>
             </div>
             <div>
-              <div class="month-cost-usd">~$27</div>
-              <div class="month-cost-cop">~$113.400 COP</div>
+              <div class="month-cost-usd">~$30</div>
+              <div class="month-cost-cop">~$126.000 COP</div>
+            </div>
+          </div>
+          <!-- Noviembre -->
+          <div class="month-card">
+            <div class="month-badge nov"><div class="mb-name">NOV</div><div class="mb-sessions">4 sesiones</div></div>
+            <div class="month-body">
+              <h4>Micro + Cloud + DevOps (CI/CD)</h4>
+              <div class="month-resources">VM B2s · disco · IP · ACR Basic</div>
+              <div class="month-bar-wrap"><div class="month-bar" style="width:22%"></div></div>
+            </div>
+            <div>
+              <div class="month-cost-usd">~$22</div>
+              <div class="month-cost-cop">~$92.400 COP</div>
+            </div>
+          </div>
+          <!-- Diciembre -->
+          <div class="month-card">
+            <div class="month-badge dic"><div class="mb-name">DIC</div><div class="mb-sessions">2 sesiones</div></div>
+            <div class="month-body">
+              <h4>App Service + Observabilidad</h4>
+              <div class="month-resources">VM B2s · App Service B1 · Application Insights (free)</div>
+              <div class="month-bar-wrap"><div class="month-bar" style="width:13%"></div></div>
+            </div>
+            <div>
+              <div class="month-cost-usd">~$13</div>
+              <div class="month-cost-cop">~$54.600 COP</div>
             </div>
           </div>
         </div>
         <div class="monthly-right">
           <div class="total-panel">
-            <h3>Acumulado 4 meses</h3>
-            <div class="total-row-item"><span>Julio</span><span class="tval">$20 USD</span></div>
-            <div class="total-row-item"><span>Agosto</span><span class="tval">$25 USD</span></div>
-            <div class="total-row-item"><span>Septiembre</span><span class="tval">$28 USD</span></div>
-            <div class="total-row-item"><span>Octubre</span><span class="tval">$27 USD</span></div>
+            <h3>Acumulado 5 meses</h3>
+            <div class="total-row-item"><span>Agosto</span><span class="tval">$15 USD</span></div>
+            <div class="total-row-item"><span>Septiembre</span><span class="tval">$20 USD</span></div>
+            <div class="total-row-item"><span>Octubre</span><span class="tval">$30 USD</span></div>
+            <div class="total-row-item"><span>Noviembre</span><span class="tval">$22 USD</span></div>
+            <div class="total-row-item"><span>Diciembre</span><span class="tval">$13 USD</span></div>
             <div class="total-grand">
               <span class="tg-label">TOTAL</span>
               <span class="tg-val">~$100 USD</span>
@@ -1225,7 +1247,7 @@
             <h3>💡 Con Dev/Test Pricing</h3>
             <p>Aplicando una <strong>Azure Dev/Test subscription</strong> o créditos Visual Studio, los precios de VM y PostgreSQL bajan hasta un 55%.</p>
             <div class="savings-highlight">~$55 USD</div>
-            <p>≈ <strong>$231.000 COP</strong> totales en los 4 meses</p>
+            <p>≈ <strong>$231.000 COP</strong> totales en los 5 meses</p>
           </div>
         </div>
       </div>
@@ -1256,12 +1278,12 @@
         <div class="saving-panel">
           <h3><span class="sico">🗄️</span> PostgreSQL solo en JPA</h3>
           <div class="saving-tag high">Impacto alto</div>
-          <p>Provisionar el servidor PostgreSQL el 27 de agosto y eliminarlo (delete) el 17 de septiembre. No mantenerlo activo entre paquetes. En el paquete Spring Web (sem 6–8) se usa H2 in-memory sin costo.</p>
+          <p>Provisionar el servidor PostgreSQL el 01 de octubre y eliminarlo (delete) el 29 de octubre. No mantenerlo activo entre paquetes. En el paquete Spring Web (sem 6–8) se usa H2 in-memory sin costo.</p>
           <div class="impact-row">
-            <span class="impact-label">PostgreSQL 4 meses</span>
-            <span class="impact-before">$52</span>
+            <span class="impact-label">PostgreSQL 5 meses</span>
+            <span class="impact-before">$65</span>
             <span class="impact-arrow">→</span>
-            <span class="impact-after">$9 (3 sem)</span>
+            <span class="impact-after">$9 (4 sem)</span>
           </div>
         </div>
         <div class="saving-panel">
@@ -1332,12 +1354,12 @@
           <div class="step-num">5</div>
           <h3>Monitorear adopción</h3>
           <p>Seguimiento semanal: pipeline verde, % sesiones completadas, temas con más fallos. Ajustar backlog según evidencia real.</p>
-          <div class="step-when">Julio–Nov</div>
+          <div class="step-when">Ago–Dic</div>
         </div>
       </div>
       <div class="closing-banner">
         <p>
-          <strong>Inversión total: ~$100 USD (~$420.000 COP) en 4 meses</strong><br>
+          <strong>Inversión total: ~$100 USD (~$420.000 COP) en 5 meses</strong><br>
           Para 200 ingenieros · 18 sesiones · stack completo Java 21 + Azure · $0,50 USD por persona
         </p>
         <div class="closing-cta">¡Aprobemos el plan! ✅</div>
