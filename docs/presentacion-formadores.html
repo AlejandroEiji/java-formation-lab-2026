@@ -6,15 +6,15 @@
   <title>Guía de Formadores — Java 2026 | Indra</title>
   <style>
     :root {
-      --indra-dark: #0a1f2e;
-      --indra-teal: #1a6060;
-      --indra-teal-light: #27a0a0;
-      --indra-accent: #00d4c8;
-      --indra-bg: #ede8dc;
+      --indra-dark: #0d2535;
+      --indra-teal: #1d7878;
+      --indra-teal-light: #3da0a0;
+      --indra-accent: #3da0a0;
+      --indra-bg: #ede9df;
       --indra-white: #ffffff;
-      --indra-gray: #ddd8cc;
-      --indra-text: #1a1a2e;
-      --indra-muted: #5a6a6a;
+      --indra-gray: #dad5c9;
+      --indra-text: #0d2535;
+      --indra-muted: #647a7a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -282,7 +282,7 @@
     }
     .code-pill {
       display: inline-block;
-      background: #1a1a2e;
+      background: #0d2535;
       color: var(--indra-accent);
       font-family: 'Courier New', monospace;
       font-size: 12px;
@@ -555,7 +555,7 @@
     .pipe-item.dark-item { color: rgba(255,255,255,.75); }
     .pipe-item.dark-item::before { color: var(--indra-teal-light); }
     .pipe-code {
-      background: #1a1a2e; border-radius: 8px; padding: 12px 14px;
+      background: #0d2535; border-radius: 8px; padding: 12px 14px;
       font-family: 'Courier New', monospace; font-size: 12px;
       color: var(--indra-accent); line-height: 1.8;
       border: 1px solid rgba(0,212,200,.15);
@@ -582,6 +582,88 @@
     /* ══════════════════════════════════════════
        SLIDE 9 — Badges & evaluación (antes s8)
     ══════════════════════════════════════════ */
+    /* ══ SLIDE s-fork — ¿Qué es un fork? ══ */
+    #s-fork { background: var(--indra-bg); }
+    .fork-layout { display: flex; gap: 28px; flex: 1; align-items: stretch; }
+    .fork-diagram-col { flex: 1.2; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+    .fork-explain-col { flex: 1; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+    .fork-node {
+      background: #fff; border-radius: 12px; padding: 16px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+    .fork-node.central  { border-top: 4px solid var(--indra-teal); }
+    .fork-node.myfork   { border-top: 4px solid #9c27b0; }
+    .fork-node.local    { border-top: 4px solid #ff9800; }
+    .fork-node-title { font-size: 14px; font-weight: 700; color: var(--indra-dark); margin-bottom: 3px; }
+    .fork-node-subtitle { font-size: 11px; color: var(--indra-muted); font-family: 'Courier New', monospace; margin-bottom: 10px; }
+    .fork-node-branches { display: flex; flex-direction: column; gap: 4px; }
+    .fork-node-branch { font-size: 11px; font-family: 'Courier New', monospace; color: var(--indra-teal); background: #e8f5e9; padding: 3px 8px; border-radius: 4px; width: fit-content; }
+    .fork-node-branch.mine { color: #880e4f; background: #fce4ec; }
+    .fork-node-remote { font-size: 12px; color: #444; margin-top: 6px; display: flex; gap: 6px; align-items: baseline; line-height: 1.5; }
+    .fork-node-remote .rem { font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+    .fork-node-remote .rem.origin   { background: #fce4ec; color: #880e4f; }
+    .fork-node-remote .rem.upstream { background: #e8f5e9; color: #2e7d32; }
+    .fork-row { display: flex; gap: 10px; align-items: stretch; }
+    .fork-arrow-h {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; flex-shrink: 0; width: 66px;
+    }
+    .fork-arrow-h .arr { font-size: 22px; font-weight: 700; color: var(--indra-teal); }
+    .fork-arrow-h .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; text-align: center; color: var(--indra-muted); }
+    .fork-arrow-v { display: flex; align-items: center; gap: 8px; padding: 6px 18px; }
+    .fork-arrow-v .arr { font-size: 18px; color: var(--indra-teal); }
+    .fork-arrow-v .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--indra-muted); font-family: 'Courier New', monospace; }
+    .fork-explain-item {
+      background: #fff; border-radius: 10px; padding: 14px 18px;
+      display: flex; gap: 12px; align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .fork-explain-num {
+      width: 28px; height: 28px; background: var(--indra-teal); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .fork-explain-item h4 { font-size: 13.5px; font-weight: 700; color: var(--indra-dark); margin-bottom: 4px; }
+    .fork-explain-item p  { font-size: 12.5px; color: #555; line-height: 1.5; }
+    .fork-why {
+      background: var(--indra-dark); border-radius: 10px; padding: 16px 18px;
+      font-size: 13px; color: rgba(255,255,255,.85); line-height: 1.55;
+      border-left: 4px solid var(--indra-accent);
+    }
+    .fork-why strong { color: var(--indra-accent); }
+
+    /* ══ SLIDE s-start — Cómo empezar hoy mismo ══ */
+    #s-start { background: var(--indra-dark); }
+    #s-start .label { color: var(--indra-accent); }
+    #s-start .slide-header h2 { color: #fff; }
+    .steps-flow {
+      display: flex; gap: 0; flex: 1; align-items: stretch;
+    }
+    .step-block {
+      flex: 1; display: flex; flex-direction: column;
+      padding: 28px 24px; position: relative;
+    }
+    .step-block + .step-block { border-left: 1px solid rgba(255,255,255,.08); }
+    .step-block::after {
+      content: '▶'; position: absolute; right: -12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--indra-teal); font-size: 18px; z-index: 1;
+    }
+    .step-block:last-child::after { display: none; }
+    .step-n {
+      width: 48px; height: 48px; background: var(--indra-teal);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 16px;
+    }
+    .step-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .step-desc  { font-size: 13.5px; color: rgba(255,255,255,.7); line-height: 1.6; }
+    .step-code {
+      margin-top: 12px; background: rgba(0,0,0,.4);
+      border: 1px solid rgba(61,160,160,.2); border-radius: 6px;
+      padding: 10px 14px; font-family: 'Courier New', monospace;
+      font-size: 12px; color: var(--indra-accent); line-height: 1.8;
+    }
+
     #s9 { background: var(--indra-dark); }
     #s9 .slide-inner { color: #fff; }
     #s9 .label { color: var(--indra-accent); }
@@ -697,6 +779,39 @@
     }
     .link-card .lbl { font-size: 11px; color: rgba(255,255,255,.6); margin-bottom: 4px; }
     .link-card .val { font-family: 'Courier New', monospace; font-size: 14px; color: var(--indra-accent); }
+
+    /* ══ SLIDE s-prereqs: PRERREQUISITOS ══ */
+    #s-prereqs { background: var(--indra-bg); }
+    .prereq-col-title {
+      display: inline-block; border-radius: 8px; padding: 7px 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 10px; width: fit-content;
+    }
+    .prereq-col-title.now    { background: var(--indra-teal); color: #fff; }
+    .prereq-col-title.later  { background: #ff9800; color: #fff; }
+    .prereq-col-title.formador { background: #9c27b0; color: #fff; }
+    .prereq-item {
+      background: #fff; border-radius: 10px; padding: 12px 14px;
+      display: flex; gap: 12px; align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .prereq-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .prereq-body { flex: 1; }
+    .prereq-body h4 { font-size: 13.5px; font-weight: 700; color: var(--indra-dark); margin-bottom: 3px; }
+    .prereq-body p  { font-size: 12px; color: #555; line-height: 1.4; }
+    .prereq-cmd {
+      margin-top: 5px; background: #0d2535; border-radius: 4px;
+      padding: 4px 8px; font-family: 'Courier New', monospace;
+      font-size: 11px; color: var(--indra-accent); display: inline-block;
+    }
+    .prereq-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0; height: fit-content; margin-top: 2px;
+    }
+    .prereq-badge.ok       { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .prereq-badge.optional { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+    .prereq-badge.later    { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+    .prereq-badge.formador { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
   </style>
 </head>
 <body>
@@ -717,6 +832,106 @@
     </div>
     <div class="cover-right">
       <div class="big-icon">🎯</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE s-prereqs: PRERREQUISITOS DEL FORMADOR ══ -->
+  <div class="slide" id="s-prereqs">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Configuración del formador</div>
+        <h2>¿Qué debes tener <em>listo antes del programa</em>?</h2>
+        <p style="font-size:14px;color:var(--indra-muted);margin-top:4px">Configura esto <strong>antes</strong> de la primera sesión — no el mismo día</p>
+      </div>
+      <div style="display:flex;gap:24px;flex:1;align-items:flex-start;">
+
+        <!-- COLUMNA 1: igual que el participante -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+          <div class="prereq-col-title now">⚡ Lo mismo que el participante</div>
+          <div class="prereq-item">
+            <div class="prereq-icon">☕</div>
+            <div class="prereq-body">
+              <h4>JDK 21 · Git 2.x+ · IDE</h4>
+              <p>Necesitas ejecutar y demostrar el código en vivo. Mismos requisitos que cualquier participante.</p>
+              <code class="prereq-cmd">java -version  # openjdk 21.x</code>
+            </div>
+            <span class="prereq-badge ok">✓ semana 01</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🐙</div>
+            <div class="prereq-body">
+              <h4>Cuenta GitHub con acceso al repo</h4>
+              <p>Permisos de <strong>Maintainer / Admin</strong> en <code style="color:var(--indra-teal)">robinson8406/java-formation-lab-2026</code> para publicar ramas <code style="color:var(--indra-teal)">week-XX-start</code> y gestionar PRs.</p>
+            </div>
+            <span class="prereq-badge ok">✓ semana 01</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">📦</div>
+            <div class="prereq-body">
+              <h4>Maven 3.9+ (o wrapper)</h4>
+              <p>Para compilar y demostrar builds localmente. El wrapper <code style="color:var(--indra-teal)">./mvnw</code> ya está en el repo.</p>
+              <code class="prereq-cmd">./mvnw -version</code>
+            </div>
+            <span class="prereq-badge ok">✓ semana 01</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🐳</div>
+            <div class="prereq-body">
+              <h4>Podman Desktop </h4>
+              <p>Para preparar y demostrar la sesión 14 de contenedores con confianza.</p>
+            </div>
+            <span class="prereq-badge later">Antes sem. 14</span>
+          </div>
+        </div>
+
+        <!-- COLUMNA 2: específico del formador -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+          <div class="prereq-col-title formador">🎯 Exclusivo del formador</div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🔵</div>
+            <div class="prereq-body">
+              <h4>Organización Azure DevOps creada</h4>
+              <p>Crea o solicita acceso en <code style="color:var(--indra-teal)">dev.azure.com</code>. Configura el <strong>project</strong>, el pipeline YAML (<code style="color:var(--indra-teal)">azure-pipelines.yml</code>) y el agente (hosted o self-hosted). Aprovisionamiento interno puede tardar días.</p>
+            </div>
+            <span class="prereq-badge formador">Antes sem. 15</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🔗</div>
+            <div class="prereq-body">
+              <h4>GitHub ↔ Azure DevOps conectados</h4>
+              <p><strong>Service connection</strong> configurado para que el pipeline CI se dispare automáticamente en cada PR del repo. Valida con un PR de prueba antes de la sesión 15.</p>
+            </div>
+            <span class="prereq-badge formador">Antes sem. 15</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">☁️</div>
+            <div class="prereq-body">
+              <h4>Suscripción Azure + App Service plan</h4>
+              <p>Resource Group, App Service (Free F1 suficiente para demo), y permisos de deployment configurados. Ejecuta un deploy de prueba antes de la semana 17.</p>
+            </div>
+            <span class="prereq-badge formador">Antes sem. 17</span>
+          </div>
+        </div>
+
+        <!-- COLUMNA 3: checklist verificación -->
+        <div style="flex:.85;display:flex;flex-direction:column;gap:8px;">
+          <div class="prereq-col-title" style="background:var(--indra-dark);color:var(--indra-accent);">📋 Checklist de verificación</div>
+          <div style="background:#fff;border-radius:10px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.05);flex:1;">
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:12.5px;color:#444;">
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border:2px solid var(--indra-teal);border-radius:3px;flex-shrink:0;margin-top:1px;"></div><span><code style="color:var(--indra-teal)">java -version</code> → 21.x ✓</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border:2px solid var(--indra-teal);border-radius:3px;flex-shrink:0;margin-top:1px;"></div><span>Push a <code style="color:var(--indra-teal)">week-XX-start</code> funciona</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border:2px solid var(--indra-teal);border-radius:3px;flex-shrink:0;margin-top:1px;"></div><span>PR de prueba dispara pipeline CI ✅</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border:2px solid #ff9800;border-radius:3px;flex-shrink:0;margin-top:1px;"></div><span>Podman: <code style="color:var(--indra-teal)">podman run hello-world</code></span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border:2px solid #9c27b0;border-radius:3px;flex-shrink:0;margin-top:1px;"></div><span>GitHub ↔ Azure DevOps service connection OK</span></div>
+              <div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:18px;height:18px;border:2px solid #9c27b0;border-radius:3px;flex-shrink:0;margin-top:1px;"></div><span>App Service deploy de prueba exitoso</span></div>
+            </div>
+          </div>
+          <div style="background:#fff8e1;border-left:4px solid #f9a825;border-radius:0 8px 8px 0;padding:12px 14px;font-size:12.5px;color:#5a4a00;line-height:1.55;">
+            <strong>⚠ No lo dejes para el día de la sesión.</strong> Las aprobaciones de Azure DevOps y las suscripciones corporativas pueden tardar 1–3 días hábiles.
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -961,6 +1176,128 @@
     </div>
   </div>
 
+  <!-- ══ SLIDE s-fork: ¿QUÉ ES UN FORK? ══ -->
+  <div class="slide" id="s-fork">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Concepto clave — explícalo en sesión 01</div>
+        <h2>¿Qué es un <em>fork</em>?</h2>
+        <p style="font-size:14px;color:var(--indra-muted);margin-top:4px">Tu espacio personal en GitHub — sin esto el participante no puede entregar el reto</p>
+      </div>
+      <div class="fork-layout">
+        <div class="fork-diagram-col">
+          <div class="fork-row">
+            <div class="fork-node central" style="flex:1">
+              <div class="fork-node-title">🏗️ Repo central</div>
+              <div class="fork-node-subtitle">robinson8406/java-formation-lab-2026</div>
+              <div class="fork-node-branches">
+                <span class="fork-node-branch">week-01-start</span>
+                <span class="fork-node-branch">week-01-solution</span>
+                <span class="fork-node-branch">main</span>
+              </div>
+            </div>
+            <div class="fork-arrow-h">
+              <div class="lbl">click</div>
+              <div class="lbl">Fork</div>
+              <div class="arr">→</div>
+              <div class="lbl">GitHub UI</div>
+            </div>
+            <div class="fork-node myfork" style="flex:1">
+              <div class="fork-node-title">🍴 Fork del participante</div>
+              <div class="fork-node-subtitle">ALIAS/java-formation-lab-2026</div>
+              <div class="fork-node-branches">
+                <span class="fork-node-branch">week-01-start</span>
+                <span class="fork-node-branch">week-01-solution</span>
+                <span class="fork-node-branch mine">week-01/alias ← él/ella crea</span>
+              </div>
+            </div>
+          </div>
+          <div class="fork-arrow-v">
+            <div class="arr">↓</div>
+            <div class="lbl">git clone ALIAS/java-formation-lab-2026.git</div>
+          </div>
+          <div class="fork-node local">
+            <div class="fork-node-title">💻 Máquina local del participante</div>
+            <div class="fork-node-remote">
+              <span class="rem origin">origin</span>
+              <span>→ ALIAS/java-formation-lab-2026 &nbsp;<em style="color:#999">(su fork en GitHub)</em></span>
+            </div>
+            <div class="fork-node-remote">
+              <span class="rem upstream">upstream</span>
+              <span>→ robinson8406/java-formation-lab-2026 &nbsp;<em style="color:#999">(repo central — tus starts)</em></span>
+            </div>
+          </div>
+          <div style="margin-top:8px;text-align:center;font-size:12px;color:var(--indra-muted)">
+            PR cross-fork: fork-ALIAS:week-01/alias → central:week-01-start &nbsp;·&nbsp; <strong style="color:var(--indra-dark)">se cierra SIN merge</strong>
+          </div>
+        </div>
+        <div class="fork-explain-col">
+          <div class="fork-explain-item">
+            <div class="fork-explain-num">1</div>
+            <div>
+              <h4>Fork = copia del repo central en la cuenta GitHub del participante</h4>
+              <p>No necesita permisos en el repo de robinson8406. Clic en <strong>Fork</strong> en GitHub y tiene su propia copia en segundos. Es gratis.</p>
+            </div>
+          </div>
+          <div class="fork-explain-item">
+            <div class="fork-explain-num">2</div>
+            <div>
+              <h4>Clone = baja su fork a su máquina</h4>
+              <p>Se configura con dos remotos: <code style="color:#880e4f">origin</code> apunta a <strong>su fork</strong> (donde hace push) y <code style="color:#2e7d32">upstream</code> apunta al repo central (donde tú publicas los starts).</p>
+            </div>
+          </div>
+          <div class="fork-explain-item">
+            <div class="fork-explain-num">3</div>
+            <div>
+              <h4>PR = propone su entrega al repo central</h4>
+              <p>Cuando termina, abre un Pull Request desde su fork hacia el repo central. El CI corre, el formador aprueba y el PR se <strong>cierra sin merge</strong>. La rama <code style="color:var(--indra-teal)">week-XX-start</code> queda intacta para todos.</p>
+            </div>
+          </div>
+          <div class="fork-why">
+            <strong>¿Por qué fork y no trabajar directo en el repo?</strong><br>
+            Con ~200 personas en el mismo repositorio habría conflictos constantes. El fork les da su espacio aislado. Trabajan a su ritmo sin afectar a nadie. <strong>Recuérdalo en la sesión 01.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE s-start: CÓMO EMPEZAR HOY MISMO ══ -->
+  <div class="slide" id="s-start">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Primeros pasos del participante</div>
+        <h2 style="color:#fff">Cómo empezar <em style="color:var(--indra-accent);font-style:normal">hoy mismo</em></h2>
+      </div>
+      <div class="steps-flow">
+        <div class="step-block">
+          <div class="step-n">1</div>
+          <div class="step-title">Fork + Clona tu fork</div>
+          <div class="step-desc">En GitHub haz <strong>Fork</strong> del repo central. Luego clona <em>tu fork</em> y registra el repo central como upstream.</div>
+          <div class="step-code">git clone https://github.com/<br>ALIAS/java-formation-lab-2026.git<br>git remote add upstream https://github.com/<br>robinson8406/java-formation-lab-2026.git</div>
+        </div>
+        <div class="step-block">
+          <div class="step-n">2</div>
+          <div class="step-title">Lee las reglas</div>
+          <div class="step-desc">Revisa <span style="color:var(--indra-accent)">REGLAS_DE_JUEGO.md</span> y <span style="color:var(--indra-accent)">docs/onboarding-java21.md</span> para entender el flujo completo.</div>
+          <div class="step-code">cat REGLAS_DE_JUEGO.md<br>cat docs/onboarding-java21.md</div>
+        </div>
+        <div class="step-block">
+          <div class="step-n">3</div>
+          <div class="step-title">Crea tu rama desde upstream</div>
+          <div class="step-desc">Trae las ramas del formador (upstream) y crea tu rama de trabajo para la sesión.</div>
+          <div class="step-code">git fetch upstream<br>git checkout -b week-01/tu-alias<br>  upstream/week-01-start</div>
+        </div>
+        <div class="step-block">
+          <div class="step-n">4</div>
+          <div class="step-title">Resuelve el reto</div>
+          <div class="step-desc">Implementa, escribe los tests, verifica que el pipeline compile y abre un PR cross-fork.</div>
+          <div class="step-code">git push origin week-01/tu-alias<br># Abre PR en GitHub →<br># robinson8406:week-01-start</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ SLIDE 7: FLUJO DE RAMAS ══ -->
   <div class="slide" id="s7">
     <div class="slide-inner">
@@ -976,12 +1313,12 @@
             <div class="branch-desc">Código inicial con andamiaje. <strong>Base</strong> para el reto del participante</div>
             <div class="branch-who">Formador</div>
           </div>
-          <div class="branch-connector">el participante bifurca desde aquí</div>
+          <div class="branch-connector">participante hace fork del repo central — git checkout -b week-XX/alias upstream/week-XX-start</div>
           <div class="branch-item">
-            <div class="branch-name personal">week-XX/tu-alias</div>
+            <div class="branch-name personal">fork → week-XX/tu-alias</div>
             <div class="branch-arrow">→</div>
-            <div class="branch-desc">Rama personal del participante. PR hacia <span class="code-pill">week-XX-start</span> con 1 reviewer</div>
-            <div class="branch-who">Participante</div>
+            <div class="branch-desc">Rama en <strong>fork personal</strong> del participante. PR <strong>cross-fork</strong> hacia <span class="code-pill">week-XX-start</span>. <span style="color:#ef9a9a;font-weight:700">PR se cierra SIN merge</span> — solo para CI + peer review + badge</div>
+            <div class="branch-who">Participante (fork)</div>
           </div>
           <div class="branch-connector">al cierre de sesión</div>
           <div class="branch-item">
@@ -992,6 +1329,14 @@
           </div>
         </div>
         <div class="timeline-side">
+          <div style="background:#fff8e1;border-left:4px solid #f9a825;border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:14px;font-size:13px;color:#5a4a00;line-height:1.55">
+            <strong>💡 Recuerda explicar qué es un fork</strong> en la sesión 01.<br>
+            Muchos participantes no lo conocen. Puntos clave:<br>
+            <strong>Fork</strong> = copia del repo en su cuenta GitHub &nbsp;·&nbsp;
+            <strong>origin</strong> = su fork &nbsp;·&nbsp;
+            <strong>upstream</strong> = repo central &nbsp;·&nbsp;
+            <strong>PR se cierra SIN merge</strong>.
+          </div>
           <div style="font-size:13px;font-weight:700;color:var(--indra-teal);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Calendario semanal</div>
           <div class="tl-day">
             <div class="day-label">Lunes</div>
@@ -1034,17 +1379,21 @@
             <div class="pipe-item">Sin verde ❌ → GitHub bloquea el merge del PR</div>
           </div>
           <div class="pipe-flow">
-            <div class="pipe-box">git push</div>
+            <div class="pipe-box">push al fork</div>
             <div class="pipe-arrow">→</div>
-            <div class="pipe-box">Abre PR</div>
+            <div class="pipe-box">PR cross-fork</div>
             <div class="pipe-arrow">→</div>
             <div class="pipe-box">Azure Pipelines</div>
             <div class="pipe-arrow">→</div>
             <div class="pipe-box">mvn verify</div>
             <div class="pipe-arrow">→</div>
-            <div class="pipe-box green">✅ merge</div>
+            <div class="pipe-box green">✅ CI verde</div>
             <span style="color:rgba(255,255,255,.3);font-size:12px;width:100%;text-align:center;margin-top:4px">o</span>
             <div class="pipe-box red">❌ bloqueado</div>
+          </div>
+          <div style="margin-top:10px;background:rgba(255,152,0,.7);border:1px solid rgba(255,152,0,.3);border-radius:6px;padding:9px 12px;font-size:12px;color:#ffffff;line-height:1.6">
+            <strong>⚠️ Config Azure DevOps requerida:</strong> habilitar <strong>"Build pull requests from forks"</strong> + <strong>"Require comment before build"</strong> en pipeline settings.<br>
+            PR se cierra <strong>SIN merge</strong> — <code style="color:var(--indra-accent)">week-XX-start</code> queda congelado como skeleton.
           </div>
         </div>
 
@@ -1091,7 +1440,7 @@
                 <span style="color:#c9d1d9;font-weight:700;">✅ [week-02] robinson completó la sesión</span>
               </div>
               <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                <span style="background:#1a6060;color:#7ee8a2;border-radius:12px;padding:2px 8px;font-size:11px;font-weight:700;">✅ completado</span>
+                <span style="background:#1d7878;color:#a8e8e0;border-radius:12px;padding:2px 8px;font-size:11px;font-weight:700;">✅ completado</span>
                 <span style="background:#1a3a5c;color:#79c0ff;border-radius:12px;padding:2px 8px;font-size:11px;">week-02</span>
                 <span style="color:#8b949e;font-size:11px;margin-left:4px;">abierto por robinson8406 · cerrado por formador</span>
               </div>
@@ -1101,8 +1450,8 @@
           <div style="flex:1.1">
             <h3>📋 Flujo paso a paso</h3>
             <ol class="step-list">
-              <li class="step-item"><div class="step-num">1</div><span><strong>Participante</strong> abre PR desde <code style="color:var(--indra-accent)">week-XX/tu-alias</code> hacia <code style="color:var(--indra-accent)">week-XX-start</code>, asigna 1 reviewer</span></li>
-              <li class="step-item"><div class="step-num">2</div><span><strong>Reviewer</strong> valida checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code> y aprueba el PR</span></li>
+              <li class="step-item"><div class="step-num">1</div><span><strong>Participante</strong> abre PR desde <code style="color:var(--indra-accent)">week-XX/tu-alias</code> hacia <code style="color:var(--indra-accent)">week-XX-start</code>, asigna 1 reviewer (formador)</span></li>
+              <li class="step-item"><div class="step-num">2</div><span><strong>Formador</strong> valida checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code> y aprueba el PR</span></li>
               <li class="step-item"><div class="step-num">3</div><span><strong>Participante</strong> abre un Issue con título exacto: <code style="color:var(--indra-accent);font-size:11px">✅ [week-XX] alias completó la sesión</code></span></li>
               <li class="step-item"><div class="step-num">4</div><span><strong>Formador</strong> verifica el PR aprobado, cierra el issue y aplica label <code style="color:var(--indra-accent)">completado</code> → <strong>badge otorgado</strong></span></li>
             </ol>

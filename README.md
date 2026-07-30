@@ -78,12 +78,17 @@ El nivel se evidencia en _cómo_ resolviste el problema — no en _qué_ problem
 ## ¿Cómo empiezo?
 
 1. **Lee** [REGLAS_DE_JUEGO.md](REGLAS_DE_JUEGO.md) y [docs/onboarding-java21.md](docs/onboarding-java21.md).
-2. **Crea tu rama** a partir de `week-XX-start`:  
+2. **Haz fork** del repo en GitHub y clona **tu fork**:
    ```bash
-   git checkout week-01-start
-   git checkout -b week-01/tu-alias
+   git clone https://github.com/TU-ALIAS/java-formation-lab-2026.git
+   git remote add upstream https://github.com/robinson8406/java-formation-lab-2026.git
    ```
-3. **Resuelve el reto**, haz push y abre un PR siguiendo el template.
+3. **Crea tu rama** para cada sesión a partir del start del formador:
+   ```bash
+   git fetch upstream
+   git checkout -b week-01/tu-alias upstream/week-01-start
+   ```
+4. **Resuelve el reto**, haz push a tu fork y abre un PR hacia `week-01-start` en el repo central. Los PRs **no se mergean** — solo sirven para CI + peer review + badge.
 
 ---
 

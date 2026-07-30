@@ -6,15 +6,15 @@
   <title>Bienvenida Participantes — Java 2026 | Indra</title>
   <style>
     :root {
-      --indra-dark: #0a1f2e;
-      --indra-teal: #1a6060;
-      --indra-teal-light: #27a0a0;
-      --indra-accent: #00d4c8;
-      --indra-bg: #ede8dc;
+      --indra-dark: #0d2535;
+      --indra-teal: #1d7878;
+      --indra-teal-light: #3da0a0;
+      --indra-accent: #3da0a0;
+      --indra-bg: #ede9df;
       --indra-white: #ffffff;
-      --indra-gray: #ddd8cc;
-      --indra-text: #1a1a2e;
-      --indra-muted: #5a6a6a;
+      --indra-gray: #dad5c9;
+      --indra-text: #0d2535;
+      --indra-muted: #647a7a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -79,7 +79,7 @@
     code { font-family: 'Courier New', monospace; }
     .code-pill {
       display: inline-block;
-      background: #1a1a2e; color: var(--indra-accent);
+      background: #0d2535; color: var(--indra-accent);
       font-family: 'Courier New', monospace; font-size: 12px;
       padding: 2px 8px; border-radius: 4px;
     }
@@ -279,7 +279,7 @@
     .flow-step h3 { font-size: 14px; font-weight: 700; color: var(--indra-dark); margin-bottom: 4px; }
     .flow-step p { font-size: 12.5px; color: #555; line-height: 1.4; }
     .flow-step .cmd {
-      margin-top: 6px; background: #1a1a2e;
+      margin-top: 6px; background: #0d2535;
       border-radius: 5px; padding: 6px 10px;
       font-family: 'Courier New', monospace;
       font-size: 11px; color: var(--indra-accent);
@@ -423,6 +423,101 @@
       font-size: 11.5px; color: var(--indra-accent);
       line-height: 1.8;
     }
+
+    /* ══ SLIDE FORK CONCEPT ══ */
+    #s-fork { background: var(--indra-bg); }
+    .fork-layout { display: flex; gap: 28px; flex: 1; align-items: stretch; }
+    .fork-diagram-col { flex: 1.2; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+    .fork-explain-col { flex: 1; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+    .fork-node {
+      background: #fff; border-radius: 12px; padding: 16px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+    .fork-node.central  { border-top: 4px solid var(--indra-teal); }
+    .fork-node.myfork   { border-top: 4px solid #9c27b0; }
+    .fork-node.local    { border-top: 4px solid #ff9800; }
+    .fork-node-title { font-size: 14px; font-weight: 700; color: var(--indra-dark); margin-bottom: 3px; }
+    .fork-node-subtitle { font-size: 11px; color: var(--indra-muted); font-family: 'Courier New', monospace; margin-bottom: 10px; }
+    .fork-node-branches { display: flex; flex-direction: column; gap: 4px; }
+    .fork-node-branch { font-size: 11px; font-family: 'Courier New', monospace; color: var(--indra-teal); background: #e8f5e9; padding: 3px 8px; border-radius: 4px; width: fit-content; }
+    .fork-node-branch.mine { color: #880e4f; background: #fce4ec; }
+    .fork-node-remote { font-size: 12px; color: #444; margin-top: 6px; display: flex; gap: 6px; align-items: baseline; line-height: 1.5; }
+    .fork-node-remote .rem { font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+    .fork-node-remote .rem.origin   { background: #fce4ec; color: #880e4f; }
+    .fork-node-remote .rem.upstream { background: #e8f5e9; color: #2e7d32; }
+    .fork-row { display: flex; gap: 10px; align-items: stretch; }
+    .fork-arrow-h {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; flex-shrink: 0; width: 66px;
+    }
+    .fork-arrow-h .arr { font-size: 22px; font-weight: 700; color: var(--indra-teal); }
+    .fork-arrow-h .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; text-align: center; color: var(--indra-muted); }
+    .fork-arrow-v {
+      display: flex; align-items: center; gap: 8px; padding: 6px 18px;
+    }
+    .fork-arrow-v .arr { font-size: 18px; color: var(--indra-teal); }
+    .fork-arrow-v .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--indra-muted); font-family: 'Courier New', monospace; }
+    .fork-explain-item {
+      background: #fff; border-radius: 10px; padding: 14px 18px;
+      display: flex; gap: 12px; align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .fork-explain-num {
+      width: 28px; height: 28px; background: var(--indra-teal); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .fork-explain-item h4 { font-size: 13.5px; font-weight: 700; color: var(--indra-dark); margin-bottom: 4px; }
+    .fork-explain-item p  { font-size: 12.5px; color: #555; line-height: 1.5; }
+    .fork-why {
+      background: var(--indra-dark); border-radius: 10px; padding: 16px 18px;
+      font-size: 13px; color: rgba(255,255,255,.85); line-height: 1.55;
+      border-left: 4px solid var(--indra-accent);
+    }
+    .fork-why strong { color: var(--indra-accent); }
+
+    /* ══ SLIDE s-prereqs: PRERREQUISITOS ══ */
+    #s-prereqs { background: var(--indra-bg); }
+    .prereq-col-title {
+      display: inline-block; border-radius: 8px; padding: 7px 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 10px; width: fit-content;
+    }
+    .prereq-col-title.now   { background: var(--indra-teal); color: #fff; }
+    .prereq-col-title.later { background: #ff9800; color: #fff; }
+    .prereq-item {
+      background: #fff; border-radius: 10px; padding: 12px 14px;
+      display: flex; gap: 12px; align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .prereq-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .prereq-body { flex: 1; }
+    .prereq-body h4 { font-size: 13.5px; font-weight: 700; color: var(--indra-dark); margin-bottom: 3px; }
+    .prereq-body p  { font-size: 12px; color: #555; line-height: 1.4; }
+    .prereq-cmd {
+      margin-top: 5px; background: #0d2535; border-radius: 4px;
+      padding: 4px 8px; font-family: 'Courier New', monospace;
+      font-size: 11px; color: var(--indra-accent); display: inline-block;
+    }
+    .prereq-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0; height: fit-content; margin-top: 2px;
+    }
+    .prereq-badge.ok       { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .prereq-badge.optional { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+    .prereq-badge.later    { background: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
+    .prereq-verify-box {
+      background: var(--indra-dark); border-radius: 10px; padding: 16px 18px;
+      border-left: 3px solid var(--indra-accent);
+    }
+    .prereq-verify-box .vb-title {
+      font-size: 11px; font-weight: 700; color: var(--indra-accent);
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .prereq-verify-box pre {
+      font-family: 'Courier New', monospace; font-size: 12px;
+      color: rgba(255,255,255,.8); line-height: 1.9; margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -442,6 +537,103 @@
     </div>
     <div class="cover-right">
       <div class="big-icon">☕</div>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE s-prereqs: PRERREQUISITOS ══ -->
+  <div class="slide" id="s-prereqs">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Antes de la sesión 01</div>
+        <h2>¿Qué necesitas tener <em>instalado y configurado</em>?</h2>
+      </div>
+      <div style="display:flex;gap:28px;flex:1;align-items:flex-start;">
+
+        <!-- COLUMNA IZQ: obligatorio ahora -->
+        <div style="flex:1.3;display:flex;flex-direction:column;gap:10px;">
+          <div class="prereq-col-title now">⚡ Obligatorio — configura antes del 16 jul</div>
+          <div class="prereq-item">
+            <div class="prereq-icon">☕</div>
+            <div class="prereq-body">
+              <h4>JDK 21 (LTS)</h4>
+              <p>Adoptium Temurin 21, Amazon Corretto 21 o cualquier distribución OpenJDK 21. Puedes gestionar versiones con <strong>SDKMAN</strong> (Linux/Mac) o <strong>Scoop/WinGet</strong> (Windows).</p>
+              <code class="prereq-cmd">java -version  # debe mostrar openjdk 21.x</code>
+            </div>
+            <span class="prereq-badge ok">✓ requerido</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🔧</div>
+            <div class="prereq-body">
+              <h4>Git 2.x+</h4>
+              <p>Configura nombre y correo antes del primer commit para que el historial del repo sea tuyo.</p>
+              <code class="prereq-cmd">git --version &amp;&amp; git config --global user.name "Tu Nombre"</code>
+            </div>
+            <span class="prereq-badge ok">✓ requerido</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🐙</div>
+            <div class="prereq-body">
+              <h4>Cuenta GitHub (gratuita)</h4>
+              <p>Necesitas hacer <strong>fork</strong> del repo central y abrir PRs. La cuenta básica gratuita es suficiente — sin costo.</p>
+            </div>
+            <span class="prereq-badge ok">✓ requerido</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">💻</div>
+            <div class="prereq-body">
+              <h4>IDE con soporte Java</h4>
+              <p><strong>IntelliJ IDEA Community</strong> (recomendado, 100% gratuito) o <strong>VS Code</strong> + <em>Extension Pack for Java</em>.</p>
+            </div>
+            <span class="prereq-badge ok">✓ recomendado</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">📦</div>
+            <div class="prereq-body">
+              <h4>Maven 3.9+ <em style="font-weight:400;color:#888"> — o usa el wrapper del repo</em></h4>
+              <p>El repo incluye <code style="color:var(--indra-teal)">./mvnw</code> (Unix) y <code style="color:var(--indra-teal)">mvnw.cmd</code> (Windows). Si usas el wrapper, Maven global es opcional.</p>
+              <code class="prereq-cmd">./mvnw -version  # funciona sin Maven instalado</code>
+            </div>
+            <span class="prereq-badge optional">△ opcional</span>
+          </div>
+        </div>
+
+        <!-- COLUMNA DER: más adelante + verify -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+          <div class="prereq-col-title later">🗓️ Lo necesitarás más adelante</div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🐳</div>
+            <div class="prereq-body">
+              <h4>Podman Desktop</h4>
+              <p>Para la sesión de contenedores. <strong>Podman Desktop</strong> es gratuito sin restricciones corporativas.</p>
+            </div>
+            <span class="prereq-badge later">Sem. 14</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">🔵</div>
+            <div class="prereq-body">
+              <h4>Cuenta Azure DevOps</h4>
+              <p>Organización gratuita en <code style="color:var(--indra-teal)">dev.azure.com</code>. Incluye 1 800 min/mes de pipeline CI. El formador guiará la configuración en la semana 15.</p>
+            </div>
+            <span class="prereq-badge later">Sem. 15–16</span>
+          </div>
+          <div class="prereq-item">
+            <div class="prereq-icon">☁️</div>
+            <div class="prereq-body">
+              <h4>Suscripción Azure</h4>
+              <p><strong>Azure for Students</strong> (gratis con email institucional, $100 crédito) o <strong>Free Trial</strong> ($200 crédito · 30 días). El formador lo guiará en semana 17.</p>
+            </div>
+            <span class="prereq-badge later">Sem. 17–18</span>
+          </div>
+          <div class="prereq-verify-box">
+            <div class="vb-title">📋 Verifica ahora — pega en tu terminal</div>
+            <pre>java -version
+git --version
+git config user.name
+git config user.email</pre>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -487,6 +679,97 @@
     </div>
   </div>
 
+  <!-- ══ SLIDE FORK CONCEPT: ¿QUÉ ES UN FORK? ══ -->
+  <div class="slide" id="s-fork">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Concepto clave — antes de empezar</div>
+        <h2>¿Qué es un <em>fork</em>?</h2>
+        <p>Tu espacio personal en GitHub — sin esto no puedes entregar el reto</p>
+      </div>
+      <div class="fork-layout">
+
+        <!-- DIAGRAMA -->
+        <div class="fork-diagram-col">
+          <div class="fork-row">
+            <div class="fork-node central" style="flex:1">
+              <div class="fork-node-title">🏗️ Repo central</div>
+              <div class="fork-node-subtitle">robinson8406/java-formation-lab-2026</div>
+              <div class="fork-node-branches">
+                <span class="fork-node-branch">week-01-start</span>
+                <span class="fork-node-branch">week-01-solution</span>
+                <span class="fork-node-branch">main</span>
+              </div>
+            </div>
+            <div class="fork-arrow-h">
+              <div class="lbl">click</div>
+              <div class="lbl">Fork</div>
+              <div class="arr">→</div>
+              <div class="lbl">GitHub UI</div>
+            </div>
+            <div class="fork-node myfork" style="flex:1">
+              <div class="fork-node-title">🍴 Tu fork</div>
+              <div class="fork-node-subtitle">TU-ALIAS/java-formation-lab-2026</div>
+              <div class="fork-node-branches">
+                <span class="fork-node-branch">week-01-start</span>
+                <span class="fork-node-branch">week-01-solution</span>
+                <span class="fork-node-branch mine">week-01/tu-alias ← tú creas</span>
+              </div>
+            </div>
+          </div>
+          <div class="fork-arrow-v">
+            <div class="arr">↓</div>
+            <div class="lbl">git clone TU-ALIAS/java-formation-lab-2026.git</div>
+          </div>
+          <div class="fork-node local">
+            <div class="fork-node-title">💻 Tu máquina local — donde escribes el código</div>
+            <div class="fork-node-remote">
+              <span class="rem origin">origin</span>
+              <span>→ TU-ALIAS/java-formation-lab-2026 &nbsp;<em style="color:#999">(tu fork en GitHub)</em></span>
+            </div>
+            <div class="fork-node-remote">
+              <span class="rem upstream">upstream</span>
+              <span>→ robinson8406/java-formation-lab-2026 &nbsp;<em style="color:#999">(repo central)</em></span>
+            </div>
+          </div>
+          <div style="margin-top:8px;text-align:center;font-size:12px;color:var(--indra-muted)">
+            ↑ PR cross-fork: tu fork:week-01/alias → central:week-01-start &nbsp;·&nbsp; <strong style="color:var(--indra-dark)">se cierra SIN merge</strong>
+          </div>
+        </div>
+
+        <!-- EXPLICACIÓN -->
+        <div class="fork-explain-col">
+          <div class="fork-explain-item">
+            <div class="fork-explain-num">1</div>
+            <div>
+              <h4>Fork = copia del repo central en TU cuenta GitHub</h4>
+              <p>No necesitas ningún permiso en el repo de robinson8406. Haz clic en el botón <strong>Fork</strong> en GitHub y tienes tu propia copia en segundos. Es gratis.</p>
+            </div>
+          </div>
+          <div class="fork-explain-item">
+            <div class="fork-explain-num">2</div>
+            <div>
+              <h4>Clone = bajas tu fork a tu máquina</h4>
+              <p>Tu máquina quedará configurada con dos “remotos”: <code style="color:#880e4f">origin</code> apunta a <strong>tu fork</strong> (donde haces push) y <code style="color:#2e7d32">upstream</code> apunta al repo central (donde el formador publica los starts).</p>
+            </div>
+          </div>
+          <div class="fork-explain-item">
+            <div class="fork-explain-num">3</div>
+            <div>
+              <h4>PR = propones tu entrega al repo central</h4>
+              <p>Cuando terminas, abres un Pull Request desde tu fork hacia el repo central. El CI corre, el reviewer (formador) aprueba y el PR se <strong>cierra sin merge</strong>. La rama <code style="color:var(--indra-teal)">week-XX-start</code> queda intacta para todos.</p>
+            </div>
+          </div>
+          <div class="fork-why">
+            <strong>¿Por qué fork y no trabajar directo en el repo?</strong><br>
+            Con 200 personas en el mismo repositorio habría conflictos constantes. El fork te da tu propio espacio aislado. Trabajas a tu ritmo sin afectar a nadie.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- ══ SLIDE 3: TU PRIMER DÍA ══ -->
   <div class="slide" id="s3">
     <div class="slide-inner">
@@ -497,9 +780,9 @@
       <div class="steps-flow">
         <div class="step-block">
           <div class="step-n">1</div>
-          <div class="step-title">Clona el repo</div>
-          <div class="step-desc">Descarga el repositorio oficial del programa en tu máquina.</div>
-          <div class="step-code">git clone https://github.com/<br>robinson8406/<br>java-formation-lab-2026.git</div>
+          <div class="step-title">Fork + Clona tu fork</div>
+          <div class="step-desc">En GitHub haz <strong>Fork</strong> del repo central. Luego clona <em>tu fork</em> y registra el repo central como upstream.</div>
+          <div class="step-code">git clone https://github.com/<br>TU-ALIAS/java-formation-lab-2026.git<br>git remote add upstream https://github.com/<br>robinson8406/java-formation-lab-2026.git</div>
         </div>
         <div class="step-block">
           <div class="step-n">2</div>
@@ -509,9 +792,9 @@
         </div>
         <div class="step-block">
           <div class="step-n">3</div>
-          <div class="step-title">Crea tu rama</div>
-          <div class="step-desc">Para cada sesión, parte del <span style="color:var(--indra-accent)">start</span> y crea tu rama personal con tu alias.</div>
-          <div class="step-code">git checkout week-01-start<br>git checkout -b week-01/tu-alias</div>
+          <div class="step-title">Crea tu rama desde upstream</div>
+          <div class="step-desc">Trae las ramas del formador (upstream) y crea tu rama de trabajo para la sesión.</div>
+          <div class="step-code">git fetch upstream<br>git checkout -b week-01/tu-alias upstream/week-01-start</div>
         </div>
         <div class="step-block">
           <div class="step-n">4</div>
@@ -631,17 +914,17 @@
           <div class="flow-step">
             <div class="fn">1</div>
             <div>
-              <h3>Actualiza tu repo local</h3>
-              <p>El lunes antes de la sesión el formador publica la rama start.</p>
-              <div class="cmd">git fetch origin</div>
+              <h3>Trae las ramas del formador</h3>
+              <p>El lunes antes de la sesión el formador publica <code style="color:var(--indra-accent)">week-XX-start</code>. Tráela desde <strong>upstream</strong> (repo central), no desde origin.</p>
+              <div class="cmd">git fetch upstream</div>
             </div>
           </div>
           <div class="flow-step">
             <div class="fn">2</div>
             <div>
               <h3>Crea tu rama desde el start</h3>
-              <p>Nunca trabajes directamente sobre main o week-XX-start.</p>
-              <div class="cmd">git checkout week-XX-start<br>git checkout -b week-XX/tu-alias</div>
+              <p>Crea tu rama directamente desde la del formador. Nunca trabajes sobre main ni week-XX-start.</p>
+              <div class="cmd">git checkout -b week-XX/tu-alias upstream/week-XX-start</div>
             </div>
           </div>
           <div class="flow-step">
@@ -655,13 +938,13 @@
           <div class="flow-step">
             <div class="fn">4</div>
             <div>
-              <h3>Abre tu PR y asigna reviewer</h3>
-              <p>Push + PR hacia week-XX-start con 1 compañero como reviewer.</p>
-              <div class="cmd">git push origin week-XX/tu-alias</div>
-              <div style="margin-top:8px;background:#1a1a2e;border:1px solid rgba(0,212,200,.2);border-radius:6px;padding:9px 12px;font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.7">
+              <h3>Abre tu PR y asigna formador</h3>
+              <p>Push + PR hacia week-XX-start con el formador como aprobador.</p>
+              <div class="cmd">git push origin week-XX/tu-alias<br># PR cross-fork: TU-ALIAS:week-XX/alias → robinson8406:week-XX-start</div>
+              <div style="margin-top:8px;background:#0d2535;border:1px solid rgba(61,160,160,.25);border-radius:6px;padding:9px 12px;font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.7">
                 <span style="color:var(--indra-accent);font-weight:700">Pipeline automático:</span><br>
-                Al abrir el PR, Azure DevOps ejecuta <code style="color:var(--indra-accent)">mvn verify</code>.<br>
-                Verás ✅ o ❌ directamente en tu PR de GitHub.
+                Azure DevOps corre <code style="color:var(--indra-accent)">mvn verify</code> en tu PR. Verás ✅ o ❌ en GitHub.<br>
+                <span style="color:rgba(255,150,80,.9)">El PR se cierra <strong>SIN merge</strong> — week-XX-start queda congelado.</span>
               </div>
             </div>
           </div>
@@ -681,8 +964,8 @@
           <div class="pr-card">
             <h3>Reglas del PR</h3>
             <div class="pr-rule"><div class="dot"></div><span>Usa el template en <code style="color:var(--indra-accent)">.github/PULL_REQUEST_TEMPLATE.md</code></span></div>
-            <div class="pr-rule"><div class="dot"></div><span>Asigna exactamente <strong>1 reviewer</strong> — un compañero</span></div>
-            <div class="pr-rule"><div class="dot"></div><span>El reviewer valida el checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code></span></div>
+            <div class="pr-rule"><div class="dot"></div><span>Asigna exactamente <strong>1 reviewer</strong> — formador</span></div>
+            <div class="pr-rule"><div class="dot"></div><span>El formador valida el checklist de <code style="color:var(--indra-accent)">criterios-evaluacion.md</code></span></div>
             <div class="pr-rule"><div class="dot"></div><span>Sin PR aprobado = sesión pendiente (el badge no se otorga)</span></div>
             <div class="pr-rule"><div class="dot"></div><span>No bloquea asistencia ni acceso a la siguiente sesión</span></div>
           </div>
@@ -828,7 +1111,7 @@
           <div class="rule-icon">👥</div>
           <div class="rule-text">
             <h3>Peer review obligatorio</h3>
-            <p>Asigna 1 compañero como reviewer en tu PR. Revisar código ajeno es parte del aprendizaje — y del rol del badge.</p>
+            <p>Asigna 1 compañero como reviewer (formador) en tu PR. Revisar código ajeno es parte del aprendizaje — y del rol del badge.</p>
           </div>
         </div>
         <div class="rule-card">
@@ -851,7 +1134,7 @@
         <p>Primera sesión: jueves 16 de julio, 2026</p>
       </div>
       <ul class="checklist-final">
-        <li><div class="chk">✓</div><span>Clona el repo en tu máquina</span></li>
+        <li><div class="chk">✓</div><span>Haz <strong>Fork</strong> del repo y clona <strong>tu fork</strong></span></li>
         <li><div class="chk">✓</div><span>Lee <span class="code-pill">REGLAS_DE_JUEGO.md</span> y el onboarding</span></li>
         <li><div class="chk">✓</div><span>Verifica que Java 21 está instalado</span></li>
         <li><div class="chk"></div><span>Espera el anuncio del <span class="code-pill">week-01-start</span></span></li>

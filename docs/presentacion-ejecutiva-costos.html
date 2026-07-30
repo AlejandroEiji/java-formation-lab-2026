@@ -6,15 +6,15 @@
   <title>Plan de Formación Java 2026 — Inversión & Infraestructura | Indra</title>
   <style>
     :root {
-      --indra-dark: #0a1f2e;
-      --indra-teal: #1a6060;
-      --indra-teal-light: #27a0a0;
-      --indra-accent: #00d4c8;
-      --indra-bg: #ede8dc;
+      --indra-dark: #0d2535;
+      --indra-teal: #1d7878;
+      --indra-teal-light: #3da0a0;
+      --indra-accent: #3da0a0;
+      --indra-bg: #ede9df;
       --indra-white: #ffffff;
-      --indra-gray: #ddd8cc;
-      --indra-text: #1a1a2e;
-      --indra-muted: #5a6a6a;
+      --indra-gray: #dad5c9;
+      --indra-text: #0d2535;
+      --indra-muted: #647a7a;
       --green: #4caf50;
       --orange: #ff9800;
       --red: #ef5350;
@@ -564,6 +564,78 @@
       font-size: 13px; font-weight: 700; padding: 10px 20px;
       border-radius: 8px; white-space: nowrap;
     }
+
+    /* ════════════════════════════════════════════
+       SLIDES 11-12 — Workflow Fork
+    ════════════════════════════════════════════ */
+    #s11 { background: var(--indra-dark); }
+    #s11 .label { color: var(--indra-accent); }
+    #s11 .slide-header h2 { color: #fff; }
+    #s12 { background: var(--indra-bg); }
+
+    .wf-cols { display: flex; gap: 22px; flex: 1; }
+    .wf-col { display: flex; flex-direction: column; gap: 10px; }
+    .wf-col-left { flex: 1; }
+    .wf-col-right { flex: 1.05; }
+    .wf-repo-box {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .wf-repo-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 10px; }
+    .wf-repo-branch { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .wf-repo-branch:last-child { border: none; }
+    .wf-branch-pill { font-size: 11px; font-family: 'Courier New',monospace; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+    .wf-branch-pill.main    { background: rgba(76,175,80,.2);   color: #81c784; }
+    .wf-branch-pill.start   { background: rgba(33,150,243,.2);  color: #64b5f6; }
+    .wf-branch-pill.solution{ background: rgba(0,212,200,.15);  color: var(--indra-accent); }
+    .wf-branch-pill.personal{ background: rgba(156,39,176,.2);  color: #ce93d8; }
+    .wf-branch-desc { font-size: 12px; color: rgba(255,255,255,.65); }
+    .wf-branch-who  { font-size: 10px; font-weight: 700; color: rgba(255,255,255,.3); margin-left: auto; white-space: nowrap; }
+    .wf-no-merge {
+      background: rgba(0,212,200,.08); border: 1px solid rgba(0,212,200,.25);
+      border-radius: 10px; padding: 13px 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .wf-no-merge .ico { font-size: 26px; flex-shrink: 0; }
+    .wf-no-merge p { font-size: 12.5px; color: rgba(255,255,255,.85); line-height: 1.5; }
+    .wf-no-merge strong { color: var(--indra-accent); }
+    .wf-step {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px; padding: 11px 14px;
+      display: flex; gap: 11px; align-items: flex-start;
+    }
+    .wf-step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--indra-teal); color: #fff; font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .wf-step-body h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .wf-step-body p  { font-size: 11.5px; color: rgba(255,255,255,.55); line-height: 1.4; }
+    .wf-step-body .cmd {
+      font-family: 'Courier New',monospace; font-size: 10.5px; color: var(--indra-accent);
+      background: rgba(0,0,0,.3); border-radius: 4px; padding: 4px 8px;
+      margin-top: 4px; line-height: 1.65;
+    }
+    /* slide 12 — formador */
+    .formador-layout { display: flex; gap: 24px; flex: 1; }
+    .formador-timeline { flex: 1.4; display: flex; flex-direction: column; gap: 11px; }
+    .formador-side { flex: 1; display: flex; flex-direction: column; gap: 13px; }
+    .day-block { background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.05); display: flex; gap: 14px; }
+    .day-block.hl { border-left: 4px solid var(--indra-teal); }
+    .day-badge { width: 54px; flex-shrink: 0; }
+    .day-name { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--indra-muted); }
+    .day-dot  { width: 7px; height: 7px; border-radius: 50%; background: var(--indra-teal); margin: 5px 0; }
+    .day-body h4 { font-size: 13px; font-weight: 700; color: var(--indra-dark); margin-bottom: 5px; }
+    .day-body ul { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+    .day-body li { font-size: 12px; color: #444; padding-left: 13px; position: relative; line-height: 1.45; }
+    .day-body li::before { content: '›'; position: absolute; left: 0; color: var(--indra-teal); font-weight: 700; }
+    .azure-cfg { background: var(--indra-dark); border-radius: 10px; padding: 18px; color: #fff; }
+    .azure-cfg h3 { font-size: 13px; font-weight: 700; color: var(--indra-accent); margin-bottom: 12px; }
+    .cfg-item { display: flex; gap: 8px; margin-bottom: 9px; font-size: 12px; color: rgba(255,255,255,.75); line-height: 1.45; }
+    .cfg-item .tick { color: var(--indra-accent); font-weight: 800; flex-shrink: 0; }
+    .no-mrg { background: #fff; border-radius: 10px; padding: 15px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.05); border-left: 4px solid #ef5350; }
+    .no-mrg h3 { font-size: 13px; font-weight: 700; color: #c62828; margin-bottom: 7px; }
+    .no-mrg p  { font-size: 12.5px; color: #444; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -1269,6 +1341,182 @@
           Para 200 ingenieros · 18 sesiones · stack completo Java 21 + Azure · $0,50 USD por persona
         </p>
         <div class="closing-cta">¡Aprobemos el plan! ✅</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       SLIDE 11 — WORKFLOW PARTICIPANTE
+  ═════════════════════════════════════════ -->
+  <section class="slide" id="s11">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Workflow · Participante</div>
+        <h2 style="color:#fff;">Fork → Implementar → <em style="color:var(--indra-accent)">PR sin merge</em></h2>
+        <p style="color:rgba(255,255,255,.5)">200 participantes · cada uno en su fork personal · week-XX-start queda congelado siempre</p>
+      </div>
+      <div class="wf-cols">
+        <div class="wf-col wf-col-left">
+          <div class="wf-repo-box">
+            <div class="wf-repo-title">🏗️ Repo central — robinson8406</div>
+            <div class="wf-repo-branch">
+              <span class="wf-branch-pill main">main</span>
+              <span class="wf-branch-desc">docs + enunciados</span>
+              <span class="wf-branch-who">Formadores</span>
+            </div>
+            <div class="wf-repo-branch">
+              <span class="wf-branch-pill start">week-XX-start</span>
+              <span class="wf-branch-desc">skeleton · congelado siempre</span>
+              <span class="wf-branch-who">Formadores</span>
+            </div>
+            <div class="wf-repo-branch">
+              <span class="wf-branch-pill solution">week-XX-solution</span>
+              <span class="wf-branch-desc">referencia · publicada en min 55’</span>
+              <span class="wf-branch-who">Formadores</span>
+            </div>
+          </div>
+          <div class="wf-repo-box" style="border-color:rgba(156,39,176,.35)">
+            <div class="wf-repo-title">🍴 Fork personal — tu-alias</div>
+            <div class="wf-repo-branch">
+              <span class="wf-branch-pill personal">week-XX/tu-alias</span>
+              <span class="wf-branch-desc">tu implementación del reto</span>
+              <span class="wf-branch-who">Participante</span>
+            </div>
+          </div>
+          <div class="wf-no-merge">
+            <div class="ico">🚧</div>
+            <p><strong>Los PRs NO se mergean.</strong> Sirven solo para: CI pipeline ✅ · peer review · badge. week-XX-start queda intacto para los 200 participantes.</p>
+          </div>
+        </div>
+        <div class="wf-col wf-col-right">
+          <div class="wf-step">
+            <div class="wf-step-num">1</div>
+            <div class="wf-step-body">
+              <h4>Fork en GitHub — una sola vez</h4>
+              <p>Botón Fork en github.com/robinson8406/java-formation-lab-2026</p>
+            </div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">2</div>
+            <div class="wf-step-body">
+              <h4>Clonar fork + registrar upstream</h4>
+              <div class="cmd">git clone https://github.com/TU-ALIAS/java-formation-lab-2026.git<br>git remote add upstream https://github.com/robinson8406/java-formation-lab-2026.git</div>
+            </div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">3</div>
+            <div class="wf-step-body">
+              <h4>Crear rama desde upstream — cada sesión</h4>
+              <div class="cmd">git fetch upstream<br>git checkout -b week-XX/tu-alias upstream/week-XX-start</div>
+            </div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">4</div>
+            <div class="wf-step-body">
+              <h4>Implementar + verificar verde</h4>
+              <div class="cmd">mvn verify   &larr; debe pasar antes del push</div>
+            </div>
+          </div>
+          <div class="wf-step">
+            <div class="wf-step-num">5</div>
+            <div class="wf-step-body">
+              <h4>Push al fork + PR cross-fork</h4>
+              <div class="cmd">git push origin week-XX/tu-alias<br># PR: TU-ALIAS:week-XX/alias → robinson8406:week-XX-start</div>
+            </div>
+          </div>
+          <div class="wf-step" style="border-color:rgba(0,212,200,.2)">
+            <div class="wf-step-num" style="background:var(--indra-accent);color:var(--indra-dark)">★</div>
+            <div class="wf-step-body">
+              <h4>Azure DevOps corre CI → peer review → badge → PR cerrado</h4>
+              <p>Pipeline automático en el PR · formador cierra issue con label ✅ completado</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       SLIDE 12 — WORKFLOW FORMADOR
+  ═════════════════════════════════════════ -->
+  <section class="slide" id="s12">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="label">Workflow · Formador</div>
+        <h2>Ciclo semanal del <em>formador</em></h2>
+        <p>Lo que pasa cada semana para que la sesión funcione</p>
+      </div>
+      <div class="formador-layout">
+        <div class="formador-timeline">
+          <div class="day-block">
+            <div class="day-badge"><div class="day-name">Lunes</div><div class="day-dot"></div></div>
+            <div class="day-body">
+              <h4>Publica week-XX-start</h4>
+              <ul>
+                <li>Crea rama desde week-prev-solution</li>
+                <li>Agrega skeleton + TODOs + @Disabled tests</li>
+                <li>Verifica <code>mvn verify</code> verde local</li>
+                <li>Push + pipeline Azure DevOps apuntando a nueva rama</li>
+              </ul>
+            </div>
+          </div>
+          <div class="day-block">
+            <div class="day-badge"><div class="day-name">Martes</div><div class="day-dot"></div></div>
+            <div class="day-body">
+              <h4>Anuncia la sesión</h4>
+              <ul>
+                <li>Link a week-XX-start + enunciado.md en el canal</li>
+                <li>Recordatorio de onboarding a nuevos participantes</li>
+              </ul>
+            </div>
+          </div>
+          <div class="day-block hl">
+            <div class="day-badge"><div class="day-name">Jueves</div><div class="day-dot" style="background:var(--indra-teal-light)"></div></div>
+            <div class="day-body">
+              <h4>Sesión en vivo (1h)</h4>
+              <ul>
+                <li>0–10’: demo repo en vivo · mostrar week-XX-start</li>
+                <li>10–45’: reto · silencio productivo · responder dudas</li>
+                <li>45–55’: mostrar PRs + pipeline corriendo en Azure DevOps</li>
+                <li>55’: push week-XX-solution · compartir link</li>
+              </ul>
+            </div>
+          </div>
+          <div class="day-block">
+            <div class="day-badge"><div class="day-name">Viernes</div><div class="day-dot"></div></div>
+            <div class="day-body">
+              <h4>Post-sesión</h4>
+              <ul>
+                <li>Revisar PRs pendientes · cerrar issues badge</li>
+                <li>Registrar métricas: % completados · errores comunes</li>
+                <li>Iniciar skeleton de semana siguiente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="formador-side">
+          <div class="azure-cfg">
+            <h3>⚙️ Config Azure DevOps — una sola vez</h3>
+            <div class="cfg-item"><span class="tick">✅</span><span>Habilitar <strong>“Build pull requests from forks”</strong> en pipeline settings</span></div>
+            <div class="cfg-item"><span class="tick">✅</span><span>Habilitar <strong>“Require comment before build”</strong> — formador aprueba el primer build de cada participante</span></div>
+            <div class="cfg-item"><span class="tick">✅</span><span>Branch policy en GitHub: <code style="color:var(--indra-accent)">week-*-start</code> → required status check (Azure DevOps)</span></div>
+            <div class="cfg-item"><span class="tick">✅</span><span>Participantes con rol <strong>Read</strong> en GitHub (repo privado) para poder hacer fork</span></div>
+          </div>
+          <div class="no-mrg">
+            <h3>🚧 Regla de oro: PRs nunca se mergean</h3>
+            <p><code>week-XX-start</code> queda <strong>congelado</strong> como skeleton para siempre. Los 200 PRs se cierran después del review. Sin merge = sin conflictos = repo siempre limpio.</p>
+          </div>
+          <div style="background:#fff;border-radius:10px;padding:15px 18px;box-shadow:0 2px 8px rgba(0,0,0,.05)">
+            <div style="font-size:12px;font-weight:700;color:var(--indra-dark);margin-bottom:8px">Cómo crece el proyecto sesión a sesión</div>
+            <div style="font-size:11.5px;color:#444;font-family:monospace;background:#f5f5f0;border-radius:6px;padding:10px 12px;line-height:1.7">
+              git checkout week-XX-solution<br>
+              git checkout -b week-XX+1-start<br>
+              <span style="color:#888"># skeleton encima de la solución anterior</span><br>
+              mvn verify &nbsp;&nbsp;&larr; verde<br>
+              git push origin week-XX+1-start
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

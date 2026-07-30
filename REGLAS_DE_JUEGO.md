@@ -36,21 +36,24 @@ git remote add upstream https://github.com/robinson8406/java-formation-lab-2026.
 ### Flujo para participar en una sesión
 
 ```bash
-# 1. Actualiza tu repo local
-git fetch origin
+# 1. Trae las ramas nuevas del repo central (upstream)
+git fetch upstream
 
-# 2. Crea tu rama personal desde el start
-git checkout week-XX-start
-git checkout -b week-XX/tu-alias
+# 2. Crea tu rama personal directamente desde el start del formador
+git checkout -b week-XX/tu-alias upstream/week-XX-start
 
 # 3. Resuelve el reto
-# ... implementa, escribe tests, verifica que el pipeline compile ...
+# ... implementa, escribe tests, verifica mvn verify verde localmente ...
 
-# 4. Haz push y abre un PR hacia week-XX-start
+# 4. Haz push a TU FORK y abre un PR cross-fork
 git push origin week-XX/tu-alias
+# PR: TU-ALIAS/java-formation-lab-2026:week-XX/tu-alias
+#  → robinson8406/java-formation-lab-2026:week-XX-start
 ```
 
-Abre el PR y asigna a **1 compañero** como reviewer.
+Abre el PR **desde tu fork hacia el repo central** y asigna a **1 compañero** como reviewer.
+
+> ⚠️ **Los PRs nunca se mergean.** Sirven para: ejecutar CI · peer review · badge. La rama `week-XX-start` queda congelada como skeleton para todos.
 
 ---
 
