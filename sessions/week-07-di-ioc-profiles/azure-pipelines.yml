@@ -27,7 +27,7 @@ steps:
   - task: Maven@4
     displayName: 'Build & Test — week-07-di-ioc-profiles'
     inputs:
-      mavenPomFile: 'pom.xml'
+      mavenPomFile: 'sessions/week-07-di-ioc-profiles/pom.xml'
       goals: 'verify'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '21'

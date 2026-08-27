@@ -27,7 +27,7 @@ steps:
   - task: Maven@4
     displayName: 'Build & Test — week-10-transacciones'
     inputs:
-      mavenPomFile: 'pom.xml'
+      mavenPomFile: 'sessions/week-10-transacciones/pom.xml'
       goals: 'verify'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '21'

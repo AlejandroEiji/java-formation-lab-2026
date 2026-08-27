@@ -39,7 +39,7 @@ stages:
           - task: Maven@4
             displayName: 'mvn verify'
             inputs:
-              mavenPomFile: 'pom.xml'
+              mavenPomFile: 'sessions/week-17-azure-app-service/pom.xml'
               goals: 'verify'
               javaHomeOption: 'JDKVersion'
               jdkVersionOption: '21'

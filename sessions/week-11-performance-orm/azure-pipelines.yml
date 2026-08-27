@@ -27,7 +27,7 @@ steps:
   - task: Maven@4
     displayName: 'Build & Test — week-11-performance-orm'
     inputs:
-      mavenPomFile: 'pom.xml'
+      mavenPomFile: 'sessions/week-11-performance-orm/pom.xml'
       goals: 'verify'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '21'

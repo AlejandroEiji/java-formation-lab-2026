@@ -27,7 +27,7 @@ steps:
   - task: Maven@4
     displayName: 'Build & Test — week-04-patrones-strategy-factory'
     inputs:
-      mavenPomFile: 'pom.xml'
+      mavenPomFile: 'sessions/week-04-patrones-strategy-factory/pom.xml'
       goals: 'verify'
       javaHomeOption: 'JDKVersion'
       jdkVersionOption: '21'
