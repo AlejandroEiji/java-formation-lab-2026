@@ -19,6 +19,9 @@ pr:
   branches:
     include:
       - 'week-16-start'
+  paths:
+    include:
+      - 'sessions/week-16-azure-devops-release/*'   # solo cambios de esta semana
 
 pool:
   vmImage: 'ubuntu-latest'

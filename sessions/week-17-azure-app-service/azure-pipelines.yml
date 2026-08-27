@@ -20,6 +20,9 @@ pr:
   branches:
     include:
       - 'week-17-start'
+  paths:
+    include:
+      - 'sessions/week-17-azure-app-service/*'   # solo cambios de esta semana
 
 pool:
   vmImage: 'ubuntu-latest'
