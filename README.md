@@ -17,16 +17,15 @@ El nivel se evidencia en _cómo_ resolviste el problema — no en _qué_ problem
 
 - Sesiones **autocontenidas**: quien no asistió puede resolver el reto con `week-XX-start` + solución publicada.
 - Cada reto incluye: **1 cambio funcional + 1 prueba + 1 criterio no funcional** (calidad / performance / operación / seguridad).
-- Rama `week-XX-start` disponible antes del jueves; `week-XX-solution` publicada al cierre de sesión.
+- El reto se resuelve **entre semana** (no en vivo): `week-XX-start` se publica el jueves de la sesión y el PR se entrega antes del jueves siguiente.
 
 ### Formato de sesión (1 hora)
 
 | Segmento | Tiempo | Contenido |
 |----------|--------|-----------|
-| Contexto + demo | 0–10' | Qué vamos a mejorar y por qué |
-| Reto intermedio único | 10–45' | Implementación real en el repo |
-| Validación | 45–55' | Tests + pipeline verde |
-| Cierre | 55–60' | Solución de referencia publicada |
+| Revisión de la solución anterior | 0–20' | Se muestra y explica `week-(XX-1)-solution`, dudas del reto ya entregado |
+| Contexto + demo del reto nuevo | 20–40' | Qué vamos a mejorar, por qué, demo del `week-XX-start` |
+| Q&A | 40–60' | Dudas sobre el reto de la semana antes de resolverlo entre semana |
 
 ---
 
